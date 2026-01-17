@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | {{ course.title }}{% endblock %}
+
+{% block content %}
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>{{ course.title }}</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
+                <li><a href="{% url 'admin_panel:course_list' %}">Courses</a></li>
+                <li>Detail</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="sidebar-page-container">
+        <div class="auto-container">
+            <div class="row clearfix">
+                
+                <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                    <div class="blog-detail">
+                        <div class="blog-detail_outer">
+                            <div class="blog-detail_image">
+                                {% if course.thumbnail %}
+                                    <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" style="width: 100%; height: auto; object-fit: cover;" />
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/course-5.jpg' %}" alt="Default Course Image" />
+                                {% endif %}
+                            </div>
+                            
+                            <div class="blog-detail_content">
+                                <div class="d-flex align-items-center flex-wrap mb-4">
+                                    <ul class="blog-detail_meta ml-0" style="margin-left: 0;">
+                                        {% comment %} <li><span class="icon fa-solid fa-layer-group fa-fw"></span>{{ course.level|title }}</li> {% endcomment %}
+                                        <li><span class="icon fa-solid fa-clock fa-fw"></span>{{ course.duration }}</li>
+                                    </ul>
+                                </div>
+                                
+                                <h3 class="blog-detail_heading">{{ course.title }}</h3>
+                                
+                                <div class="text">
+                                    {{ course.description|safe }}
+                                </div>
+
+                                <div class="mt-5" style="margin-top: 40px;">
+                                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-one">
+                                        <span class="btn-wrap">
+                                            <span class="text-one">Enroll Now</span>
+                                            <span class="text-two">Enroll Now</span>
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                    <aside class="sidebar">
+
+                        <div class="sidebar-widget style-two post-widget">
+                            <div class="widget-content">
+                                <div class="sidebar-title">
+                                    <h4>Other Courses</h4>
+                                </div>
+                                
+                                <div class="content">
+                                    {% for other_course in all_courses %}
+                                    <div class="post">
+                                        <div class="thumb">
+                                            <a href="{% url 'admin_panel:course_detail' other_course.slug %}">
+                                                {% if other_course.thumbnail %}
+                                                    <img src="{{ other_course.thumbnail.url }}" alt="{{ other_course.title }}" style="width: 80px; height: 80px; object-fit: cover;">
+                                                {% else %}
+                                                    <img src="{% static 'assets/images/resource/course-5.jpg' %}" alt="Default Image">
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="post-date">{{ other_course.duration }}</div>
+                                        <h6><a href="{% url 'admin_panel:course_detail' other_course.slug %}">{{ other_course.title }}</a></h6>
+                                    </div>
+                                    {% empty %}
+                                        <div class="post"><p>No other courses available.</p></div>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </aside>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

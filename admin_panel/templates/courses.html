@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | Our Courses{% endblock %}
+
+{% block content %}
+
+    <style>
+        /* 1. Make the bootstrap column a flex container */
+        .service-block_two {
+            display: flex !important;
+            margin-bottom: 30px; /* Ensure spacing between rows */
+        }
+
+        /* 2. Make the card fill the height and stack vertically */
+        .service-block_two-inner {
+            width: 100%;
+            height: 100%; /* Stretches to match the tallest card in the row */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important; /* Pushes footer to bottom */
+        }
+
+        /* 3. Make the upper content grow to fill empty space */
+        .service-block_two-upper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 4. Ensure text pushes the rest down if needed */
+        .service-block_two-text {
+            flex-grow: 1;
+        }
+    </style>
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>Our Courses</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
+                <li>Our Courses</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="service-two">
+        <div class="auto-container">
+            <div class="row clearfix align-items-stretch">
+
+                {% for course in courses %}
+                <div class="service-block_two col-lg-4 col-md-6 col-sm-12 d-flex">
+                    <div class="service-block_two-inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
+                        <div class="service-block_two-upper">
+                            <div class="service-block_two-icon flaticon-quran-1"></div>
+                            
+                            <div class="service-block_two-big_icon">
+                                <img src="{% static 'assets/images/icons/' %}" alt="" />
+                            </div>
+                            
+                            <h4 class="service-block_two-heading">
+                                <a href="{% url 'admin_panel:course_detail' course.slug %}">{{ course.title }}</a>
+                            </h4>
+                            
+                            <div class="service-block_two-text">
+                                {% if course.short_description %}
+                                    {{ course.short_description|safe }}
+                                {% else %}
+                                    {{ course.description|striptags|truncatewords:15 }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="service-block_two-lower">
+                            <a class="service-block_two-more" href="{% url 'admin_panel:course_detail' course.slug %}">
+                                Read More <i class="fa-solid fa-arrow-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <div class="alert alert-info">
+                        No courses available at the moment. Please check back later!
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            {% if courses.has_other_pages %}
+            <div class="styled-pagination text-center">
+                <ul class="clearfix">
+                    {% if courses.has_previous %}
+                        <li><a href="?page={{ courses.previous_page_number }}"><span class="fa fa-angle-left"></span></a></li>
+                    {% endif %}
+                    
+                    {% for i in courses.paginator.page_range %}
+                        {% if courses.number == i %}
+                            <li class="active"><a href="#">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if courses.has_next %}
+                        <li><a href="?page={{ courses.next_page_number }}"><span class="fa fa-angle-right"></span></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+    <section class="cta-two">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
+                <h3 class="cta-two_heading">Proud to be serving thousands of Muslim <br> Families around the World</h3>
+                <div class="cta-two_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
+                        <span class="btn-wrap">
+                            <span class="text-one">Get in Touch</span>
+                            <span class="text-two">Get in Touch</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

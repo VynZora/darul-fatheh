@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | Photo Gallery{% endblock %}
+
+{% block content %}
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>Photo Gallery</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
+                <li>Gallery</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="gallery-one" style="padding-bottom: 60px;"> <div class="auto-container">
+            
+            <div class="sec-title centered">
+                <div class="button-group" style="margin-bottom: 50px;">
+                    <a href="{% url 'admin_panel:gallery' %}" 
+                       class="theme-btn btn-style-two {% if not active_category %}active{% endif %}"
+                       style="padding: 10px 25px; margin: 5px;">
+                       <span class="btn-wrap"><span class="text-one">All</span><span class="text-two">All</span></span>
+                    </a>
+
+                    {% for cat in categories %}
+                        <a href="?category={{ cat.id }}" 
+                           class="theme-btn btn-style-two {% if active_category == cat.id|stringformat:'s' %}active{% endif %}"
+                           style="padding: 10px 25px; margin: 5px;">
+                           <span class="btn-wrap">
+                               <span class="text-one">{{ cat.name }}</span>
+                               <span class="text-two">{{ cat.name }}</span>
+                           </span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row clearfix">
+
+                {% for item in images %}
+                <div class="gallery-block_one col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
+                    <div class="gallery-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1500ms">
+                        <div class="gallery-block_one-image">
+                            {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" style="height: 300px; width: 100%; object-fit: cover; border-radius: 10px;" />
+                            
+                            <div class="overlay-box">
+                                <a href="{{ item.image.url }}" class="lightbox-image" data-fancybox="gallery" data-caption="{{ item.title }}">
+                                    <span class="icon fa fa-expand"></span>
+                                </a>
+                                <h4>{{ item.title }}</h4>
+                                <div class="category">{{ item.category.name }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center" style="padding: 50px;">
+                    <p style="font-size: 18px; color: #666;">No images found in this category.</p>
+                </div>
+                {% endfor %}
+
+            </div>
+            
+            {% if images.has_other_pages %}
+            <div class="styled-pagination text-center" style="margin-top: 40px;">
+                <ul class="clearfix">
+                    {% if images.has_previous %}
+                        <li><a href="?page={{ images.previous_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}"><span class="fa fa-angle-left"></span></a></li>
+                    {% endif %}
+                    
+                    {% for i in images.paginator.page_range %}
+                        {% if images.number == i %}
+                            <li class="active"><a href="#">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}{% if active_category %}&category={{ active_category }}{% endif %}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if images.has_next %}
+                        <li><a href="?page={{ images.next_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}"><span class="fa fa-angle-right"></span></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+    <section class="cta-two">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
+                <h3 class="cta-two_heading">Proud to be serving thousands of Muslim <br> Families around the World</h3>
+                <div class="cta-two_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
+                        <span class="btn-wrap">
+                            <span class="text-one">get in touch</span>
+                            <span class="text-two">get in touch</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

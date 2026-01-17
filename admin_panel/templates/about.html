@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | About Us{% endblock %}
+
+{% block content %}
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>About Us</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
+                <li>About Us</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="welcome-one">
+        <div class="welcome-one_pattern" style="background-image:url({% static 'assets/images/background/pattern-1.png' %})"></div>
+        <div class="welcome-one_pattern-two" style="background-image:url({% static 'assets/images/background/pattern-2.png' %})"></div>
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="welcome-one_content-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="welcome-one_content-outer">
+                        <div class="sec-title">
+                            <div class="sec-title_title d-flex align-items-center">
+                                Islamic Academy
+                                <span>
+                                    <img src="{% static 'assets/images/icons/bismillah-2.png' %}" alt="Bismillah - Darul Fatheh Islamic Academy" />
+                                </span>
+                            </div>
+                        
+                            <h2 class="sec-title_heading">
+                                Welcome to Darul Fatheh Islamic Academy, Thodupuzha
+                            </h2>
+                        
+                            <div class="sec-title_text">
+                                Darul Fatheh Islamic Academy, located in Thodupuzha, Idukki, Kerala, is a center of integrated Islamic education dedicated to Qur’an, Sunnah, and moral excellence. We offer structured Islamic learning, character building, and life-reformation programs guided by authentic Sharia principles, nurturing spiritually strong and socially responsible individuals.
+                            </div>
+                        </div>
+                        
+                        <div class="welcome-one_content">
+                            <div class="welcome-one_content-image">
+                                <img src="{% static 'assets/images/resource/welcome.jpg' %}" alt="Darul Fatheh Islamic Academy, Thodupuzha" />
+                            </div>
+                        
+                            <p>
+                                Darul Fatheh Islamic Academy offers authentic Islamic education focused on knowledge, discipline, and moral development.
+                            </p>
+                        
+                            <div class="welcome-one_learn">
+                                <span class="welcome-one_learn-icon flaticon-mosque"></span>
+                                Integrated Islamic Learning <br> With Strong Values
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-one_image-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="welcome-one_image-outer">
+                        <div class="welcome-one_ameen">
+                            <img src="{% static 'assets/images/icons/' %}" alt="" />
+                        </div>
+                        <div class="welcome-one_image">
+                            <img src="{% static 'assets/images/resource/welcome-1.jpg' %}" alt="" />
+                        </div>
+                        <div class="welcome-one_years d-flex align-items-center flex-wrap">
+                            <span class="fa-solid fa-globe fa-fw"></span>
+                            Since 1992 Operating in Kerala
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-message-section responsive-padding" style="background-color: #f9f9f9;">
+        <div class="auto-container">
+            <div class="row clearfix align-items-center">
+                
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <div class="sec-title">
+                        <div class="sec-title_title" style="color: var(--main-color) !important;">From the Desk of the Secretary</div>
+                        <h2 class="sec-title_heading">Our Vision & Mission</h2>
+                    </div>
+                    <div class="text-content" style="font-size: 16px; line-height: 1.8; color: #555;">
+                        <p>Although Idukki is a district vast in area, it remains very backward in terms of population density and economic development. Since people must rely on daily wage labor for their livelihood, the state of both spiritual and material education is quite deplorable.</p>
+                        
+                        <p><strong>Darul Fateh</strong> was established in 1992 based on the realization that both forms of education are indispensable for the constructive survival of any community. Understanding the pulse of the times and designed to effectively communicate with the coming generations, the institution moves forward by offering admissions to students in various modern and scientific fields such as <strong>Dawa, Hifz, Boarding, Destitute/Orphan Care, and English Medium schooling.</strong></p>
+                        
+                        <p>It goes without saying that carrying these initiatives forward beautifully entails a heavy financial burden. This institution, which has no fixed income, operates solely with the help of generous hearts. As an institution that is more essential here than in any other region, the Almighty will not abandon anyone who aids in its growth. Wishing goodness to everyone.</p>
+                        
+                        <div class="author-box mt-4">
+                            <h5 style="color: var(--color-two); font-weight: 700;">With hope for your cooperation,</h5>
+                            <span style="font-size: 18px; font-weight: 600; color: #222;">Secretary</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-5 mt-lg-0 text-center">
+                <div class="image-box p-4">
+                    <img src="{% static 'assets/images/vision_pic.png' %}" alt="Vision and Mission" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+    
+            </div>
+        </div>
+    </section>
+    
+    <style>
+       
+    
+        /* Mobile Padding Adjustment */
+        @media (max-width: 768px) {
+            .responsive-padding {
+                padding: 50px 0; /* Reduces huge white space on mobile */
+            }
+            .sec-title_heading {
+                font-size: 28px; /* Prevents large headings from breaking layout */
+            }
+        }
+    </style>
+
+    <section class="institute-one">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <div class="sec-title_title">Why Choose Us</div>
+                <h2 class="sec-title_heading">Why Choose Our Islamic <br> Academy</h2>
+            </div>
+    
+            <div class="row clearfix">
+                <div class="institute-block_one col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-quran-1"></div>
+                        <h4 class="institute-block_one-heading"><a href="#">Qualified Islamic <br> Scholars</a></h4>
+                        <div class="institute-block_one-text">
+                            Learning is guided by qualified scholars with strong foundations in Islamic sciences.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="institute-block_one color-two col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-pray-1"></div>
+                        <h4 class="institute-block_one-heading"><a href="#">Student-Focused <br> Approach</a></h4>
+                        <div class="institute-block_one-text">
+                            We provide individual attention and guidance to support spiritual growth and moral development.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="institute-block_one color-three col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-education"></div>
+                        <h4 class="institute-block_one-heading"><a href="#">Dedicated <br> Faculty</a></h4>
+                        <div class="institute-block_one-text">
+                            Our teaching faculty ensures disciplined learning with care, commitment, and academic responsibility.
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="institute-block_one color-four col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-time-management"></div>
+                        <h4 class="institute-block_one-heading"><a href="#">Structured <br> System</a></h4>
+                        <div class="institute-block_one-text">
+                            A well-structured system that supports consistent learning, discipline, and spiritual progress.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="scholar-one" id="scholars" style="background-image:url({% static 'assets/images/background/scholar-bg.png' %})">
+        <div class="auto-container">
+            <div class="sec-title d-flex justify-content-between align-items-center flex-wrap">
+                <div class="left-box">
+                    <div class="sec-title_title" style="color: #ffffff !important;">Our Management Team</div>
+                    <h2 class="sec-title_heading" style="color: #ffffff !important;">Leading Us</h2>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                {% for scholar in team %}
+                <div class="scholar-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="scholar-block_one-inner wow fadeInLeft"  data-wow-delay="0ms" data-wow-duration="1000ms">
+                        <div class="scholar-block_one-image">
+                            <a href="javascript:void(0);">
+                                {% if scholar.photo %}
+                                    <img src="{{ scholar.photo.url }}" alt="{{ scholar.name }}" style="height: 400px; width: 100%; object-fit: cover;">
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/scholar-1.jpg' %}" alt="Scholar Image" />
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="scholar-block_one-content">
+                            <h4 class="scholar-block_one-heading"><a href="javascript:void(0);">{{ scholar.name }}</a></h4>
+                            <div class="scholar-block_one-designation">{{ scholar.position }}</div>
+                            <div class="scholar-block_one-socials">
+                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No scholars found.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-two" id="testimonials" style="background-image:url({% static 'assets/images/background/testimonial-two_bg.png' %})">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <div class="sec-title_title">Testimonials</div>
+                <h2 class="sec-title_heading">Trusted By thousands Of <br> Students And Their Parents</h2>
+            </div>
+            <div class="testimonial-two_carousel swiper-container">
+                <div class="swiper-wrapper">
+                    {% for testimonial in testimonials %}
+                    <div class="swiper-slide">
+                        <div class="testimonial-block_two">
+                            <div class="testimonial-block_two-inner">
+                                <div class="testimonial-block_two-rating">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= testimonial.rating %}
+                                            <span class="fa-regular fa-star fa-fw"></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h4 class="testimonial-block_two-heading">Reviews</h4>
+                                <div class="testimonial-block_two-text">{{ testimonial.content|striptags }}</div>
+                                <div class="testimonial-block_two-author">
+                                    <div class="author-image">
+                                        {% if testimonial.photo %}
+                                            <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                        {% else %}
+                                            <img src="{% static 'assets/images/resource/author-1.png' %}" alt="" />
+                                        {% endif %}
+                                    </div>
+                                    {{ testimonial.name }}
+                                    <span>{{ testimonial.designation }}</span>
+                                </div>
+                                <div class="testimonial-block_two_ameen">
+                                    <img src="{% static 'assets/images/icons/ameen-3.png' %}" alt="" />
+                                </div>
+                                <div class="testimonial-block_two-icon">
+                                    <img src="{% static 'assets/images/icons/featured.png' %}" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide"><p class="text-center">No testimonials yet.</p></div>
+                    {% endfor %}
+                </div>
+                <div class="testimonial-two_pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-two">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
+                <h3 class="cta-two_heading">
+                    Proud to serve generations of Muslim <br> Families through authentic Islamic education
+                </h3>
+                <div class="cta-two_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
+                        <span class="btn-wrap">
+                            <span class="text-one">Get in Touch</span>
+                            <span class="text-two">Get in Touch</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | {{ news.title }}{% endblock %}
+
+{% block content %}
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>{{ news.title }}</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
+                <li><a href="{% url 'admin_panel:blog' %}">Blog</a></li>
+                <li>Detail</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="sidebar-page-container">
+        <div class="auto-container">
+            <div class="row clearfix">
+                
+                <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                    <div class="blog-detail">
+                        <div class="blog-detail_outer">
+                            <div class="blog-detail_image">
+                                {% if news.image %}
+                                    <img src="{{ news.image.url }}" alt="{{ news.title }}" style="width: 100%; height: auto; object-fit: cover;" />
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/news-11.jpg' %}" alt="Placeholder" />
+                                {% endif %}
+                            </div>
+                            <div class="blog-detail_content">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div class="blog-detail_author d-flex align-items-center">
+                                        <span class="icon fa-solid fa-user fa-fw" style="margin-right: 8px;"></span>
+                                        {{ news.author }}
+                                    </div>
+                                    
+                                    <ul class="blog-detail_meta">
+                                        <li><span class="icon fa-solid fa-clock fa-fw"></span>{{ news.published_date|date:"F d, Y" }}</li>
+                                    </ul>
+                                </div>
+                                <h3 class="blog-detail_heading">{{ news.title }}</h3>
+                                
+                                <div class="text">
+                                    {{ news.content|safe }}
+                                </div>
+
+                                <div class="post-share-options mt-4">
+                                    <div class="post-share-inner d-flex justify-content-between align-items-center flex-wrap">
+                                        <div class="social-box">
+                                            <span>Share post :</span>
+                                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                    <aside class="sidebar">
+
+                        {% comment %} <div class="sidebar-widget search-box">
+                            <form method="get" action="{% url 'admin_panel:blog' %}">
+                                <div class="form-group">
+                                    <input type="search" name="search-field" value="" placeholder="Search Resources" required>
+                                    <button type="submit"><span class="icon fa fa-search"></span></button>
+                                </div>
+                            </form>
+                        </div> {% endcomment %}
+
+                        <div class="sidebar-widget style-two post-widget">
+                            <div class="widget-content">
+                                <div class="sidebar-title">
+                                    <h4>Latest News</h4>
+                                </div>
+                                <div class="content">
+                                    {% for recent in recent_news %}
+                                    <div class="post">
+                                        <div class="thumb">
+                                            <a href="{% url 'admin_panel:news_detail' recent.slug %}">
+                                                {% if recent.image %}
+                                                    <img src="{{ recent.image.url }}" alt="" style="height: 80px; width: 80px; object-fit: cover;">
+                                                {% else %}
+                                                    <img src="{% static 'assets/images/resource/post-thumb-1.png' %}" alt="">
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="post-date">{{ recent.published_date|date:"d M Y" }}</div>
+                                        <h6><a href="{% url 'admin_panel:news_detail' recent.slug %}">{{ recent.title }}</a></h6>
+                                    </div>
+                                    {% empty %}
+                                        <div class="post"><p>No recent news found.</p></div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </aside>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

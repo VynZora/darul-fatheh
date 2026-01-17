@@ -1,0 +1,388 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}Team Members List | Darul Fatheh Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard__form__wraper">
+    
+    <div class="create__course__title mb-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h4 class="mb-0">Management Team Members</h4>
+        
+        <div class="d-flex align-items-center gap-2 ms-auto">
+            <div class="search-box">
+                <input type="text" id="teamSearchInput" class="form-control form-control-sm" placeholder="Search...">
+            </div>
+        </div>
+        <a href="{% url 'admin_panel:team_create' %}" class="btn btn-success btn-sm">
+            <i class="fas fa-plus"></i> Add New Team Member
+        </a> 
+    </div>
+
+    <div class="custom-table-container">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Position</th>
+                    {% comment %} <th scope="col">Email</th> {% endcomment %}
+                    {% comment %} <th scope="col">Phone</th> {% endcomment %}
+                    {% comment %} <th scope="col">Order</th> {% endcomment %}
+                    {% comment %} <th scope="col">Status</th> {% endcomment %}
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in team %}
+                <tr>
+                    <td>
+                        {% if member.photo %}
+                            <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="team-member-thumb">
+                        {% else %}
+                            <div class="no-image-thumb">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.position }}</td>
+                    {% comment %} <td>{{ member.email|default:"-" }}</td> {% endcomment %}
+                    {% comment %} <td>{{ member.phone|default:"-" }}</td> {% endcomment %}
+                    {% comment %} <td>{{ member.order }}</td> {% endcomment %}
+                    {% comment %} <td>
+                        {% if member.is_active %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </td> {% endcomment %}
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <!-- Update Modal Trigger -->
+                            <button type="button" class="btn btn-sm btn-warning me-1" data-bs-toggle="modal" data-bs-target="#updateTeamMemberModal{{ member.id }}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <!-- Delete Modal Trigger -->
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTeamMemberModal{{ member.id }}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Update Team Member Modal -->
+                <div class="modal fade" id="updateTeamMemberModal{{ member.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <form method="post" enctype="multipart/form-data" action="{% url 'admin_panel:team_edit' member.pk %}">
+                                {% csrf_token %}
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Update {{ member.name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <!-- Name -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Name <span class="text-danger">*</span></label>
+                                            <input type="text" name="name" class="form-control" value="{{ member.name }}" required>
+                                        </div>
+                                        <!-- Position -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Position <span class="text-danger">*</span></label>
+                                            <input type="text" name="position" class="form-control" value="{{ member.position }}" required>
+                                        </div>
+
+                                        {% comment %} <!-- Email -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" name="email" class="form-control" value="{{ member.email|default:'' }}">
+                                        </div> {% endcomment %}
+
+                                        {% comment %} <!-- Phone -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Phone</label>
+                                            <input type="text" name="phone" class="form-control" value="{{ member.phone|default:'' }}">
+                                        </div> {% endcomment %}
+
+                                        {% comment %} <!-- Order -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Display Order</label>
+                                            <input type="number" name="order" class="form-control" value="{{ member.order }}">
+                                        </div> {% endcomment %}
+
+                                        <!-- Bio -->
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">Biography</label>
+                                            <textarea name="bio" class="form-control" rows="3">{{ member.bio|default:'' }}</textarea>
+                                        </div>
+
+                                        <!-- Profile Image -->
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">Profile Photo</label>
+                                            <input type="file" name="photo" class="form-control" accept="image/*" onchange="previewMemberImage(event, {{ member.id }})">
+                                            <div class="mt-2">
+                                                <img id="memberImagePreview{{ member.id }}" 
+                                                     src="{% if member.photo %}{{ member.photo.url }}{% else %}https://via.placeholder.com/150{% endif %}" 
+                                                     alt="Profile Preview" 
+                                                     class="img-fluid rounded" 
+                                                     style="max-width: 150px;">
+                                            </div>
+                                            {% if member.photo %}
+                                                <div class="form-check mt-2">
+                                                    <input class="form-check-input" type="checkbox" name="photo-clear" id="photo-clear{{ member.id }}">
+                                                    <label class="form-check-label" for="photo-clear{{ member.id }}">Remove current photo</label>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Team Member Modal -->
+                <div class="modal fade" id="deleteTeamMemberModal{{ member.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post" action="{% url 'admin_panel:team_delete' member.pk %}">
+                                {% csrf_token %}
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete Team Member</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete <strong>{{ member.name }}</strong>?</p>
+                                    <div class="mt-3 text-center">
+                                        {% if member.photo %}
+                                        <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="team-member-modal-thumb">
+                                        {% endif %}
+                                        <p class="mt-2 mb-0"><strong>{{ member.position }}</strong></p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {% empty %}
+                <tr>
+                    <!-- Updated colspan: 4 columns now (Photo, Name, Position, Actions) -->
+                    <td colspan="4" class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No team members added yet.</p>
+                        <a href="{% url 'admin_panel:team_create' %}" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus"></i> Add First Member
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'admin_panel/pagination.html' with items=team %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("teamSearchInput");
+        const tableBody = document.querySelector(".custom-table-container tbody");
+    
+        if (!searchInput || !tableBody) return;
+    
+        // Only actual data rows (exclude dynamically added rows)
+        const rows = Array.from(tableBody.querySelectorAll("tr"))
+            .filter(row => row.querySelector("td"));
+    
+        // Cache original text for searchable columns
+        rows.forEach(row => {
+            const nameCell = row.querySelector("td:nth-child(2)");
+            const positionCell = row.querySelector("td:nth-child(3)");
+    
+            if (nameCell) nameCell.dataset.original = nameCell.textContent.trim();
+            if (positionCell) positionCell.dataset.original = positionCell.textContent.trim();
+        });
+    
+        function escapeRegex(text) {
+            return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+    
+        function highlight(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${escapeRegex(query)})`, "gi");
+            return text.replace(regex, "<mark>$1</mark>");
+        }
+    
+        searchInput.addEventListener("input", function () {
+            const query = this.value.trim().toLowerCase();
+            let visibleCount = 0;
+    
+            rows.forEach(row => {
+                const nameCell = row.querySelector("td:nth-child(2)");
+                const positionCell = row.querySelector("td:nth-child(3)");
+    
+                const nameText = nameCell?.dataset.original || "";
+                const positionText = positionCell?.dataset.original || "";
+    
+                const match =
+                    query === "" ||
+                    nameText.toLowerCase().includes(query) ||
+                    positionText.toLowerCase().includes(query);
+    
+                if (match) {
+                    row.style.display = "";
+                    visibleCount++;
+    
+                    if (nameCell) nameCell.innerHTML = highlight(nameText, query);
+                    if (positionCell) positionCell.innerHTML = highlight(positionText, query);
+                } else {
+                    row.style.display = "none";
+                }
+            });
+    
+            // Handle "No results" row
+            let noRow = document.getElementById("noResultRow");
+    
+            if (visibleCount === 0 && query !== "") {
+                if (!noRow) {
+                    noRow = document.createElement("tr");
+                    noRow.id = "noResultRow";
+                    tableBody.appendChild(noRow);
+                }
+    
+                noRow.innerHTML = `
+                    <td colspan="4" class="text-center py-4 text-muted">
+                        <i class="fas fa-users fa-2x mb-2"></i><br>
+                        No results found for "<strong>${query}</strong>"
+                    </td>
+                `;
+            } else if (noRow) {
+                noRow.remove();
+            }
+    
+            // Restore original text when cleared
+            if (query === "") {
+                rows.forEach(row => {
+                    const nameCell = row.querySelector("td:nth-child(2)");
+                    const positionCell = row.querySelector("td:nth-child(3)");
+    
+                    if (nameCell) nameCell.innerHTML = nameCell.dataset.original;
+                    if (positionCell) positionCell.innerHTML = positionCell.dataset.original;
+                });
+            }
+        });
+    });
+    </script>
+    
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.team-member-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.team-member-modal-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.no-image-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+}
+
+/* Search box styling */
+.search-box {
+    width: 220px;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    border-radius: 20px;
+    padding-left: 12px;
+    padding-right: 32px;
+    font-size: 14px;
+}
+
+.search-box::after {
+    content: "\f002";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+    font-size: 13px;
+}
+
+/* Override content-grid */
+.content-grid {
+    display: block !important;
+}
+
+/* Custom table container */
+.custom-table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background: white;
+    margin-bottom: 1rem;
+}
+
+.custom-table-container table {
+    /* Reduced min-width to match current 4-column layout */
+    min-width: 500px;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.custom-table-container .table th,
+.custom-table-container .table td {
+    vertical-align: middle;
+    padding: 0.75rem;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .search-box {
+        width: 100%;
+        max-width: 260px;
+    }
+}
+</style>
+{% endblock %}

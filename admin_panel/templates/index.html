@@ -1,0 +1,854 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | Home{% endblock %}
+
+
+{% block content %}
+
+<style>
+    /* Paste the fix here */
+    .service-block_one-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 5; /* Adjust this number to show more/less text */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 140px; /* Ensures alignment */
+
+
+    }
+    .sec-title_title {
+        color: var(--main-color) !important;
+    }
+</style>
+
+    <section class="slider-one">
+        <div class="main-slider swiper-container">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="slider-one_image-layer" style="background-image:url({% static 'assets/images/main-slider/6.jpg' %})"></div>
+                    <div class="auto-container">
+                        <div class="slider-one_content">
+                            <div class="slider-one_content-inner">
+                                <div class="slider-one_title">Trusted Islamic Education</div>
+
+                                            <h1 class="slider-one_heading">
+                                                Darul Fatheh <br> 
+                                            </h1>
+
+                                            <div class="slider-one_text">
+                                                An ISO-certified institution delivering authentic Islamic education
+                                                rooted in the Qur’an and Sunnah.
+                                            </div>
+
+                                            <div class="slider-one_button">
+                                    <a href="{% url 'admin_panel:courses' %}" class="theme-btn btn-style-two">
+                                        <span class="btn-wrap">
+                                            <span class="text-one">Find the course</span>
+                                            <span class="text-two">Find the course</span>
+                                        </span>
+                                    </a>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slider-one_image-layer" style="background-image:url({% static 'assets/images/main-slider/5.jpg' %})"></div>
+                    <div class="auto-container">
+                        <div class="slider-one_content">
+                            <div class="slider-one_content-inner">
+                                <div class="slider-one_title">Established Islamic Institution</div>
+
+                                    <h1 class="slider-one_heading">
+                                        Darul Fatheh <br>
+                                    </h1>
+
+                                    <div class="slider-one_text">
+                                        A trusted center for Islamic learning with a strong academic
+                                        and spiritual foundation.
+                                    </div>
+                                <div class="slider-one_button">
+                                    <a href="{% url 'admin_panel:courses' %}" class="theme-btn btn-style-two">
+                                        <span class="btn-wrap">
+                                            <span class="text-one">Find the course</span>
+                                            <span class="text-two">Find the course</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slider-one_image-layer" style="background-image:url({% static 'assets/images/main-slider/4.jpg' %})"></div>
+                    <div class="auto-container">
+                        <div class="slider-one_content">
+                            <div class="slider-one_content-inner">
+                                <div class="slider-one_title">Rooted in Qur’an & Sunnah</div>
+
+                                    <h1 class="slider-one_heading">
+                                        Darul Fatheh <br> 
+                                    </h1>
+
+                                    <div class="slider-one_text">
+                                        Providing authentic Islamic education guided by qualified scholars
+                                        in a disciplined learning environment.
+                                    </div>
+                                <div class="slider-one_button">
+                                    <a href="{% url 'admin_panel:courses' %}" class="theme-btn btn-style-two">
+                                        <span class="btn-wrap">
+                                            <span class="text-one">Find the course</span>
+                                            <span class="text-two">Find the course</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="slider-one-arrow">
+                <div class="main-slider-prev fas fa-arrow-left fa-fw"></div>
+                <div class="main-slider-next fas fa-arrow-right fa-fw"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-one">
+        <div class="auto-container">
+            <div class="inner-container" style="background-image:url({% static 'assets/images/icons/featured.png' %})">
+                <div class="row clearfix">
+                    <div class="feature-block_one col-lg-4 col-md-6 col-sm-12">
+                        <div class="feature-block_one-inner">
+                            <div class="feature-block_one-icon flaticon-quran"></div>
+                            Learn quick <br> 
+                        </div>
+                    </div>
+                    <div class="feature-block_one col-lg-4 col-md-6 col-sm-12">
+                        <div class="feature-block_one-inner">
+                            <div class="feature-block_one-icon flaticon-iso"></div>
+                            ISO certified <br> islamic institution
+                        </div>
+                    </div>
+                    <div class="feature-block_one col-lg-4 col-md-6 col-sm-12">
+                        <div class="feature-block_one-inner">
+                            <div class="feature-block_one-icon flaticon-islamic"></div>
+                             Classes For all ages
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="welcome-one">
+        <div class="welcome-one_pattern" style="background-image:url({% static 'assets/images/background/pattern-1.png' %})"></div>
+        <div class="welcome-one_pattern-two" style="background-image:url({% static 'assets/images/background/pattern-2.png' %})"></div>
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="welcome-one_content-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="welcome-one_content-outer">
+                        <div class="sec-title">
+                            <div class="sec-title_title d-flex align-items-center">
+                                Darul Fatheh Islamic Academy
+                                <span>
+                                    <img src="{% static 'assets/images/icons/bismillah-2.png' %}" alt="" />
+                                </span>
+                            </div>
+                
+                            <h2 class="sec-title_heading">Welcome to Darul Fatheh</h2>
+                
+                            <div class="sec-title_text">
+                                We welcome students to Darul Fatheh Islamic Academy, where we offer
+                                structured Islamic education combining spiritual development,
+                                moral values, and academic excellence based on the Qur’an and Sunnah.
+                            </div>
+                        </div>
+                
+                        <div class="welcome-one_content">
+                            <div class="welcome-one_content-image">
+                                <img src="{% static 'assets/images/resource/welcome.jpg' %}" alt="" />
+                            </div>
+                
+                            <p>
+                                Our institution provides a disciplined learning environment guided
+                                by qualified scholars, ensuring personal growth alongside knowledge.
+                            </p>
+                
+                            <div class="welcome-one_learn">
+                                <span class="welcome-one_learn-icon flaticon-mosque"></span>
+                                Learn with Guidance <br> and Discipline
+                            </div>
+                        </div>
+                
+                        <p>
+                            We are committed to delivering quality Islamic education with
+                            accessible programs designed to benefit students from all backgrounds.
+                        </p>
+                    </div>
+                </div>
+                <div class="welcome-one_image-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="welcome-one_image-outer">
+                        <div class="welcome-one_ameen">
+                            <img src="{% static 'assets/images/icons/' %}" alt="" />
+                        </div>
+                        <div class="welcome-one_image">
+                            <img src="{% static 'assets/images/resource/welcome-1.jpg' %}" alt="" />
+                        </div>
+                        <div class="welcome-one_years d-flex align-items-center flex-wrap">
+                            <span class="fa-solid fa-globe fa-fw"></span>
+                            Since 1995 Operating in the world
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="service-one" style="background-image:url({% static 'assets/images/background/service-bg.png' %})">
+        <div class="auto-container">
+            <div class="sec-title centered light">
+                <div class="sec-title_title">WHAT WE OFFER</div>
+                <h2 class="sec-title_heading">
+                    Comprehensive <br> Islamic Education Services
+                </h2>
+            </div>
+    
+            <div class="row clearfix">
+    
+                <!-- Service 1 -->
+                <div class="service-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="service-block_one-inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
+                        <div class="service-block_one-upper">
+                            <div class="service-block_one-icon flaticon-quran-1"></div>
+                            <div class="service-block_one-big_icon">
+                                <img src="{% static 'assets/images/icons/service-1.png' %}" alt="" />
+                            </div>
+                            <h4 class="service-block_one-heading">
+                                <a href="{% url 'admin_panel:services' %}">
+                                    Qur’an & Hifz <br> Programs
+                                </a>
+                            </h4>
+                            <div class="service-block_one-text">
+                                Structured Qur’an reading, memorization, and tajweed
+                                programs guided by qualified and experienced scholars.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Service 2 -->
+                <div class="service-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="service-block_one-inner wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1000ms">
+                        <div class="service-block_one-upper">
+                            <div class="service-block_one-icon flaticon-pray"></div>
+                            <div class="service-block_one-big_icon">
+                                <img src="{% static 'assets/images/icons/service-1.png' %}" alt="" />
+                            </div>
+                            <h4 class="service-block_one-heading">
+                                <a href="{% url 'admin_panel:services' %}">
+                                    Masjid & <br> Madrassa
+                                </a>
+                            </h4>
+                            <div class="service-block_one-text">
+                                A spiritual center offering daily prayers, religious
+                                education, and community-based Islamic learning.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Service 3 -->
+                <div class="service-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="service-block_one-inner wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1000ms">
+                        <div class="service-block_one-upper">
+                            <div class="service-block_one-icon flaticon-quran-2"></div>
+                            <div class="service-block_one-big_icon">
+                                <img src="{% static 'assets/images/icons/service-1.png' %}" alt="" />
+                            </div>
+                            <h4 class="service-block_one-heading">
+                                <a href="{% url 'admin_panel:services' %}">
+                                    Student-Centered <br> Learning
+                                </a>
+                            </h4>
+                            <div class="service-block_one-text">
+                                Focused on moral development, discipline, and academic
+                                excellence through personalized guidance and care.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <section class="students-one">
+        <div class="auto-container">
+            <div class="inner-container">
+                <div class="students-one_pattern" style="background-image:url({% static 'assets/images/background/student-bg.png' %})"></div>
+                <div class="row clearfix">
+                    <div class="students-one_title-column col-lg-5 col-md-12 col-sm-12">
+                        <div class="students-one_title-outer">
+                            <div class="students-one_title-box">
+                                <h3 class="students-one_title">Alhamdulillah we have reached over</h3>
+                                <div class="students-one_text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+                            </div>
+                            <div class="students-one_counter">
+                                <div class="students-one_counter-inner">
+                                    <div class="students-one_counter-icon">
+                                        <i class="flaticon-give"></i>
+                                    </div>
+                                    <div class="students-one_counter-count"><span class="odometer" data-count="18000"></span></div>
+                                    <div class="students-one_counter-text">Active Students</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="students-one_content-column col-lg-7 col-md-12 col-sm-12">
+                        <div class="students-one_content-outer">
+                            <div class="top-rated">
+                                <div class="top-rated_inner">
+                                    <div class="top-rated-icon">
+                                        <div class="top-rated_stars">
+                                            <span class="fa-regular fa-star fa-fw"></span>
+                                            <span class="fa-regular fa-star fa-fw"></span>
+                                            <span class="fa-regular fa-star fa-fw"></span>
+                                        </div>
+                                        4.5
+                                    </div>
+                                    <h4 class="top-rated_heading">Top Ratings on Trustpilot</h4>
+                                    <div class="top-rated_text">Lorem ipsum generators on the internet tend to repeat predefined chunks necessary on making this the first velit esse cillum dolore</div>
+                                </div>
+                            </div>
+                            <div class="passout">
+                                <div class="passout_inner">
+                                    <div class="passout-number">22k</div>
+                                    <h4 class="passout_heading">pass out</h4>
+                                    <div class="passout_text">Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor incididunt to labore et dolore pass out</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* Carousel Specific Fixes */
+        .courses-carousel {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 50px; /* Space for pagination */
+        }
+        
+        /* Make slides equal height */
+        .courses-carousel .swiper-slide {
+            height: auto;
+            display: flex;
+        }
+
+        /* Ensure card takes full width of the slide */
+        .course-block_one {
+            width: 100%;
+            margin-bottom: 0; /* Let Swiper handle spacing */
+            display: flex;
+        }
+
+        .course-block_one-inner {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-block_one-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-block_one-buttons {
+            margin-top: auto;
+        }
+    </style>
+
+    <section class="courses-one" style="background-image:url({% static 'assets/images/background/courses-one_bg.png' %})">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <div class="sec-title_title">Popular Courses</div>
+                <h2 class="sec-title_heading">Our Arabic & Islamic Courses</h2>
+            </div>
+            
+            <div class="courses-carousel swiper-container">
+                <div class="swiper-wrapper">
+                    
+                    {% for course in courses %}
+                    <div class="swiper-slide">
+                        <div class="course-block_one">
+                            <div class="course-block_one-inner">
+                                <div class="course-block_one-image">
+                                    <a href="{% url 'admin_panel:course_detail' course.slug %}">
+                                        {% if course.thumbnail %}
+                                            <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" style="height: 240px; width: 100%; object-fit: cover;">
+                                        {% else %}
+                                            <img src="{% static 'assets/images/resource/course-1.jpg' %}" alt="" />
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="course-block_one-content">
+                                    <div class="course-block_one-icon">
+                                        <img src="{% static 'assets/images/icons/' %}" alt="" />
+                                    </div>
+                                    <h4 class="course-block_one-heading"><a href="{% url 'admin_panel:course_detail' course.slug %}">{{ course.title }}</a></h4>
+                                    
+                                    <ul class="course-block_one-list d-flex justify-content-between flex-wrap align-items-center">
+                                        {% comment %} <li><span>{{ course.level|title }}</span>Level</li> {% endcomment %}
+                                        <li><span>{{ course.duration }}</span></li>
+                                    </ul>
+                                    
+                                    <div class="course-block_one-text">
+                                        {% if course.short_description %}
+                                            {{ course.short_description|safe }}
+                                        {% else %}
+                                            {{ course.description|striptags|truncatewords:20 }}
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="course-block_one-buttons d-flex justify-content-between flex-wrap">
+                                        <a class="theme-btn course-block_one-study" href="{% url 'admin_panel:course_detail' course.slug %}">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide text-center"><p>No active courses found.</p></div>
+                    {% endfor %}
+
+                </div>
+                
+                <div class="swiper-pagination courses-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var courseSwiper = new Swiper('.courses-carousel', {
+                slidesPerView: 4, // SHOWING 4 CARDS AS REQUESTED
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.courses-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    // Mobile
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 15
+                    },
+                    // Tablet
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    // Small Laptop
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    },
+                    // Large Screens
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    }
+                }
+            });
+        });
+    </script>
+
+    <section class="cta-one">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="cta-one_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+                <h3 class="cta-one_heading">Do not let Shaitan delay you from starting <br> to learn your deen.</h3>
+                <div class="cta-one_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-one">
+                        <span class="btn-wrap">
+                            <span class="text-one">Contact Us</span>
+                            <span class="text-two">Contact Us</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="institute-one">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <div class="sec-title_title">Why Choose Us</div>
+                <h2 class="sec-title_heading">
+                    Why Choose Darul Fatheh <br> Islamic Academy
+                </h2>
+            </div>
+    
+            <div class="row clearfix">
+    
+                <!-- Block 1 -->
+                <div class="institute-block_one col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-quran-1"></div>
+                        <h4 class="institute-block_one-heading">
+                            <a href="#">Qualified Quran <br> Scholars</a>
+                        </h4>
+                        <div class="institute-block_one-text">
+                            All the classes of Islamic
+                            education are guided by
+                            well qualified scholars
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Block 2 -->
+                <div class="institute-block_one color-two col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-pray-1"></div>
+                        <h4 class="institute-block_one-heading">
+                            <a href="#">We Value Our <br> Students</a>
+                        </h4>
+                        <div class="institute-block_one-text">
+                            All the classes of Islamic
+                            education focus on student
+                            growth and moral values
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Block 3 -->
+                <div class="institute-block_one color-three col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-education"></div>
+                        <h4 class="institute-block_one-heading">
+                            <a href="#">Inclusive Islamic <br> Teachers</a>
+                        </h4>
+                        <div class="institute-block_one-text">
+                            All the classes of Islamic
+                            education are delivered by
+                            trained teaching faculty
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Block 4 -->
+                <div class="institute-block_one color-four col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                    <div class="institute-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1000ms">
+                        <div class="institute-block_one-bismillah" style="background-image:url({% static 'assets/images/icons/bismillah-5.png' %})"></div>
+                        <div class="institute-block_one-icon flaticon-time-management"></div>
+                        <h4 class="institute-block_one-heading">
+                            <a href="#">Flexible Learning <br> System</a>
+                        </h4>
+                        <div class="institute-block_one-text">
+                            All the classes of Islamic
+                            education follow structured
+                            and flexible learning
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-one" style="background-image:url({% static 'assets/images/background/testimonial-one_bg.png' %})">
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="testimonial-one_image-column col-lg-4 col-md-12 col-sm-12">
+                    <div class="testimonial-one_image">
+                        <img src="{% static 'assets/images/resource/testimonial.jpg' %}" alt="" />
+                    </div>
+                </div>
+                <div class="testimonial-one_carousel-column col-lg-8 col-md-12 col-sm-12">
+                    <div class="testimonial-one_carousel-outer">
+                        <div class="testimonial-one_ameen">
+                            <img src="{% static 'assets/images/icons/' %}" alt="" />
+                        </div>
+                        <div class="testimonial-one_carousel swiper-container">
+                            <div class="swiper-wrapper">
+                                {% for testimonial in testimonials %}
+                                <div class="swiper-slide">
+                                    <div class="testimonial-block_one">
+                                        <div class="testimonial-block_one-inner">
+                                            <div class="testimonial-block_one-rating">
+                                                {% for i in "12345"|make_list %}
+                                                    {% if forloop.counter <= testimonial.rating %}
+                                                        <span class="fa-regular fa-star fa-fw"></span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            <h4 class="testimonial-block_one-heading">Customers Review</h4>
+                                            <div class="testimonial-block_one-text">{{ testimonial.content|striptags }}</div>
+                                            <div class="testimonial-block_one-author">
+                                                <div class="author-image">
+                                                    {% if testimonial.photo %}
+                                                        <img src="{{ testimonial.photo.url }}" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                                    {% else %}
+                                                        <img src="{% static 'assets/images/resource/author-1.png' %}" alt="" />
+                                                    {% endif %}
+                                                </div>
+                                                {{ testimonial.name }}
+                                                <span>{{ testimonial.designation }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="swiper-slide"><p>No testimonials yet.</p></div>
+                                {% endfor %}
+                            </div>
+                            <div class="testimonial-one_pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% comment "FAQ" %}FAQ section instead of gallary{% endcomment %}
+<section class="faq-one">
+    <div class="auto-container">
+        <h3>Find answers to the most frequently <br> asked questions below</h3>
+        <div class="row clearfix">
+            
+            <div class="faq-one_accordian-column col-lg-8 col-md-12 col-sm-12">
+                <h4>Frequently asked questions</h4>
+                <div class="accordian-outer">
+                    <ul class="accordion-box_two">
+                        
+                        <li class="accordion block">
+                            <div class="acc-btn active">
+                                <div class="icon-outer">
+                                    <span class="icon icon-plus fa fa-plus"></span>
+                                    <span class="icon icon-minus fa fa-minus"></span>
+                                </div>
+                                What age group are the courses suitable for?
+                            </div>
+                            <div class="acc-content current">
+                                <div class="content">
+                                    <div class="text">
+                                        Our programs are designed for various age groups, starting from children to adults. Age requirements vary depending on the course, such as Junior Hifz, Degree, or Ladies Section programs.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                                    
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <span class="icon icon-plus fa fa-plus"></span>
+                                    <span class="icon icon-minus fa fa-minus"></span>
+                                </div>
+                                Are the classes conducted full-time or part-time?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">
+                                        Darul Fatheh offers both full-time and flexible programs. Hifz and Thanwi courses follow a full-time structure, while community and ladies programs may have flexible schedules.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <span class="icon icon-plus fa fa-plus"></span>
+                                    <span class="icon icon-minus fa fa-minus"></span>
+                                </div>
+                                Are qualified scholars involved in teaching?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">
+                                        Yes. All courses are guided by experienced and qualified Islamic scholars with strong expertise in Qur’an, Hadith, Fiqh, and classical Islamic studies.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <span class="icon icon-plus fa fa-plus"></span>
+                                    <span class="icon icon-minus fa fa-minus"></span>
+                                </div>
+                                Is hostel and boarding facility available?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">
+                                        Residential facilities are available for selected full-time programs. Students stay in a safe, disciplined, and Islamic environment under proper supervision.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="accordion block">
+                            <div class="acc-btn">
+                                <div class="icon-outer">
+                                    <span class="icon icon-plus fa fa-plus"></span>
+                                    <span class="icon icon-minus fa fa-minus"></span>
+                                </div>
+                                Can parents or guardians visit the students?
+                            </div>
+                            <div class="acc-content">
+                                <div class="content">
+                                    <div class="text">
+                                        Yes. Parents and guardians may meet students during designated visiting hours, following the academy’s guidelines to maintain discipline and student well-being.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-one_helpline-column col-lg-4 col-md-12 col-sm-12">
+                <div class="helpline-outer">
+                    
+                    <div class="sidebar-widget helpline-widget">
+                        <div class="widget-content">
+                            <div class="image">
+                                <img src="{% static 'assets/images/icons/helpline-widget.png' %}" alt="" />
+                            </div>
+                            <h4 class="helpline-title">
+                                 Feel free to contact our helpline
+                            </h4>
+                            <div class="helpline-widget_phone flaticon-phone-call"></div>
+                            <div class="helpline-widget_number">
+                                Helpline: +91 8848 078 986 <span>(10 AM – 5 PM)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% comment %} 
+    <section class="gallery-one">
+        <div class="auto-container">
+            <div class="sec-title d-flex justify-content-between align-items-center flex-wrap">
+                <div class="left-box">
+                    <div class="sec-title_title"></div>
+                    <h2 class="sec-title_heading">Our Islamic Institute <br> Academy Gallery</h2>
+                </div>
+                <div class="gallery-one_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-one">
+                        <span class="btn-wrap">
+                            <span class="text-one">Contact Us</span>
+                            <span class="text-two">contact us</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="outer-container">
+            <div class="gallery-one_carousel swiper-container">
+                <div class="swiper-wrapper">
+                    {% for image in gallery_images %}
+                    <div class="swiper-slide">
+                        <div class="gallery-block_one">
+                            <div class="gallery-block_one-inner">
+                                <div class="gallery-block_one-image">
+                                    <img src="{{ image.image.url }}" alt="{{ image.title }}" style="height: 350px; object-fit: cover;"/>
+                                    <a class="gallery-block_one-arrow theme-btn flaticon-up-right-arrow" href="{% url 'admin_panel:gallery' %}"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <section class="news-one">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <div class="sec-title_title">OUR NEWS UPDATES</div>
+                <h2 class="sec-title_heading">Latest News & Articles From <br> The Blog</h2>
+            </div>
+            <div class="row clearfix">
+                {% for item in news %}
+                <div class="news-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="news-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1500ms">
+                        <div class="news-block_one-image">
+                            <a href="{% url 'admin_panel:news_detail' item.slug %}">
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="" style="height: 250px; object-fit: cover;"/>
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/news-1.jpg' %}" alt="" />
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="news-block_one-content">
+                            <ul class="news-block_one-meta">
+                                <li><span class="icon fa-solid fa-clock fa-fw"></span>{{ item.published_date|date:"F d, Y" }}</li>
+                            </ul>
+                            <h5 class="news-block_one-heading"><a href="{% url 'admin_panel:news_detail' item.slug %}">{{ item.title }}</a></h5>
+                            <div class="news-block_one-text">{{ item.content|truncatewords:15|striptags }}</div>
+                            <div class="news-block_one-info d-flex justify-content-between align-items-center flex-wrap">
+                                <a class="news-block_one-more theme-btn" href="{% url 'admin_panel:news_detail' item.slug %}">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center"><p>No news updates found.</p></div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-two">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
+                <h3 class="cta-two_heading">Proud to be serving thousands of Muslim <br> Families around the World</h3>
+                <div class="cta-two_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
+                        <span class="btn-wrap">
+                            <span class="text-one">Get in Touch</span>
+                            <span class="text-two">Get in Touch</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

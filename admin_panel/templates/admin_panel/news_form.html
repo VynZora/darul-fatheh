@@ -1,0 +1,207 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if news %}Edit{% else %}Add New{% endif %} News | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+/* CKEditor List Styles */
+.ck-editor__editable ul,
+.ck-editor__editable ol {
+    padding-left: 40px !important;
+}
+
+.ck-editor__editable ul {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable li {
+    display: list-item !important;
+}
+
+/* Disable sticky toolbar */
+.ck.ck-editor__top.ck-reset_all {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck.ck-sticky-panel .ck-sticky-panel__content {
+    position: relative !important;
+}
+
+/* Form Styles */
+.modern-input {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+    outline: none;
+}
+
+.image-preview {
+    max-width: 300px;
+    height: 200px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.dashboard__form__button {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.default__button {
+    background: #4f46e5;
+    color: #fff;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.default__button:hover {
+    background: #4338ca;
+    color: #fff;
+}
+
+.default__button.btn-secondary {
+    background: #6c757d;
+}
+
+.default__button.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-md-12">
+                <div class="dashboard__section__title">
+                    <h4 class="mb-0">{% if news %}Edit{% else %}Add New{% endif %} News Article</h4>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <!-- Title -->
+                                <div class="col-12 mb-4">
+                                    <label for="title" class="form-label">News Title <span class="text-danger">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control modern-input" value="{% if news %}{{ news.title }}{% endif %}" placeholder="Enter news title" required>
+                                </div>
+                                
+                                <!-- Author -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="author" class="form-label">Author <span class="text-danger">*</span></label>
+                                    <input type="text" name="author" id="author" class="form-control modern-input" value="{% if news %}{{ news.author }}{% endif %}" placeholder="Author name" required>
+                                </div>
+                                
+                                <!-- Featured Image -->
+                                <div class="col-12 mb-4">
+                                    <label for="image" class="form-label">Featured Image</label>
+                                    <input type="file" name="image" id="image" class="form-control modern-input" accept="image/*" onchange="previewImage(event)">
+                                    <div class="form-text">Recommended size: 800x600 pixels. Max size: 2MB</div>
+                                    
+                                    <div id="imagePreview" class="image-preview" {% if not news.image %}style="display: none;"{% endif %}>
+                                        {% if news.image %}
+                                            <img src="{{ news.image.url }}" alt="Preview">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="col-12 mb-4">
+                                    <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
+                                    <textarea name="content" id="content" class="form-control modern-input" rows="10" placeholder="Write the news content...">{% if news %}{{ news.content }}{% endif %}</textarea>
+                                </div>
+                                
+                                <!-- Submit Buttons -->
+                                <div class="col-12 mt-4">
+                                    <div class="dashboard__form__button">
+                                        <button type="submit" class="default__button">
+                                            <i class="fas fa-save"></i> {% if news %}Update{% else %}Publish{% endif %} News
+                                        </button>
+                                        <a href="{% url 'admin_panel:news_list' %}" class="default__button btn-secondary">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#content'), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                '|', 'blockQuote', 'undo', 'redo'
+            ]
+        })
+        .catch(error => console.error(error));
+});
+
+function previewImage(event) {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    
+    if (file) {
+        reader.onload = function(e) {
+            const preview = document.getElementById('imagePreview');
+            preview.style.display = 'flex';
+            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+        }
+        reader.readAsDataURL(file);
+    }
+}
+</script>
+{% endblock %}

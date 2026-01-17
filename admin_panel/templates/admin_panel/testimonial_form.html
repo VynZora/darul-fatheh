@@ -1,0 +1,459 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if testimonial %}Edit{% else %}Add New{% endif %} Testimonial | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Style for error messages */
+.field-error {
+    display: none;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: #dc3545;
+}
+
+.field-error-border {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+.field-valid-border {
+    border-color: #28a745 !important;
+}
+
+/* CKEditor error styling */
+.ck-editor__editable.field-error-border {
+    border: 1px solid #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+/* CKEditor Fixes */
+.ck.ck-editor__top.ck-reset_all {
+    position: relative !important;
+    top: auto !important;
+    z-index: 10 !important;
+}
+
+.ck.ck-sticky-panel .ck-sticky-panel__content {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck.ck-toolbar {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck-editor {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.ck.ck-editor__main {
+    overflow: visible !important;
+}
+
+.ck-editor__editable_inline {
+    min-height: 200px;
+    height: auto !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+.ck-editor__top {
+    position: static !important;
+}
+
+.ck-sticky-panel {
+    position: static !important;
+}
+
+.ck.ck-editor {
+    z-index: 1 !important;
+}
+
+.ck.ck-balloon-panel {
+    z-index: 1000 !important;
+}
+
+/* CKEditor List Styles */
+.ck-editor__editable ul,
+.ck-editor__editable ol {
+    padding-left: 40px !important;
+}
+
+.ck-editor__editable ul {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable li {
+    display: list-item !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ck-editor__editable ul li {
+    list-style-type: disc !important;
+}
+
+.ck-editor__editable ol li {
+    list-style-type: decimal !important;
+}
+
+.ck-editor__editable ul ul {
+    list-style-type: circle !important;
+}
+
+.ck-editor__editable ul ul ul {
+    list-style-type: square !important;
+}
+
+/* Core Responsiveness & Safety */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.dashboard {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.container-fluid.full__width__padding {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.form-wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+}
+
+img, input, textarea, select, .form-control, .modern-input, .form-text {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.modern-input {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.dashboard__form__button {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.dashboard__form__button .default__button {
+    background: #4f46e5;
+    color: #fff;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    transition: background 0.3s;
+}
+
+.dashboard__form__button .default__button:hover {
+    background: #4338ca;
+}
+
+.dashboard__form__button .default__button[style*="background: #6c757d"]:hover {
+    background: #5a6268 !important;
+}
+
+.testimonial-image-preview {
+    max-width: 300px;
+    height: 200px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.testimonial-image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.dashboard__section__title {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1200px) { .form-wrapper { max-width: 100%; } }
+
+@media (max-width: 992px) {
+    .dashboard__form__button { flex-direction: column; align-items: stretch; }
+    .dashboard__form__button button,
+    .dashboard__form__button a { width: 100%; }
+    .testimonial-image-preview { width: 100%; height: 200px; }
+}
+
+@media (max-width: 768px) {
+    html, body, .dashboard { overflow-x: hidden !important; }
+}
+
+@media (max-width: 576px) {
+    .dashboard__section__title h4 { font-size: 1.25rem; }
+    .modern-input { font-size: 0.95rem; padding: 0.75rem 0.9rem; }
+    .default__button { font-size: 0.95rem; padding: 0.75rem 1.2rem; }
+    body, .dashboard, .container-fluid.full__width__padding { padding-left: 0; padding-right: 0; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                <div class="dashboard__section__title">
+                    <h4 class="mb-0">{% if testimonial %}Edit{% else %}Add New{% endif %} Testimonial</h4>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation form-wrapper" novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- Name -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" id="name" class="form-control modern-input" value="{% if testimonial %}{{ testimonial.name }}{% endif %}" placeholder="Enter name" required>
+                                    <div class="invalid-feedback">Please provide a name.</div>
+                                </div>
+
+                                <!-- Designation -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="designation" class="form-label">Designation <span class="text-danger">*</span></label>
+                                    <input type="text" name="designation" id="designation" class="form-control modern-input" value="{% if testimonial %}{{ testimonial.designation }}{% endif %}" placeholder="e.g., Student, Parent" required>
+                                    <div class="invalid-feedback">Please provide designation.</div>
+                                </div>
+
+                                <!-- Rating -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="rating" class="form-label">Rating <span class="text-danger">*</span></label>
+                                    <select name="rating" id="rating" class="form-control modern-input" required>
+                                        <option value="5" {% if testimonial and testimonial.rating == 5 %}selected{% endif %}>⭐⭐⭐⭐⭐ (5 Stars)</option>
+                                        <option value="4" {% if testimonial and testimonial.rating == 4 %}selected{% endif %}>⭐⭐⭐⭐ (4 Stars)</option>
+                                        <option value="3" {% if testimonial and testimonial.rating == 3 %}selected{% endif %}>⭐⭐⭐ (3 Stars)</option>
+                                        <option value="2" {% if testimonial and testimonial.rating == 2 %}selected{% endif %}>⭐⭐ (2 Stars)</option>
+                                        <option value="1" {% if testimonial and testimonial.rating == 1 %}selected{% endif %}>⭐ (1 Star)</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a rating.</div>
+                                </div>
+
+                                <!-- Photo -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="photo" class="form-label">Photo</label>
+                                    <input type="file" name="photo" id="photo" class="form-control modern-input" accept="image/*">
+                                    <div class="form-text">Recommended: Square photo (300x300 pixels). Max size: 2MB</div>
+                                    <div id="imagePreview" class="testimonial-image-preview mt-2" {% if not testimonial.photo %}style="display: none;"{% endif %}>
+                                        {% if testimonial.photo %}
+                                            <img src="{{ testimonial.photo.url }}" alt="Preview">
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <!-- Testimonial Content -->
+                                <div class="col-12 mb-4">
+                                    <label for="content" class="form-label">Testimonial Content <span class="text-danger">*</span></label>
+                                    <textarea name="content" id="content" class="form-control modern-input uni-description" rows="10" placeholder="Write the testimonial..." required>{% if testimonial %}{{ testimonial.content }}{% endif %}</textarea>
+                                    <div class="invalid-feedback">Please provide testimonial content.</div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-4">
+                                    <div class="dashboard__form__button">
+                                        <button type="submit" class="default__button">{% if testimonial %}Update{% else %}Create{% endif %} Testimonial</button>
+                                        <a href="{% url 'admin_panel:testimonial_list' %}" class="default__button" style="background: #6c757d;">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let contentEditor;
+
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#content'), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                '|', 'insertTable', 'blockQuote', 'undo', 'redo', 'imageUpload'
+            ]
+        })
+        .then(editor => {
+            contentEditor = editor;
+
+            // Base64 image upload
+            editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+                return {
+                    upload: () => loader.file.then(file => new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve({ default: reader.result });
+                        reader.onerror = error => reject(error);
+                        reader.readAsDataURL(file);
+                    })),
+                    abort: () => {}
+                };
+            };
+        })
+        .catch(error => console.error(error));
+
+    // Image preview
+    const imageInput = document.getElementById('photo');
+    const imagePreview = document.getElementById('imagePreview');
+    imageInput.addEventListener('change', function() {
+        imagePreview.innerHTML = '';
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.style.display = 'flex';
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(this.files[0]);
+        } else if (!imagePreview.querySelector('img[src*="{{ testimonial.photo.url }}"]')) {
+            imagePreview.style.display = 'none';
+        }
+    });
+
+    // Form validation
+    const form = document.querySelector('form');
+    const fields = {
+        name: {
+            element: document.getElementById('name'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value.trim()) return "Name is required.";
+                return null;
+            }
+        },
+        designation: {
+            element: document.getElementById('designation'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value.trim()) return "Designation is required.";
+                return null;
+            }
+        },
+        rating: {
+            element: document.getElementById('rating'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value) return "Rating is required.";
+                return null;
+            }
+        },
+        content: {
+            element: document.getElementById('content'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value.trim()) return "Content is required.";
+                return null;
+            }
+        }
+    };
+
+    Object.values(fields).forEach(f => {
+        f.error.classList.add('text-danger', 'mt-1');
+        f.element.insertAdjacentElement('afterend', f.error);
+    });
+
+    function validateField(fieldName) {
+        const field = fields[fieldName];
+        let value = field.element.value;
+
+        if (fieldName === 'content' && contentEditor) {
+            value = contentEditor.getData().replace(/<[^>]*>/g, '').trim();
+        }
+
+        const error = field.validate(value);
+        field.error.textContent = error || '';
+        field.error.style.display = error ? 'block' : 'none';
+        if (error) field.element.classList.add('field-error-border');
+        else field.element.classList.remove('field-error-border');
+        return !error;
+    }
+
+    function validateForm() {
+        return Object.keys(fields).every(validateField);
+    }
+
+    Object.keys(fields).forEach(fieldName => {
+        const field = fields[fieldName];
+        if (field.element.tagName.toLowerCase() === 'select') {
+            field.element.addEventListener('change', () => validateField(fieldName));
+        } else if (field.element.tagName.toLowerCase() === 'textarea') {
+            field.element.addEventListener('blur', () => validateField(fieldName));
+            field.element.addEventListener('input', () => { if (field.error.textContent) validateField(fieldName); });
+        } else {
+            field.element.addEventListener('blur', () => validateField(fieldName));
+            field.element.addEventListener('input', () => { if (field.error.textContent) validateField(fieldName); });
+        }
+    });
+
+    // CKEditor events
+    if (contentEditor) {
+        contentEditor.model.document.on('change:data', () => {
+            if (fields.content.error.textContent) validateField('content');
+        });
+    }
+
+    form.addEventListener('submit', function(e) {
+        if (!validateForm()) {
+            e.preventDefault();
+            const firstErrorField = Object.keys(fields).find(f => fields[f].error.textContent);
+            if (firstErrorField) fields[firstErrorField].element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+});
+</script>
+{% endblock %}

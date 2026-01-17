@@ -1,0 +1,400 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if download %}Edit{% else %}Add New{% endif %} Download | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Style for error messages */
+.field-error {
+    display: none;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: #dc3545;
+}
+
+.field-error-border {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+.field-valid-border {
+    border-color: #28a745 !important;
+}
+
+.ck-editor__editable.field-error-border {
+    border: 1px solid #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+/* CKEditor Fixes */
+.ck.ck-editor__top.ck-reset_all {
+    position: relative !important;
+    top: auto !important;
+    z-index: 10 !important;
+}
+
+.ck.ck-sticky-panel .ck-sticky-panel__content {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck.ck-toolbar {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck-editor {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.ck.ck-editor__main {
+    overflow: visible !important;
+}
+
+.ck-editor__editable_inline {
+    min-height: 200px;
+    height: auto !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+.ck-editor__top {
+    position: static !important;
+}
+
+.ck-sticky-panel {
+    position: static !important;
+}
+
+.ck.ck-editor {
+    z-index: 1 !important;
+}
+
+.ck.ck-balloon-panel {
+    z-index: 1000 !important;
+}
+
+/* CKEditor List Styles */
+.ck-editor__editable ul,
+.ck-editor__editable ol {
+    padding-left: 40px !important;
+}
+
+.ck-editor__editable ul {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable li {
+    display: list-item !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ck-editor__editable ul li {
+    list-style-type: disc !important;
+}
+
+.ck-editor__editable ol li {
+    list-style-type: decimal !important;
+}
+
+.ck-editor__editable ul ul {
+    list-style-type: circle !important;
+}
+
+.ck-editor__editable ul ul ul {
+    list-style-type: square !important;
+}
+
+/* Core Responsiveness & Safety */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.dashboard {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.container-fluid.full__width__padding {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.form-wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+}
+
+img, input, textarea, select, .form-control, .modern-input, .form-text {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.modern-input {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.dashboard__form__button {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.dashboard__form__button .default__button {
+    background: #4f46e5;
+    color: #fff;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    transition: background 0.3s;
+}
+
+.dashboard__form__button .default__button:hover {
+    background: #4338ca;
+}
+
+.dashboard__form__button .default__button[style*="background: #6c757d"]:hover {
+    background: #5a6268 !important;
+}
+
+.dashboard__section__title {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1200px) { .form-wrapper { max-width: 100%; } }
+
+@media (max-width: 992px) {
+    .dashboard__form__button { flex-direction: column; align-items: stretch; }
+    .dashboard__form__button button,
+    .dashboard__form__button a { width: 100%; }
+}
+
+@media (max-width: 768px) {
+    html, body, .dashboard { overflow-x: hidden !important; }
+}
+
+@media (max-width: 576px) {
+    .dashboard__section__title h4 { font-size: 1.25rem; }
+    .modern-input { font-size: 0.95rem; padding: 0.75rem 0.9rem; }
+    .default__button { font-size: 0.95rem; padding: 0.75rem 1.2rem; }
+    body, .dashboard, .container-fluid.full__width__padding { padding-left: 0; padding-right: 0; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                <div class="dashboard__section__title">
+                    <h4 class="mb-0">{% if download %}Edit{% else %}Add New{% endif %} Download</h4>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <form method="post" enctype="multipart/form-data" class="needs-validation form-wrapper" novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- Title -->
+                                <div class="col-12 mb-4">
+                                    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control modern-input" value="{% if download %}{{ download.title }}{% endif %}" placeholder="Enter download title" required>
+                                    <div class="invalid-feedback">Please provide a title.</div>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
+                                    <select name="category" id="category" class="form-control modern-input" required>
+                                        <option value="">Select category</option>
+                                        <option value="syllabus" {% if download and download.category == 'syllabus' %}selected{% endif %}>Syllabus</option>
+                                        <option value="form" {% if download and download.category == 'form' %}selected{% endif %}>Form</option>
+                                        <option value="brochure" {% if download and download.category == 'brochure' %}selected{% endif %}>Brochure</option>
+                                        <option value="document" {% if download and download.category == 'document' %}selected{% endif %}>Document</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a category.</div>
+                                </div>
+
+                                <!-- File Size -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="file_size" class="form-label">File Size</label>
+                                    <input type="text" name="file_size" id="file_size" class="form-control modern-input" value="{% if download %}{{ download.file_size }}{% endif %}" placeholder="e.g., 2.5 MB">
+                                </div>
+
+                                <!-- File Upload -->
+                                <div class="col-12 mb-4">
+                                    <label for="file" class="form-label">File {% if not download %}<span class="text-danger">*</span>{% endif %}</label>
+                                    <input type="file" name="file" id="file" class="form-control modern-input" {% if not download %}required{% endif %}>
+                                    <div class="form-text">Upload PDF, DOC, DOCX, or other document files. Max size: 10MB</div>
+                                    {% if download.file %}
+                                        <small class="text-muted d-block mt-2">Current file: {{ download.file.name }}</small>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Description -->
+                                <div class="col-12 mb-4">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea name="description" id="description" class="form-control modern-input uni-description" rows="10" placeholder="Write a brief description...">{% if download %}{{ download.description }}{% endif %}</textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-4">
+                                    <div class="dashboard__form__button">
+                                        <button type="submit" class="default__button">{% if download %}Update{% else %}Upload{% endif %} Download</button>
+                                        <a href="{% url 'admin_panel:download_list' %}" class="default__button" style="background: #6c757d;">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let descriptionEditor;
+
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#description'), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                '|', 'insertTable', 'blockQuote', 'undo', 'redo', 'imageUpload'
+            ]
+        })
+        .then(editor => {
+            descriptionEditor = editor;
+
+            editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+                return {
+                    upload: () => loader.file.then(file => new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve({ default: reader.result });
+                        reader.onerror = error => reject(error);
+                        reader.readAsDataURL(file);
+                    })),
+                    abort: () => {}
+                };
+            };
+        })
+        .catch(error => console.error(error));
+
+    // Form validation
+    const form = document.querySelector('form');
+    const fields = {
+        title: {
+            element: document.getElementById('title'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value.trim()) return "Title is required.";
+                return null;
+            }
+        },
+        category: {
+            element: document.getElementById('category'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value) return "Category is required.";
+                return null;
+            }
+        },
+        file: {
+            element: document.getElementById('file'),
+            error: document.createElement('div'),
+            validate: function(file) {
+                {% if not download %}
+                if (!file) return "File is required.";
+                {% endif %}
+                return null;
+            }
+        }
+    };
+
+    Object.values(fields).forEach(f => {
+        f.error.classList.add('text-danger', 'mt-1');
+        f.element.insertAdjacentElement('afterend', f.error);
+    });
+
+    function validateField(fieldName) {
+        const field = fields[fieldName];
+        let value = field.element.value;
+        if (fieldName === 'file') value = field.element.files[0] || null;
+        const error = field.validate(value);
+        field.error.textContent = error || '';
+        field.error.style.display = error ? 'block' : 'none';
+        if (error) field.element.classList.add('field-error-border');
+        else field.element.classList.remove('field-error-border');
+        return !error;
+    }
+
+    function validateForm() {
+        return Object.keys(fields).every(validateField);
+    }
+
+    Object.keys(fields).forEach(fieldName => {
+        const field = fields[fieldName];
+        if (field.element.tagName.toLowerCase() === 'select') {
+            field.element.addEventListener('change', () => validateField(fieldName));
+        } else if (field.element.type === 'file') {
+            field.element.addEventListener('change', () => validateField(fieldName));
+        } else {
+            field.element.addEventListener('blur', () => validateField(fieldName));
+            field.element.addEventListener('input', () => { if (field.error.textContent) validateField(fieldName); });
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        if (!validateForm()) {
+            e.preventDefault();
+            const firstErrorField = Object.keys(fields).find(f => fields[f].error.textContent);
+            if (firstErrorField) fields[firstErrorField].element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+});
+</script>
+{% endblock %}

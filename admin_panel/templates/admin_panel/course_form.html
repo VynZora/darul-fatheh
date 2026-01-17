@@ -1,0 +1,199 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if course %}Edit{% else %}Add New{% endif %} Course | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+/* CKEditor Admin Panel Fixes */
+.ck-editor__editable {
+    min-height: 200px;
+}
+.ck-editor__editable ul {
+    padding-left: 30px !important;
+    list-style-type: disc !important;
+}
+.ck-editor__editable ol {
+    padding-left: 30px !important;
+    list-style-type: decimal !important;
+}
+.ck-editor__editable li {
+    display: list-item !important;
+}
+
+/* Form Styles */
+.modern-input {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+}
+.image-preview {
+    max-width: 300px;
+    height: 200px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.default__button {
+    background: #4f46e5;
+    color: #fff;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.default__button.btn-secondary {
+    background: #6c757d;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-md-12">
+                <div class="dashboard__section__title">
+                    <h4 class="mb-0">{% if course %}Edit{% else %}Add New{% endif %} Course</h4>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <form method="POST" enctype="multipart/form-data" id="courseForm">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                
+                                <div class="col-12 mb-4">
+                                    <label class="form-label">Course Title <span class="text-danger">*</span></label>
+                                    <input type="text" name="title" class="form-control modern-input" value="{% if course %}{{ course.title }}{% endif %}" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">Duration <span class="text-danger">*</span></label>
+                                    <input type="text" 
+                                           name="duration" 
+                                           class="form-control modern-input" 
+                                           value="{{ course.duration }}" 
+                                           placeholder="e.g. 30 Days, 6 Months" 
+                                           required>
+                                </div>
+                                
+                                {% comment %} <div class="col-md-6 mb-4">
+                                    <label class="form-label">Instructor <span class="text-danger">*</span></label>
+                                    <input type="text" 
+                                           name="instructor" 
+                                           class="form-control modern-input" 
+                                           value="{% if course %}{{ course.instructor }}{% endif %}" 
+                                           placeholder="e.g. Senior Usthad" 
+                                           required>
+                                </div> {% endcomment %}
+                                
+                                <div class="col-12 mb-4">
+                                    <label class="form-label">Course Thumbnail</label>
+                                    <input type="file" name="thumbnail" class="form-control modern-input" accept="image/*" onchange="previewImage(event)">
+                                    <div id="imagePreview" class="image-preview" {% if not course.thumbnail %}style="display: none;"{% endif %}>
+                                        {% if course.thumbnail %}
+                                            <img src="{{ course.thumbnail.url }}" alt="Preview">
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                {% comment %} <div class="col-12 mb-4">
+                                    <label class="form-label">Short Description (Card Summary)</label>
+                                    <textarea name="short_description" id="short_description" class="form-control modern-input">{% if course %}{{ course.short_description }}{% endif %}</textarea>
+                                    <small class="text-muted">Brief summary shown on the course listing cards (approx 1-2 sentences).</small>
+                                </div> {% endcomment %}
+                                
+                                <div class="col-12 mb-4">
+                                    <label class="form-label">Detailed Course Description <span class="text-danger">*</span></label>
+                                    <textarea name="description" id="description" class="form-control modern-input">{% if course %}{{ course.description }}{% endif %}</textarea>
+                                </div>
+                                
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="default__button">
+                                        {% if course %}Update{% else %}Create{% endif %} Course
+                                    </button>
+                                    <a href="{% url 'admin_panel:course_list' %}" class="default__button btn-secondary">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script>
+    // Variables to store editor instances
+    let shortDescEditor;
+    let fullDescEditor;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // 1. Init Short Description (Simplified Toolbar)
+        ClassicEditor
+            .create(document.querySelector('#short_description'), {
+                toolbar: ['bold', 'italic', 'bulletedList', 'undo', 'redo'],
+                placeholder: 'Enter a short summary...'
+            })
+            .then(editor => {
+                shortDescEditor = editor;
+            })
+            .catch(error => console.error(error));
+
+        // 2. Init Detailed Description (Full Toolbar)
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'blockQuote', 'undo', 'redo']
+            })
+            .then(editor => {
+                fullDescEditor = editor;
+            })
+            .catch(error => console.error(error));
+
+        // 3. Force Update on Submit (Crucial Fix)
+        document.querySelector('#courseForm').addEventListener('submit', function(e) {
+            if(shortDescEditor) {
+                const shortData = shortDescEditor.getData();
+                document.querySelector('#short_description').value = shortData;
+            }
+            if(fullDescEditor) {
+                const fullData = fullDescEditor.getData();
+                document.querySelector('#description').value = fullData;
+            }
+        });
+    });
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        const file = event.target.files[0];
+        if (file) {
+            reader.onload = function(e) {
+                const preview = document.getElementById('imagePreview');
+                preview.style.display = 'flex';
+                preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+{% endblock %}

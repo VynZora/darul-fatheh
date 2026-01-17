@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fateh | Blog{% endblock %}
+
+{% block content %}
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>Blog Grid</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
+                <li>Blog Grid</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="blog-one">
+        <div class="auto-container">
+            <div class="row clearfix">
+
+                {% for item in news %}
+                <div class="news-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="news-block_one-inner wow fadeInLeft" data-wow-delay="150ms" data-wow-duration="1500ms">
+                        <div class="news-block_one-image">
+                            <a href="{% url 'admin_panel:news_detail' item.slug %}">
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" alt="{{ item.title }}" style="height: 250px; width: 100%; object-fit: cover;"/>
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/news-1.jpg' %}" alt="" />
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="news-block_one-content">
+                            <ul class="news-block_one-meta">
+                                <li><span class="icon fa-solid fa-user fa-fw"></span>{{ item.author }}</li>
+                                <li><span class="icon fa-solid fa-clock fa-fw"></span>{{ item.published_date|date:"F d, Y" }}</li>
+                            </ul>
+                            <h5 class="news-block_one-heading"><a href="{% url 'admin_panel:news_detail' item.slug %}">{{ item.title }}</a></h5>
+                            <div class="news-block_one-text">{{ item.content|striptags|truncatewords:20 }}</div>
+                            
+                            <div class="news-block_one-info d-flex justify-content-between align-items-center flex-wrap">
+                                <div class="news-block_one-author d-flex align-items-center">
+                                    <span class="icon fa-solid fa-user fa-fw" style="margin-right: 8px; color: var(--main-color);"></span>
+                                    {{ item.author }}
+                                </div>
+                                <a class="news-block_one-more theme-btn" href="{% url 'admin_panel:news_detail' item.slug %}">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No blog posts found.</p>
+                </div>
+                {% endfor %}
+
+            </div>
+            
+            {% if news.has_other_pages %}
+            <div class="styled-pagination text-center">
+                <ul class="clearfix">
+                    {% if news.has_previous %}
+                        <li><a href="?page={{ news.previous_page_number }}"><span class="fa fa-angle-left"></span></a></li>
+                    {% endif %}
+                    
+                    {% for i in news.paginator.page_range %}
+                        {% if news.number == i %}
+                            <li class="active"><a href="#">{{ i }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if news.has_next %}
+                        <li><a href="?page={{ news.next_page_number }}"><span class="fa fa-angle-right"></span></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+    <section class="cta-two">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
+                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
+                <h3 class="cta-two_heading">Proud to be serving thousands of Muslim <br> Families around the World</h3>
+                <div class="cta-two_button">
+                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
+                        <span class="btn-wrap">
+                            <span class="text-one">Get in Touch</span>
+                            <span class="text-two">Get in Touch</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,421 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if donation %}Edit{% else %}Add New{% endif %} Donation | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Style for error messages */
+.field-error {
+    display: none;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: #dc3545;
+}
+
+.field-error-border {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+.field-valid-border {
+    border-color: #28a745 !important;
+}
+
+.ck-editor__editable.field-error-border {
+    border: 1px solid #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+/* CKEditor Fixes */
+.ck.ck-editor__top.ck-reset_all {
+    position: relative !important;
+    top: auto !important;
+    z-index: 10 !important;
+}
+
+.ck.ck-sticky-panel .ck-sticky-panel__content {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck.ck-toolbar {
+    position: relative !important;
+    top: auto !important;
+}
+
+.ck-editor {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.ck.ck-editor__main {
+    overflow: visible !important;
+}
+
+.ck-editor__editable_inline {
+    min-height: 200px;
+    height: auto !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+.ck-editor__top {
+    position: static !important;
+}
+
+.ck-sticky-panel {
+    position: static !important;
+}
+
+.ck.ck-editor {
+    z-index: 1 !important;
+}
+
+.ck.ck-balloon-panel {
+    z-index: 1000 !important;
+}
+
+/* CKEditor List Styles */
+.ck-editor__editable ul,
+.ck-editor__editable ol {
+    padding-left: 40px !important;
+}
+
+.ck-editor__editable ul {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+}
+
+.ck-editor__editable li {
+    display: list-item !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.ck-editor__editable ul li {
+    list-style-type: disc !important;
+}
+
+.ck-editor__editable ol li {
+    list-style-type: decimal !important;
+}
+
+.ck-editor__editable ul ul {
+    list-style-type: circle !important;
+}
+
+.ck-editor__editable ul ul ul {
+    list-style-type: square !important;
+}
+
+/* Core Responsiveness & Safety */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.dashboard {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.container-fluid.full__width__padding {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.form-wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+}
+
+img, input, textarea, select, .form-control, .modern-input, .form-text {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.modern-input {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.dashboard__form__button {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.dashboard__form__button .default__button {
+    background: #4f46e5;
+    color: #fff;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    transition: background 0.3s;
+}
+
+.dashboard__form__button .default__button:hover {
+    background: #4338ca;
+}
+
+.dashboard__form__button .default__button[style*="background: #6c757d"]:hover {
+    background: #5a6268 !important;
+}
+
+.dashboard__section__title {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1200px) { .form-wrapper { max-width: 100%; } }
+
+@media (max-width: 992px) {
+    .dashboard__form__button { flex-direction: column; align-items: stretch; }
+    .dashboard__form__button button,
+    .dashboard__form__button a { width: 100%; }
+}
+
+@media (max-width: 768px) {
+    html, body, .dashboard { overflow-x: hidden !important; }
+}
+
+@media (max-width: 576px) {
+    .dashboard__section__title h4 { font-size: 1.25rem; }
+    .modern-input { font-size: 0.95rem; padding: 0.75rem 0.9rem; }
+    .default__button { font-size: 0.95rem; padding: 0.75rem 1.2rem; }
+    body, .dashboard, .container-fluid.full__width__padding { padding-left: 0; padding-right: 0; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                <div class="dashboard__section__title">
+                    <h4 class="mb-0">{% if donation %}Edit{% else %}Add New{% endif %} Donation Record</h4>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <form method="post" class="needs-validation form-wrapper" novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- Donor Name -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="donor_name" class="form-label">Donor Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="donor_name" id="donor_name" class="form-control modern-input" value="{% if donation %}{{ donation.donor_name }}{% endif %}" placeholder="Enter donor name" required>
+                                    <div class="invalid-feedback">Please provide donor name.</div>
+                                </div>
+
+                                <!-- Amount -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="amount" class="form-label">Amount ($) <span class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" name="amount" id="amount" class="form-control modern-input" value="{% if donation %}{{ donation.amount }}{% endif %}" placeholder="0.00" required>
+                                    <div class="invalid-feedback">Please provide amount.</div>
+                                </div>
+
+                                <!-- Purpose -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="purpose" class="form-label">Purpose <span class="text-danger">*</span></label>
+                                    <input type="text" name="purpose" id="purpose" class="form-control modern-input" value="{% if donation %}{{ donation.purpose }}{% endif %}" placeholder="e.g., General Fund, Library" required>
+                                    <div class="invalid-feedback">Please provide purpose.</div>
+                                </div>
+
+                                <!-- Payment Method -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="payment_method" class="form-label">Payment Method <span class="text-danger">*</span></label>
+                                    <select name="payment_method" id="payment_method" class="form-control modern-input" required>
+                                        <option value="">Select payment method</option>
+                                        <option value="Credit Card" {% if donation and donation.payment_method == 'Credit Card' %}selected{% endif %}>Credit Card</option>
+                                        <option value="Bank Transfer" {% if donation and donation.payment_method == 'Bank Transfer' %}selected{% endif %}>Bank Transfer</option>
+                                        <option value="Cash" {% if donation and donation.payment_method == 'Cash' %}selected{% endif %}>Cash</option>
+                                        <option value="Check" {% if donation and donation.payment_method == 'Check' %}selected{% endif %}>Check</option>
+                                        <option value="PayPal" {% if donation and donation.payment_method == 'PayPal' %}selected{% endif %}>UPI</option>
+                                        <option value="Other" {% if donation and donation.payment_method == 'Other' %}selected{% endif %}>Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select payment method.</div>
+                                </div>
+
+                                <!-- Transaction ID -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="transaction_id" class="form-label">Transaction ID</label>
+                                    <input type="text" name="transaction_id" id="transaction_id" class="form-control modern-input" value="{% if donation %}{{ donation.transaction_id }}{% endif %}" placeholder="Optional">
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" name="email" id="email" class="form-control modern-input" value="{% if donation %}{{ donation.email }}{% endif %}" placeholder="donor@example.com">
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-md-6 mb-4">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="text" name="phone" id="phone" class="form-control modern-input" value="{% if donation %}{{ donation.phone }}{% endif %}" placeholder="Number">
+                                </div>
+
+                                <!-- Message -->
+                                <div class="col-12 mb-4">
+                                    <label for="message" class="form-label">Message/Note</label>
+                                    <textarea name="message" id="message" class="form-control modern-input uni-description" rows="10" placeholder="Any additional notes...">{% if donation %}{{ donation.message }}{% endif %}</textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-4">
+                                    <div class="dashboard__form__button">
+                                        <button type="submit" class="default__button">{% if donation %}Update{% else %}Save{% endif %} Donation</button>
+                                        <a href="{% url 'admin_panel:donation_list' %}" class="default__button" style="background: #6c757d;">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let messageEditor;
+
+    // Initialize CKEditor
+    ClassicEditor
+        .create(document.querySelector('#message'), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                '|', 'insertTable', 'blockQuote', 'undo', 'redo', 'imageUpload'
+            ]
+        })
+        .then(editor => {
+            messageEditor = editor;
+
+            editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+                return {
+                    upload: () => loader.file.then(file => new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve({ default: reader.result });
+                        reader.onerror = error => reject(error);
+                        reader.readAsDataURL(file);
+                    })),
+                    abort: () => {}
+                };
+            };
+        })
+        .catch(error => console.error(error));
+
+    // Form validation
+    const form = document.querySelector('form');
+    const fields = {
+        donor_name: {
+            element: document.getElementById('donor_name'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value.trim()) return "Donor name is required.";
+                return null;
+            }
+        },
+        amount: {
+            element: document.getElementById('amount'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value || value <= 0) return "Amount must be greater than 0.";
+                return null;
+            }
+        },
+        purpose: {
+            element: document.getElementById('purpose'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value.trim()) return "Purpose is required.";
+                return null;
+            }
+        },
+        payment_method: {
+            element: document.getElementById('payment_method'),
+            error: document.createElement('div'),
+            validate: function(value) {
+                if (!value) return "Payment method is required.";
+                return null;
+            }
+        }
+    };
+
+    Object.values(fields).forEach(f => {
+        f.error.classList.add('text-danger', 'mt-1');
+        f.element.insertAdjacentElement('afterend', f.error);
+    });
+
+    function validateField(fieldName) {
+        const field = fields[fieldName];
+        let value = field.element.value;
+        const error = field.validate(value);
+        field.error.textContent = error || '';
+        field.error.style.display = error ? 'block' : 'none';
+        if (error) field.element.classList.add('field-error-border');
+        else field.element.classList.remove('field-error-border');
+        return !error;
+    }
+
+    function validateForm() {
+        return Object.keys(fields).every(validateField);
+    }
+
+    Object.keys(fields).forEach(fieldName => {
+        const field = fields[fieldName];
+        if (field.element.tagName.toLowerCase() === 'select') {
+            field.element.addEventListener('change', () => validateField(fieldName));
+        } else {
+            field.element.addEventListener('blur', () => validateField(fieldName));
+            field.element.addEventListener('input', () => { if (field.error.textContent) validateField(fieldName); });
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        if (!validateForm()) {
+            e.preventDefault();
+            const firstErrorField = Object.keys(fields).find(f => fields[f].error.textContent);
+            if (firstErrorField) fields[firstErrorField].element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+});
+</script>
+{% endblock %}
