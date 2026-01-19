@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
 from django.utils import timezone
+from django.utils.text import slugify
 
 from .models import (
     ManagementTeam, Course, News, Event, Category,
@@ -68,7 +69,7 @@ def dashboard(request):
 # ==================== MANAGEMENT TEAM VIEWS ====================
 @login_required(login_url='admin_panel:login')
 def team_list(request):
-    team_list = ManagementTeam.objects.all().order_by('order')
+    team_list = ManagementTeam.objects.all().order_by('name')
     paginator = Paginator(team_list, 6)
     page = request.GET.get('page')
     
@@ -87,14 +88,14 @@ def team_create(request):
         name = request.POST.get('name')
         position = request.POST.get('position')
         bio = request.POST.get('bio')
-        order = request.POST.get('order', 0)
+        # order = request.POST.get('order', 0)
         photo = request.FILES.get('photo')
         
         ManagementTeam.objects.create(
             name=name,
             position=position,
             bio=bio,
-            order=order,
+            # order=order,
             photo=photo
         )
         messages.success(request, 'Team member added successfully!')
@@ -237,8 +238,20 @@ def news_create(request):
         author = request.POST.get('author')
         image = request.FILES.get('image')
         
+        # --- START: Unique Slug Generation ---
+        original_slug = slugify(title)
+        slug = original_slug
+        counter = 1
+
+        # Check if this slug exists, loop until we find a free one
+        while News.objects.filter(slug=slug).exists():
+            slug = f"{original_slug}-{counter}"
+            counter += 1
+        # --- END: Unique Slug Generation ---
+        
         News.objects.create(
             title=title,
+            slug=slug,  # <--- Pass the generated unique slug here
             content=content,
             author=author,
             image=image
@@ -253,10 +266,25 @@ def news_edit(request, pk):
     news = get_object_or_404(News, pk=pk)
     
     if request.method == 'POST':
-        news.title = request.POST.get('title')
+        new_title = request.POST.get('title')
         news.content = request.POST.get('content')
         news.author = request.POST.get('author')
         
+        # Only update slug if the title has changed
+        if news.title != new_title:
+            news.title = new_title
+            
+            # Generate new unique slug for the new title
+            original_slug = slugify(new_title)
+            slug = original_slug
+            counter = 1
+            
+            # Exclude the current news item from the check
+            while News.objects.filter(slug=slug).exclude(pk=pk).exists():
+                slug = f"{original_slug}-{counter}"
+                counter += 1
+            news.slug = slug
+
         if request.FILES.get('image'):
             news.image = request.FILES.get('image')
         
@@ -272,7 +300,6 @@ def news_delete(request, pk):
     news.delete()
     messages.success(request, 'News deleted successfully!')
     return redirect('admin_panel:news_list')
-
 
 # ==================== EVENT VIEWS ====================
 @login_required(login_url='admin_panel:login')
@@ -693,7 +720,7 @@ def index(request):
 
 
 def about_page(request):
-    team = ManagementTeam.objects.all().order_by('order')
+    team = ManagementTeam.objects.all().order_by('name')
     testimonials = Testimonial.objects.filter(is_approved=True).order_by('-created_at')
 
     context = {

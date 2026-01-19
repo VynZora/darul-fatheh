@@ -27,11 +27,11 @@ class ManagementTeam(models.Model):
     position = models.CharField(max_length=200)
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to='team/', blank=True, null=True)
-    order = models.IntegerField(default=0)
+    # order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        ordering = ['order', 'name']
+        ordering = [ 'name']
         verbose_name = 'Management Team Member'
         verbose_name_plural = 'Management Team'
     

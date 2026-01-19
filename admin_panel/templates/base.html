@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <title>{% block title %}Darul Fateh{% endblock %}</title>
 
-
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicons/apple-touch-icon.png' %}">
 <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicons/favicon-32x32.png' %}">
 <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicons/favicon-16x16.png' %}">
@@ -143,11 +142,6 @@
                                         
                                        
                                         <li><a href="{%url 'admin_panel:about'%}">About</a></li>
-                                        {% comment %} <li class="dropdownx"><a href="{% url 'admin_panel:services' %}">Services</a>
-                                            <ul>
-                                                <li><a href="{% url 'admin_panel:services' %}"><strong>All Services</strong></a></li>
-                                            </ul>
-                                        </li> {% endcomment %}
                                         
                                         <li class="dropdown">
                                             <a href="{% url 'admin_panel:courses' %}" onclick="window.location.href=this.href">Courses</a>
@@ -167,31 +161,11 @@
                                         
                                         <li><a href="{%url 'admin_panel:blog'%}">Blogs</a></li>
                                         <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
-
-                                        {% comment %} <li class="dropdown">
-                                            <a href="{% url 'admin_panel:blog' %}" onclick="window.location.href=this.href">Blog</a>
-                                            <ul>
-                                                <li><a href="{% url 'admin_panel:blog' %}"><strong>Our Blogs</strong></a></li>
-                                                {% for item in navbar_news %}
-                                                    <li>
-                                                        <a href="{% url 'admin_panel:news_detail' item.pk %}">
-                                                            {{ item.title|truncatechars:25 }}
-                                                        </a>
-                                                    </li>
-                                                {% empty %}
-                                                    <li><a href="#">No news updates</a></li>
-                                                {% endfor %}
-                                            </ul>
-                                        </li> {% endcomment %}
-
                                         
                                         <li><a href="{% url 'admin_panel:contact' %}">Contact</a></li>
                                         <li class="dropdown"><a href="#">Others</a>
                                             <ul>
                                                 <li><a href="{% url 'admin_panel:prayer_time' %}">Prayer Time</a></li>
-                                                {% comment %} <li><a href="{% url 'admin_panel:faq' %}">FAQ</a></li>{% endcomment %}
-                                                {% comment %} <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li>  {% endcomment %}
-                                                {% comment %} <li><a href="{% url 'admin_panel:about' %}#testimonials">Testimonials</a></li> {% endcomment %}
                                                 <li><a href="{% url 'admin_panel:donate' %}">Donations</a></li>
                                             </ul>
                                         </li>
@@ -201,14 +175,6 @@
                         </div>
                         
                         <div class="outer-box d-flex align-items-center flex-wrap">
-                            {% comment %} <div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div> {% endcomment %}
-                            
-                            {% comment %} {% if user.is_authenticated %}
-                                <a class="user-box theme-btn" href="{% url 'admin_panel:dashboard' %}"><span class="fa-regular fa-user fa-fw"></span></a>
-                            {% else %}
-                                <a class="user-box theme-btn" href="{% url 'admin_panel:login' %}"><span class="fa-regular fa-user fa-fw"></span></a>
-                            {% endif %} {% endcomment %}
-                            
                             <div class="header_button-box">
                                 <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-one">
                                     <span class="btn-wrap"><span class="text-one">Get in Touch</span><span class="text-two">Contact Us</span></span>
@@ -286,7 +252,6 @@
                                 <h4 class="footer-title">Other Links</h4>
                                 <ul class="footer-list">
                                     <li><a href="{% url 'admin_panel:prayer_time' %}">Prayer Time</a></li>
-                                    {% comment %} <li><a href="{% url 'admin_panel:faq' %}">FAQ</a></li>{% endcomment %}
                                     <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
                                     <li><a href="{% url 'admin_panel:donate' %}">Donate</a></li>
                                 </ul>
@@ -302,11 +267,9 @@
             <div class="auto-container">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div class="copyright">
-                        © 2026 Darul Fatheh Islamic Academy. All rights reserved. Developed by Vynzora Pvt Ltd.
+                        © <span id="currentYear"></span> Darul Fatheh Islamic Academy. All rights reserved. Developed by <a href="https://vynzora.com/" style="color:white; text-decoration: underline;">Vynzora</a>
                     </div>
                     <ul class="footer-nav">
-                        {% comment %} <li><a href="#">Terms of use</a></li>
-                        <li><a href="#">Privacy Policy</a></li> {% endcomment %}
                     </ul>
                 </div>
             </div>
@@ -358,9 +321,13 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        const yearSpan = document.getElementById("currentYear");
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
         const city = "Thodupuzha";
         const country = "India";
-        // University of Islamic Sciences, Karachi (Common for India)
         const apiUrl = `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=1&school=0`;
 
         fetch(apiUrl)

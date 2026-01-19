@@ -5,10 +5,10 @@ try:
     from .models import ManagementTeam
     @admin.register(ManagementTeam)
     class ManagementTeamAdmin(admin.ModelAdmin):
-        list_display = ['name', 'position', 'order']
+        list_display = ['name', 'position']
         search_fields = ['name', 'position']
         list_filter = ['position']
-        ordering = ['order']
+        ordering = ['position']
 except ImportError:
     pass
 

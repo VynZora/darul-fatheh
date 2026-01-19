@@ -22,8 +22,8 @@ urlpatterns = [
     # Blog / News
     path('blog/', views.blog_page, name='blog'),
     path('news/<slug:slug>/', views.news_detail, name='news_detail'),
-    path('news/<int:pk>/edit/', views.news_edit, name='news_edit'),
-    path('news/<int:pk>/delete/', views.news_delete, name='news_delete'),
+    # path('news/<int:pk>/edit/', views.news_edit, name='news_edit'),
+    # path('news/<int:pk>/delete/', views.news_delete, name='news_delete'),
 
     #Not found 
     path('not-found/', views.not_found_page, name='not-found'),
