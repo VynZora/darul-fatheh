@@ -876,3 +876,9 @@ def donate(request):
         form = DonationForm()
     
     return render(request, 'donate.html', {'form': form})
+
+
+
+def page404(request, exception):
+ 
+    return render(request, 'not-found.html', status=404)

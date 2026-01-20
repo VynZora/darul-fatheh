@@ -96,5 +96,5 @@ urlpatterns = [
     path('dashboard/testimonials/<int:pk>/edit/', views.testimonial_edit, name='testimonial_edit'),
     path('dashboard/testimonials/<int:pk>/delete/', views.testimonial_delete, name='testimonial_delete'),
 
-    
 ]
+handler404 = 'admin_panel.views.page404',
