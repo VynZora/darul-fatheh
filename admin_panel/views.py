@@ -6,10 +6,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import StudentRegistrationForm
 
 from .models import (
     ManagementTeam, Course, News, Event, Category,
-    GalleryImage, DonationDetails, ContactMessage, Download, Testimonial
+    GalleryImage, DonationDetails, ContactMessage, Download, Testimonial, StudentRegistration
 )
 
 from .forms import (
@@ -729,6 +733,17 @@ def about_page(request):
     }
     return render(request, 'about.html', context)
 
+def our_team(request):
+    
+    team_qs = ManagementTeam.objects.all().order_by('name')
+
+
+    paginator = Paginator(team_qs, 6) 
+    page_number = request.GET.get('page')
+    team = paginator.get_page(page_number)
+
+    return render(request, 'team.html', {'team': team})
+
 def courses_page(request):
     course_list = Course.objects.filter(is_active=True).order_by('-created_at')
     
@@ -877,6 +892,98 @@ def donate(request):
     
     return render(request, 'donate.html', {'form': form})
 
+
+
+
+# ==================== PUBLIC REGISTRATION VIEW ====================
+
+def register_view(request):
+    """
+    Handles student registration:
+    1. Validates the form.
+    2. Saves the student to the database.
+    3. Sends an email notification to the admin.
+    """
+    
+    form = StudentRegistrationForm()
+    
+    if request.method == 'POST':
+        form = StudentRegistrationForm(request.POST)
+        
+        if form.is_valid():
+            student = form.save()
+            
+           
+            course_title = student.course.title if student.course else "Not Selected"
+            program_specific = student.program_name if student.program_name else "N/A"
+            
+            subject = f"New Student Registration: {student.first_name} {student.last_name}"
+            
+            message = (
+                f"A new student has registered via the website.\n\n"
+                f"--------------------------------------------\n"
+                f"FULL NAME: {student.first_name} {student.last_name}\n"
+                f"DOB:       {student.dob}\n"
+                f"EMAIL:     {student.email}\n"
+                f"MOBILE:    {student.mobile}\n"
+                f"--------------------------------------------\n"
+                f"COURSE:     {course_title}\n"
+                f"SPECIFIC PROGRAM: {program_specific}\n"
+                f"--------------------------------------------\n\n"
+                f"Please verify this entry in the Admin Panel."
+            )
+            
+            recipient_list = [settings.EMAIL_HOST_USER]  
+            
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,  
+                    recipient_list,            
+                    fail_silently=False,
+                )
+                messages.success(request, 'Registration successful! We have received your details.')
+            except Exception as e:
+                print(f"Email sending failed: {e}")
+                messages.warning(request, 'Registration saved, but confirmation email could not be sent.')
+
+           
+            return redirect('admin_panel:register')
+            
+        else:
+            messages.error(request, 'Please correct the errors in the form below.')
+            
+    
+    return render(request, 'register.html', {'form': form})
+
+
+# ==================== STUDENT REGISTRATION VIEWS ====================
+
+@login_required(login_url='admin_panel:login')
+def student_list(request):
+    # Show newest registrations first
+    student_list = StudentRegistration.objects.all().order_by('-registered_at')
+    
+    paginator = Paginator(student_list, 10) # Show 10 per page
+    page = request.GET.get('page')
+    
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+    
+    return render(request, 'admin_panel/student_list.html', {'students': students})
+
+
+@login_required(login_url='admin_panel:login')
+def student_delete(request, pk):
+    student = get_object_or_404(StudentRegistration, pk=pk)
+    student.delete()
+    messages.success(request, 'Student registration removed successfully.')
+    return redirect('admin_panel:student_list')
 
 
 def page404(request, exception):

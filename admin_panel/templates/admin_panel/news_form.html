@@ -1,7 +1,7 @@
 {% extends "admin_panel/base.html" %}
 {% load static %}
 
-{% block title %}{% if news %}Edit{% else %}Add New{% endif %} News | Darul Fatheh Admin{% endblock %}
+{% block title %}{% if news %}Edit{% else %}Add New{% endif %} Blogs | Darul Fatheh Admin{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -113,7 +113,7 @@
         <div class="row">
             <div class="col-xl-9 col-lg-9 col-md-12">
                 <div class="dashboard__section__title">
-                    <h4 class="mb-0">{% if news %}Edit{% else %}Add New{% endif %} News Article</h4>
+                    <h4 class="mb-0">{% if news %}Edit{% else %}Add New{% endif %} Blog Article</h4>
                 </div>
 
                 <div class="row mt-4">
@@ -124,8 +124,8 @@
                             <div class="row">
                                 <!-- Title -->
                                 <div class="col-12 mb-4">
-                                    <label for="title" class="form-label">News Title <span class="text-danger">*</span></label>
-                                    <input type="text" name="title" id="title" class="form-control modern-input" value="{% if news %}{{ news.title }}{% endif %}" placeholder="Enter news title" required>
+                                    <label for="title" class="form-label">Blog Title <span class="text-danger">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control modern-input" value="{% if news %}{{ news.title }}{% endif %}" placeholder="Enter blog title" required>
                                 </div>
                                 
                                 <!-- Author -->
@@ -150,14 +150,14 @@
                                 <!-- Content -->
                                 <div class="col-12 mb-4">
                                     <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
-                                    <textarea name="content" id="content" class="form-control modern-input" rows="10" placeholder="Write the news content...">{% if news %}{{ news.content }}{% endif %}</textarea>
+                                    <textarea name="content" id="content" class="form-control modern-input" rows="10" placeholder="Write the Blog content...">{% if news %}{{ news.content }}{% endif %}</textarea>
                                 </div>
                                 
                                 <!-- Submit Buttons -->
                                 <div class="col-12 mt-4">
                                     <div class="dashboard__form__button">
                                         <button type="submit" class="default__button">
-                                            <i class="fas fa-save"></i> {% if news %}Update{% else %}Publish{% endif %} News
+                                            <i class="fas fa-save"></i> {% if news %}Update{% else %}Publish{% endif %} Blogs
                                         </button>
                                         <a href="{% url 'admin_panel:news_list' %}" class="default__button btn-secondary">
                                             <i class="fas fa-times"></i> Cancel

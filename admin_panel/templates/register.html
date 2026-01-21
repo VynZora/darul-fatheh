@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fatheh | Student Registration{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* --- 1. LAYOUT & CONTAINER --- */
+    .contact-form_box {
+        position: relative;
+        padding: 60px 0px 100px 0px !important; 
+        background-color: #fff;
+        z-index: 1; 
+    }
+
+    /* --- 2. FORM INPUT STYLES --- */
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form input[type="number"],
+    .contact-form input[type="tel"],
+    .contact-form input[type="url"],
+    .contact-form input[type="date"],
+    .contact-form select,
+    .contact-form textarea {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 60px;
+        font-size: 14px;
+        color: #555555;
+        padding: 10px 30px;
+        background: #f9f9f9;
+        border: 1px solid #eeeeee;
+        border-radius: 5px;
+        transition: all 300ms ease;
+        margin-bottom: 0; 
+        font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form select:focus {
+        border-color: var(--main-color);
+        background: #ffffff;
+        box-shadow: 0 0 5px rgba(27, 20, 100, 0.1);
+        outline: none;
+    }
+
+    /* Label Styling */
+    .contact-form label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #222;
+        font-size: 15px;
+        display: block;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    /* Submit Button Styling */
+    .theme-btn.btn-style-four {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+        background-color: var(--main-color); 
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .theme-btn.btn-style-four:hover {
+        background-color: var(--main-color);
+    }
+
+    /* --- 3. TOAST NOTIFICATION STYLES --- */
+    .global-toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        min-width: 300px;
+        max-width: 500px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        z-index: 99999;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.28s ease;
+        border-left: 4px solid #4CAF50;
+    }
+
+    .global-toast.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .global-toast.success { border-left-color: #4CAF50; }
+    .global-toast.error { border-left-color: #f44336; }
+
+    .toast-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+    }
+
+    .toast-icon {
+        font-size: 18px;
+        width: 24px;
+        text-align: center;
+        color: #4CAF50; 
+        font-weight: bold;
+    }
+    
+    /* Error icon color */
+    .global-toast.error .toast-icon {
+        color: #f44336;
+    }
+
+    .toast-message {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.3;
+        font-family: sans-serif;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div id="global-toast" class="global-toast" role="status" aria-live="polite" aria-atomic="true">
+        <div class="toast-content">
+            <div class="toast-icon" aria-hidden="true"></div>
+            <div class="toast-message"></div>
+        </div>
+    </div>
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>Registration</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:dashboard' %}">Home</a></li>
+                <li>Register</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="contact-form_box">
+        <div class="auto-container" style="max-width: 800px;"> <div class="sec-title centered">
+                <div class="sec-title_title">Join Us</div>
+                <h2 class="sec-title_heading">Student Registration</h2>
+            </div>
+            
+            <div class="contact-form">
+                <form method="post" action="" id="registrationForm">
+                    {% csrf_token %}
+                    
+                    <div class="row clearfix">
+                        
+                        <div class="col-md-6 col-sm-12 form-group">
+                            <label for="id_first_name">First Name</label>
+                            {{ form.first_name }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 form-group">
+                            <label for="id_last_name">Last Name</label>
+                            {{ form.last_name }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 form-group">
+                            <label for="id_dob">Date of Birth</label>
+                            {{ form.dob }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 form-group">
+                            <label for="id_email">Email Address</label>
+                            {{ form.email }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 form-group">
+                            <label for="id_mobile">Mobile Number</label>
+                            {{ form.mobile }}
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 form-group">
+                            <label for="id_course">Course Level</label>
+                            {{ form.course }}
+                        </div>
+                        
+                        <div class="col-md-12 col-sm-12 form-group">
+                            <label for="id_program_name">Program / Specialization</label>
+                            {{ form.program_name }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 form-group">
+                            <div class="button-box">
+                                <button type="submit" class="theme-btn btn-style-four">
+                                    <span class="btn-wrap">
+                                        <span class="text-one">Submit Details</span>
+                                        <span class="text-two">Submit Details</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    /* --- TOAST FUNCTIONALITY --- */
+    (function () {
+        const toastEl = document.getElementById('global-toast');
+        const toastMsgEl = toastEl ? toastEl.querySelector('.toast-message') : null;
+        const toastIconEl = toastEl ? toastEl.querySelector('.toast-icon') : null;
+        let hideTimeout = null;
+
+        function setIconForType(type) {
+            return (type === 'error' || type === 'warning') ? '⚠' : '✓';
+        }
+
+        function showGlobalToast(message, type = 'success') {
+            if (!toastEl) return;
+            
+            // Reset classes
+            toastEl.classList.remove('success','error','warning','info','show');
+            
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+                hideTimeout = null;
+            }
+
+            // Set Content
+            toastMsgEl.textContent = message;
+            toastIconEl.textContent = setIconForType(type);
+
+            // Add classes and show
+            toastEl.classList.add(type);
+            void toastEl.offsetWidth; // Trigger reflow
+            toastEl.classList.add('show');
+
+            // Auto hide after 5 seconds
+            hideTimeout = setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 5000);
+        }
+
+        // Expose function globally just in case
+        window.showGlobalToast = showGlobalToast;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Display Django Messages (Success/Warning from server)
+            {% if messages %}
+                {% for message in messages %}
+                    setTimeout(function() {
+                        // Use the message tag as the toast type (success/error/warning)
+                        showGlobalToast("{{ message|escapejs }}", "{{ message.tags }}");
+                    }, 100);
+                {% endfor %}
+            {% endif %}
+            
+            // 2. Display Form Validation Errors (if any)
+            {% if form.errors %}
+                setTimeout(function() {
+                    showGlobalToast("Please correct the errors highlighted below.", "error");
+                }, 100);
+            {% endif %}
+        });
+    })();
+</script>
+{% endblock %}

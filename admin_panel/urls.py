@@ -96,5 +96,13 @@ urlpatterns = [
     path('dashboard/testimonials/<int:pk>/edit/', views.testimonial_edit, name='testimonial_edit'),
     path('dashboard/testimonials/<int:pk>/delete/', views.testimonial_delete, name='testimonial_delete'),
 
+    path('our-team/', views.our_team, name='team'),
+
+    # Public URL
+    path('register/', views.register_view, name='register'),
+
+    # Admin Dashboard URLs
+    path('students/', views.student_list, name='student_list'),
+    path('students/<int:pk>/delete/', views.student_delete, name='student_delete'),
 ]
 handler404 = 'admin_panel.views.page404',

@@ -4,6 +4,7 @@ from .models import (
     Category,
     GalleryImage,
     DonationDetails,
+    StudentRegistration,
 )
 
 
@@ -37,4 +38,21 @@ class DonationForm(forms.ModelForm):
             'transaction_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Transaction ID / Reference No'}),
             # 'purpose': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose (e.g., Donations / General)'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Any additional notes...(optional)'}),
+        }
+
+
+class StudentRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = StudentRegistration
+        fields = ['first_name', 'last_name', 'dob', 'email', 'mobile', 'course', 'program_name']
+        
+        widgets = {
+            'first_name': forms.TextInput(attrs={'placeholder': 'First name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last name'}),
+            'dob': forms.DateInput(attrs={'type': 'date'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email address'}),
+            'mobile': forms.TextInput(attrs={'placeholder': 'Mobile Number'}),
+            'course': forms.Select(attrs={'class': 'custom-select-box'}),
+            
+            'program_name': forms.TextInput(attrs={'placeholder': 'Enter Program Name (e.g., MA English)'}),
         }

@@ -219,3 +219,27 @@ class Testimonial(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.designation}"
+    
+
+
+
+class StudentRegistration(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    dob = models.DateField(verbose_name="Date of Birth")
+    email = models.EmailField()
+    mobile = models.CharField(max_length=15)
+    
+    course = models.ForeignKey('Course', on_delete=models.SET_NULL, null=True) 
+    
+  
+    program_name = models.CharField(
+        max_length=200, 
+        verbose_name="Specific Program Name", 
+        help_text="e.g. MA English, B.Com, etc."
+    )
+    
+    registered_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

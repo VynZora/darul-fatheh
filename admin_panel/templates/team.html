@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Darul Fatheh | Management Team{% endblock %}
+
+{% block content %}
+
+    <style>
+        /* Fix menu whitespace */
+        .main-header .auto-container { padding-bottom: 0px !important; }
+        .main-header .header-upper { padding-top: 10px !important; padding-bottom: 10px !important; }
+
+        
+        /* 1. Make the white content box a Flex container */
+        .scholar-block_one-content {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: flex-end; /* Pushes content to bottom */
+            min-height: 150px; /* Force height so there is room to push down */
+            padding-bottom: 50px !important; /* Space from the very bottom edge */
+        }
+
+        /* 2. Style the Name (Optional: Keep it readable) */
+        .scholar-block_one-heading {
+            margin-bottom: auto !important; /* Pushes everything else down */
+            padding-top: 20px;
+        }
+
+        /* 3. Style the Position (Large & Bottom) */
+        .scholar-block_one-designation {
+            font-size: 17px !important; /* Increased font size */
+            font-weight: 700 !important; /* Bold */
+            color: var(--color-two) !important;   /* Dark Green (adjust as needed) */
+            text-transform: uppercase;   /* Optional: makes it look more "official" */
+            letter-spacing: 1px;
+            margin-top: 15px !important;
+            line-height: 1.2;
+        }
+    </style>
+
+    <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
+        <div class="auto-container">
+            <h2>Management Team</h2>
+            <ul class="bread-crumb clearfix">
+                <li><a href="{% url 'admin_panel:dashboard' %}">Dashboard</a></li>
+                <li>Management Team</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="scholar-one" id="scholars" style="background-image:url({% static 'assets/images/background/scholar-bg.png' %})">
+        <div class="auto-container">
+            <div class="sec-title d-flex justify-content-between align-items-center flex-wrap">
+                <div class="left-box">
+                    <div class="sec-title_title">Our Administration</div>
+                    <h2 class="sec-title_heading">Leading Us</h2>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                {% for scholar in team %}
+                <div class="scholar-block_one col-lg-4 col-md-6 col-sm-12">
+                    <div class="scholar-block_one-inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
+                        <div class="scholar-block_one-image">
+                            <a href="javascript:void(0);">
+                                {% if scholar.photo %}
+                                    <img src="{{ scholar.photo.url }}" alt="{{ scholar.name }}" style="height: 380px; width: 100%; object-fit: cover;">
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/scholar-1.jpg' %}" alt="Default Image" style="height: 380px; width: 100%; object-fit: cover;" />
+                                {% endif %}
+                            </a>
+                        </div>
+                        
+                        <div class="scholar-block_one-content">
+                            <h4 class="scholar-block_one-heading">
+                                <a href="javascript:void(0);">{{ scholar.name }}</a>
+                            </h4>
+                            <div class="scholar-block_one-designation">{{ scholar.position }}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <h3>No team members found.</h3>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if team.has_other_pages %}
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="styled-pagination">
+                        <ul class="clearfix">
+                            {% if team.has_previous %}
+                                <li><a href="?page={{ team.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                            {% endif %}
+                            
+                            {% for i in team.paginator.page_range %}
+                                {% if team.number == i %}
+                                    <li><a href="#" class="active">{{ i }}</a></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if team.has_next %}
+                                <li><a href="?page={{ team.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+        </div>
+    </section>
+
+{% endblock %}

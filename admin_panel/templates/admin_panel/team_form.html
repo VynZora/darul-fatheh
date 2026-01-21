@@ -297,10 +297,10 @@ img, input, textarea, select, .form-control, .modern-input, .form-text {
                                 </div>
 
                                 <!-- Biography -->
-                                <div class="col-12 mb-4">
+                                {% comment %} <div class="col-12 mb-4">
                                     <label for="bio" class="form-label">Biography</label>
                                     <textarea name="bio" id="bio" class="form-control modern-input uni-description" rows="10" placeholder="Write a brief biography...">{% if team %}{{ team.bio }}{% endif %}</textarea>
-                                </div>
+                                </div> {% endcomment %}
 
                                 <!-- Submit Button -->
                                 <div class="col-12 mt-4">

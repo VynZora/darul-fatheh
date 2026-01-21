@@ -661,7 +661,14 @@
                         <a href="{% url 'admin_panel:news_list' %}"
                            class="{% if request.resolver_match.url_name in 'news_list news_create news_edit' %}active{% endif %}">
                             <i class="icofont-newspaper"></i>
-                            News
+                            Blogs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_panel:student_list' %}"
+                           class="{% if request.resolver_match.url_name in 'student_list student_create student_edit' %}active{% endif %}">
+                            <i class="icofont-user-alt-2"></i>
+                            Student Registrations
                         </a>
                     </li>
                     
