@@ -128,11 +128,11 @@
                                     <input type="text" name="title" id="title" class="form-control modern-input" value="{% if news %}{{ news.title }}{% endif %}" placeholder="Enter blog title" required>
                                 </div>
                                 
-                                <!-- Author -->
+                                {% comment %} <!-- Author -->
                                 <div class="col-md-6 mb-4">
                                     <label for="author" class="form-label">Author <span class="text-danger">*</span></label>
                                     <input type="text" name="author" id="author" class="form-control modern-input" value="{% if news %}{{ news.author }}{% endif %}" placeholder="Author name" required>
-                                </div>
+                                </div> {% endcomment %}
                                 
                                 <!-- Featured Image -->
                                 <div class="col-12 mb-4">

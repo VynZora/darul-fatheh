@@ -185,12 +185,8 @@
                                         <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
                                         
                                         <li><a href="{% url 'admin_panel:contact' %}">Contact</a></li>
-                                        <li class="dropdown"><a href="#">Others</a>
-                                            <ul>
-                                                {% comment %} <li><a href="{% url 'admin_panel:prayer_time' %}">Prayer Time</a></li> {% endcomment %}
-                                                <li><a href="{% url 'admin_panel:donate' %}">Donations</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="{% url 'admin_panel:donate' %}">Donations</a></li>
+
                                     </ul>
                                 </div>
                             </nav>
@@ -253,7 +249,15 @@
                                     <li>
                                         Phone: <a href="tel:+919495526282">+91 9495 526 282</a>
                                     </li>
+                                    
                                 </ul>
+                                <div class="footer_socials">
+                                    <a href="https://facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="https://twitter.com/"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+                                    <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                </div>
+                                
                             </div>
                         </div>
 
@@ -276,6 +280,7 @@
                                     <li><a href="{%url 'admin_panel:team'%}">Our Team</a></li>
                                     <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
                                     <li><a href="{% url 'admin_panel:donate' %}">Donate</a></li>
+                                    <li><a href="{% url 'admin_panel:register' %}">Register Now</a></li>
                                 </ul>
                             </div>
                         </div>

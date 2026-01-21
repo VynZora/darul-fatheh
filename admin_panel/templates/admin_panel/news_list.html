@@ -25,7 +25,7 @@
                 <tr>
                     <th>Image</th>
                     <th>Title</th>
-                    <th>Author</th>
+                    {% comment %} <th>Author</th> {% endcomment %}
                     <th>Published</th>
                     <th>Status</th>
                     <th class="text-center">Actions</th>
@@ -42,7 +42,7 @@
                         {% endif %}
                     </td>
                     <td>{{ item.title }}</td>
-                    <td>{{ item.author }}</td>
+                    {% comment %} <td>{{ item.author }}</td> {% endcomment %}
                     <td>{{ item.published_date|date:"M d, Y" }}</td>
                     <td>
                         {% if item.is_published %}
@@ -76,10 +76,10 @@
                                         <label class="form-label">Title *</label>
                                         <input type="text" name="title" class="form-control" value="{{ item.title }}" required>
                                     </div>
-                                    <div class="mb-3">
+                                    {% comment %} <div class="mb-3">
                                         <label class="form-label">Author *</label>
                                         <input type="text" name="author" class="form-control" value="{{ item.author }}" required>
-                                    </div>
+                                    </div> {% endcomment %}
                                     <div class="mb-3">
                                         <label class="form-label">Content</label>
                                         <textarea name="content" class="form-control" rows="4">{{ item.content }}</textarea>

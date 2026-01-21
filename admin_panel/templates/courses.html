@@ -1,35 +1,65 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Darul Fateh | Our Courses{% endblock %}
+{% block title %}Darul Fatheh | Our Courses{% endblock %}
 
 {% block content %}
 
     <style>
-        /* 1. Make the bootstrap column a flex container */
-        .service-block_two {
-            display: flex !important;
-            margin-bottom: 30px; /* Ensure spacing between rows */
-        }
-
-        /* 2. Make the card fill the height and stack vertically */
-        .service-block_two-inner {
+        /* CSS to ensure images fit the card layout perfectly */
+        .course-block_two-image img {
             width: 100%;
-            height: 100%; /* Stretches to match the tallest card in the row */
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important; /* Pushes footer to bottom */
+            height: 260px;
+            object-fit: cover;
+        }
+        
+        .course-block_two-heading a {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 52px;
+            color: #1d293e;
+            transition: all 0.3s ease;
         }
 
-        /* 3. Make the upper content grow to fill empty space */
-        .service-block_two-upper {
-            flex-grow: 1;
+        .course-block_two-heading a:hover {
+            color: var(--main-color);
+        }
+
+        /* Description fills the space naturally */
+        .course-desc-preview {
+            font-size: 15px;
+            color: #777;
+            margin-bottom: 20px;
+            line-height: 1.6em;
+            display: -webkit-box;
+            -webkit-line-clamp: 4; /* Limits text to 6 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Card Container Styling */
+        .course-block_two-inner {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            height: 100%;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
-
-        /* 4. Ensure text pushes the rest down if needed */
-        .service-block_two-text {
+        
+        .course-block_two-inner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .course-block_two-content {
+            padding: 25px;
             flex-grow: 1;
         }
     </style>
@@ -44,45 +74,45 @@
         </div>
     </section>
 
-    <section class="service-two">
+    <section class="courses-two" style="background-image:url({% static 'assets/images/background/courses-two_bg.png' %})">
         <div class="auto-container">
-            <div class="row clearfix align-items-stretch">
+            <div class="row clearfix">
 
                 {% for course in courses %}
-                <div class="service-block_two col-lg-4 col-md-6 col-sm-12 d-flex">
-                    <div class="service-block_two-inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
-                        <div class="service-block_two-upper">
-                            <div class="service-block_two-icon flaticon-quran-1"></div>
+                <div class="course-block_two col-lg-4 col-md-6 col-sm-12 d-flex">
+                    <div class="course-block_two-inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms">
+                        
+                        <div class="course-block_two-image">
+                            <a href="{% url 'admin_panel:course_detail' course.slug %}">
+                                {% if course.thumbnail %}
+                                    <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" />
+                                {% else %}
+                                    <img src="{% static 'assets/images/resource/course-5.jpg' %}" alt="Default Course Image" />
+                                {% endif %}
+                            </a>
+                        </div>
+
+                        <div class="course-block_two-content">
+                            <a href="{% url 'admin_panel:course_detail' course.slug %}" class="course-block_two-study">View Details</a>
                             
-                            <div class="service-block_two-big_icon">
-                                <img src="{% static 'assets/images/icons/' %}" alt="" />
-                            </div>
-                            
-                            <h4 class="service-block_two-heading">
+                            <h4 class="course-block_two-heading">
                                 <a href="{% url 'admin_panel:course_detail' course.slug %}">{{ course.title }}</a>
                             </h4>
-                            
-                            <div class="service-block_two-text">
+
+                            <div class="course-desc-preview">
                                 {% if course.short_description %}
-                                    {{ course.short_description|safe }}
+                                    {{ course.short_description|striptags }}
                                 {% else %}
-                                    {{ course.description|striptags|truncatewords:15 }}
+                                    {{ course.description|striptags|truncatewords:45 }}
                                 {% endif %}
                             </div>
-                        </div>
-                        
-                        <div class="service-block_two-lower">
-                            <a class="service-block_two-more" href="{% url 'admin_panel:course_detail' course.slug %}">
-                                Read More <i class="fa-solid fa-arrow-right fa-fw"></i>
-                            </a>
+
                         </div>
                     </div>
                 </div>
                 {% empty %}
-                <div class="col-12 text-center">
-                    <div class="alert alert-info">
-                        No courses available at the moment. Please check back later!
-                    </div>
+                <div class="col-12 text-center py-5">
+                    <h3>No courses found at the moment.</h3>
                 </div>
                 {% endfor %}
 
@@ -110,24 +140,6 @@
             </div>
             {% endif %}
 
-        </div>
-    </section>
-
-    <section class="cta-two">
-        <div class="auto-container">
-            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
-                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
-                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
-                <h3 class="cta-two_heading">Proud to be serving thousands of Muslim <br> Families around the World</h3>
-                <div class="cta-two_button">
-                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
-                        <span class="btn-wrap">
-                            <span class="text-one">Get in Touch</span>
-                            <span class="text-two">Get in Touch</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
 

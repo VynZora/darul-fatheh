@@ -27,8 +27,8 @@ try:
     from .models import News
     @admin.register(News)
     class NewsAdmin(admin.ModelAdmin):
-        list_display = ['title', 'author', 'published_date', 'is_published']
-        search_fields = ['title', 'author', 'content']
+        list_display = ['title', 'published_date', 'is_published']
+        search_fields = ['title', 'content']
         list_filter = ['is_published', 'published_date']
         ordering = ['-published_date']
 except ImportError:

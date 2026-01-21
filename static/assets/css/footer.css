@@ -147,7 +147,8 @@
 
 .footer_socials{
     position: relative;
-    margin-top: var(--margin-top-40);
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .footer_socials a{

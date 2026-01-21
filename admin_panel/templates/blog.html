@@ -33,17 +33,13 @@
                         </div>
                         <div class="news-block_one-content">
                             <ul class="news-block_one-meta">
-                                <li><span class="icon fa-solid fa-user fa-fw"></span>{{ item.author }}</li>
+                                {% comment %} <li><span class="icon fa-solid fa-user fa-fw"></span>{{ item.author }}</li> {% endcomment %}
                                 <li><span class="icon fa-solid fa-clock fa-fw"></span>{{ item.published_date|date:"F d, Y" }}</li>
                             </ul>
                             <h5 class="news-block_one-heading"><a href="{% url 'admin_panel:news_detail' item.slug %}">{{ item.title }}</a></h5>
                             <div class="news-block_one-text">{{ item.content|striptags|truncatewords:20 }}</div>
                             
-                            <div class="news-block_one-info d-flex justify-content-between align-items-center flex-wrap">
-                                <div class="news-block_one-author d-flex align-items-center">
-                                    <span class="icon fa-solid fa-user fa-fw" style="margin-right: 8px; color: var(--main-color);"></span>
-                                    {{ item.author }}
-                                </div>
+                            <div class="news-block_one-info d-flex align-items-center flex-wrap">
                                 <a class="news-block_one-more theme-btn" href="{% url 'admin_panel:news_detail' item.slug %}">read more</a>
                             </div>
                         </div>
@@ -81,18 +77,27 @@
 
         </div>
     </section>
-
     <section class="cta-two">
         <div class="auto-container">
-            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap">
-                <div class="cta-two_bg" style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %})"></div>
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap" 
+                 style="position: relative; border-radius: 20px; overflow: hidden;">
+                
+                <div class="cta-two_bg" 
+                     style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %}); 
+                            background-size: cover; 
+                            background-position: center; 
+                            background-attachment: scroll !important; 
+                            transform: none !important; 
+                            transition: none !important;">
+                </div>
+    
                 <div class="cta-two_icon flaticon-nabawi-mosque"></div>
-                <h3 class="cta-two_heading">Proud to be serving thousands of Muslim <br> Families around the World</h3>
+                <h3 class="cta-two_heading">Supporting students and families worldwide <br> through quality education.</h3>
                 <div class="cta-two_button">
-                    <a href="{% url 'admin_panel:contact' %}" class="theme-btn btn-style-three">
+                    <a href="{% url 'admin_panel:register' %}" class="theme-btn btn-style-three">
                         <span class="btn-wrap">
-                            <span class="text-one">Get in Touch</span>
-                            <span class="text-two">Get in Touch</span>
+                            <span class="text-one">Register Now</span>
+                            <span class="text-two">Register Now</span>
                         </span>
                     </a>
                 </div>

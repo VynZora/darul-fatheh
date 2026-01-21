@@ -80,7 +80,7 @@ class News(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
-    author = models.CharField(max_length=100)
+    # author = models.CharField(max_length=100)
     image = models.ImageField(upload_to='news/', blank=True, null=True)
     is_published = models.BooleanField(default=True)
     published_date = models.DateTimeField(default=timezone.now)

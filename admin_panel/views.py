@@ -239,7 +239,7 @@ def news_create(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
-        author = request.POST.get('author')
+        # author = request.POST.get('author')
         image = request.FILES.get('image')
         
         # --- START: Unique Slug Generation ---
@@ -257,7 +257,7 @@ def news_create(request):
             title=title,
             slug=slug,  # <--- Pass the generated unique slug here
             content=content,
-            author=author,
+            # author=author,/
             image=image
         )
         messages.success(request, 'News added successfully!')

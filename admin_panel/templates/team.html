@@ -115,5 +115,32 @@
             
         </div>
     </section>
+    <section class="cta-two">
+        <div class="auto-container">
+            <div class="inner-container d-flex justify-content-between align-items-center flex-wrap" 
+                 style="position: relative; border-radius: 20px; overflow: hidden;">
+                
+                <div class="cta-two_bg" 
+                     style="background-image:url({% static 'assets/images/background/cta-one_bg.png' %}); 
+                            background-size: cover; 
+                            background-position: center; 
+                            background-attachment: scroll !important; 
+                            transform: none !important; 
+                            transition: none !important;">
+                </div>
+    
+                <div class="cta-two_icon flaticon-nabawi-mosque"></div>
+                <h3 class="cta-two_heading">Supporting students and families worldwide <br> through quality education.</h3>
+                <div class="cta-two_button">
+                    <a href="{% url 'admin_panel:register' %}" class="theme-btn btn-style-three">
+                        <span class="btn-wrap">
+                            <span class="text-one">Register Now</span>
+                            <span class="text-two">Register Now</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
