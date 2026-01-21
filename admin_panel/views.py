@@ -9,7 +9,7 @@ from django.utils.text import slugify
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import StudentRegistrationForm
-# import threading
+import threading # 1. CRITICAL: Re-enabled
 
 from .models import (
     ManagementTeam, Course, News, Event, Category,
@@ -63,9 +63,6 @@ def dashboard(request):
         'total_testimonials': Testimonial.objects.count(),
         'recent_messages': ContactMessage.objects.all().order_by('-created_at')[:5],
         'recent_donations': DonationDetails.objects.all().order_by('-donated_at')[:5],
-
-        # 'navbar_courses': Course.objects.filter(is_active=True).order_by('-created_at')[:5],
-
     }
     return render(request, 'admin_panel/dashboard.html', context)
 
@@ -92,14 +89,12 @@ def team_create(request):
         name = request.POST.get('name')
         position = request.POST.get('position')
         bio = request.POST.get('bio')
-        # order = request.POST.get('order', 0)
         photo = request.FILES.get('photo')
         
         ManagementTeam.objects.create(
             name=name,
             position=position,
             bio=bio,
-            # order=order,
             photo=photo
         )
         messages.success(request, 'Team member added successfully!')
@@ -115,7 +110,6 @@ def team_edit(request, pk):
         team.name = request.POST.get('name')
         team.position = request.POST.get('position')
         team.bio = request.POST.get('bio')
-        # team.order = request.POST.get('order', 0)
         
         if request.FILES.get('photo'):
             team.photo = request.FILES.get('photo')
@@ -154,20 +148,9 @@ def course_list(request):
 def course_create(request):
     if request.method == 'POST':
         title = request.POST.get('title')
-        
-        # FIX: Use "or ''" to prevent saving 'None' to a non-null text field
         short_description = request.POST.get('short_description') or ""
-        
         description = request.POST.get('description')
-        
-        # Note: 'level' is removed from here. The model will use its default='beginner'.
-        
         duration = request.POST.get('duration')
-        
-        # FIX: Instructor is required in your model, so we must fetch it.
-        # If your form doesn't have this field, change this line to: instructor = "General"
-        # instructor = request.POST.get('instructor') 
-        
         thumbnail = request.FILES.get('thumbnail')
 
         Course.objects.create(
@@ -175,7 +158,6 @@ def course_create(request):
             short_description=short_description,
             description=description,
             duration=duration,
-            # instructor=instructor,
             thumbnail=thumbnail
         )
         messages.success(request, 'Course added successfully!')
@@ -190,15 +172,9 @@ def course_edit(request, pk):
     
     if request.method == 'POST':
         course.title = request.POST.get('title')
-        
-        # FIX: Use "or ''" to ensure we don't crash if the field is empty
         course.short_description = request.POST.get('short_description') or ""
-        
         course.description = request.POST.get('description')
         course.duration = request.POST.get('duration')
-        
-        # FIX: Capture instructor (required by model)
-        # course.instructor = request.POST.get('instructor')
         
         if request.FILES.get('thumbnail'):
             course.thumbnail = request.FILES.get('thumbnail')
@@ -239,25 +215,19 @@ def news_create(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
-        # author = request.POST.get('author')
         image = request.FILES.get('image')
         
-        # --- START: Unique Slug Generation ---
         original_slug = slugify(title)
         slug = original_slug
         counter = 1
-
-        # Check if this slug exists, loop until we find a free one
         while News.objects.filter(slug=slug).exists():
             slug = f"{original_slug}-{counter}"
             counter += 1
-        # --- END: Unique Slug Generation ---
         
         News.objects.create(
             title=title,
-            slug=slug,  # <--- Pass the generated unique slug here
+            slug=slug,
             content=content,
-            # author=author,/
             image=image
         )
         messages.success(request, 'News added successfully!')
@@ -272,18 +242,12 @@ def news_edit(request, pk):
     if request.method == 'POST':
         new_title = request.POST.get('title')
         news.content = request.POST.get('content')
-        news.author = request.POST.get('author')
         
-        # Only update slug if the title has changed
         if news.title != new_title:
             news.title = new_title
-            
-            # Generate new unique slug for the new title
             original_slug = slugify(new_title)
             slug = original_slug
             counter = 1
-            
-            # Exclude the current news item from the check
             while News.objects.filter(slug=slug).exclude(pk=pk).exists():
                 slug = f"{original_slug}-{counter}"
                 counter += 1
@@ -380,20 +344,17 @@ def event_delete(request, pk):
 @login_required(login_url="admin_panel:login")
 def gallery_images(request):
     categories = Category.objects.all().prefetch_related("images")
-
     category_pages = {}
     for category in categories:
         images_qs = category.images.all().order_by("-uploaded_at")
         paginator = Paginator(images_qs, 8)
         page_number = request.GET.get(f"page_{category.id}", 1)
-
         try:
             page_obj = paginator.page(page_number)
         except PageNotAnInteger:
             page_obj = paginator.page(1)
         except EmptyPage:
             page_obj = paginator.page(paginator.num_pages)
-
         category_pages[category.id] = page_obj
 
     return render(
@@ -408,12 +369,10 @@ def gallery_images(request):
 @login_required(login_url="admin_panel:login")
 def add_image(request):
     categories = Category.objects.all()
-
     if request.method == "POST":
         category_id = request.POST.get("category")
         category = Category.objects.get(id=category_id)
         files = request.FILES.getlist("images")
-
         for file in files:
             GalleryImage.objects.create(
                 category=category,
@@ -461,12 +420,10 @@ def delete_category(request, pk):
 @login_required(login_url="admin_panel:login")
 def delete_image(request, image_id):
     image = get_object_or_404(GalleryImage, id=image_id)
-
     if request.method == "POST":
         image.delete()
         messages.success(request, "Image deleted successfully")
         return redirect("admin_panel:list_image")
-
     return render(request, "admin_panel/image_list.html", {"image": image})
 
 
@@ -476,14 +433,12 @@ def donation_list(request):
     donation_list = DonationDetails.objects.all().order_by('-donated_at')
     paginator = Paginator(donation_list, 6)
     page = request.GET.get('page')
-    
     try:
         donations = paginator.page(page)
     except PageNotAnInteger:
         donations = paginator.page(1)
     except EmptyPage:
         donations = paginator.page(paginator.num_pages)
-    
     return render(request, 'admin_panel/donation_list.html', {'donations': donations})
 
 @login_required(login_url='admin_panel:login')
@@ -491,7 +446,6 @@ def donation_create(request):
     if request.method == 'POST':
         donor_name = request.POST.get('donor_name')
         amount = request.POST.get('amount')
-        # purpose = request.POST.get('purpose')
         payment_method = request.POST.get('payment_method')
         transaction_id = request.POST.get('transaction_id')
         email = request.POST.get('email')
@@ -501,7 +455,6 @@ def donation_create(request):
         DonationDetails.objects.create(
             donor_name=donor_name,
             amount=amount,
-            # purpose=purpose,
             payment_method=payment_method,
             transaction_id=transaction_id,
             email=email,
@@ -510,27 +463,22 @@ def donation_create(request):
         )
         messages.success(request, 'Donation record added successfully!')
         return redirect('admin_panel:donation_list')
-    
     return render(request, 'admin_panel/donation_form.html')
 
 @login_required(login_url='admin_panel:login')
 def donation_edit(request, pk):
     donation = get_object_or_404(DonationDetails, pk=pk)
-    
     if request.method == 'POST':
         donation.donor_name = request.POST.get('donor_name')
         donation.amount = request.POST.get('amount')
-        # donation.purpose = request.POST.get('purpose')
         donation.payment_method = request.POST.get('payment_method')
         donation.transaction_id = request.POST.get('transaction_id')
         donation.email = request.POST.get('email')
         donation.phone = request.POST.get('phone')
         donation.message = request.POST.get('message')
-        
         donation.save()
         messages.success(request, 'Donation record updated successfully!')
         return redirect('admin_panel:donation_list')
-    
     return render(request, 'admin_panel/donation_form.html', {'donation': donation})
 
 @login_required(login_url='admin_panel:login')
@@ -547,14 +495,12 @@ def message_list(request):
     message_list = ContactMessage.objects.all().order_by('-created_at')
     paginator = Paginator(message_list, 6)
     page = request.GET.get('page')
-    
     try:
         messages_list = paginator.page(page)
     except PageNotAnInteger:
         messages_list = paginator.page(1)
     except EmptyPage:
         messages_list = paginator.page(paginator.num_pages)
-    
     return render(request, 'admin_panel/message_list.html', {'messages_list': messages_list})
 
 @login_required(login_url='admin_panel:login')
@@ -578,14 +524,12 @@ def download_list(request):
     download_list = Download.objects.all().order_by('-uploaded_at')
     paginator = Paginator(download_list, 6)
     page = request.GET.get('page')
-    
     try:
         downloads = paginator.page(page)
     except PageNotAnInteger:
         downloads = paginator.page(1)
     except EmptyPage:
         downloads = paginator.page(paginator.num_pages)
-    
     return render(request, 'admin_panel/download_list.html', {'downloads': downloads})
 
 @login_required(login_url='admin_panel:login')
@@ -596,7 +540,6 @@ def download_create(request):
         category = request.POST.get('category')
         file = request.FILES.get('file')
         file_size = request.POST.get('file_size')
-        
         Download.objects.create(
             title=title,
             description=description,
@@ -606,26 +549,21 @@ def download_create(request):
         )
         messages.success(request, 'Download added successfully!')
         return redirect('admin_panel:download_list')
-    
     return render(request, 'admin_panel/download_form.html')
 
 @login_required(login_url='admin_panel:login')
 def download_edit(request, pk):
     download = get_object_or_404(Download, pk=pk)
-    
     if request.method == 'POST':
         download.title = request.POST.get('title')
         download.description = request.POST.get('description')
         download.category = request.POST.get('category')
         download.file_size = request.POST.get('file_size')
-        
         if request.FILES.get('file'):
             download.file = request.FILES.get('file')
-        
         download.save()
         messages.success(request, 'Download updated successfully!')
         return redirect('admin_panel:download_list')
-    
     return render(request, 'admin_panel/download_form.html', {'download': download})
 
 @login_required(login_url='admin_panel:login')
@@ -642,14 +580,12 @@ def testimonial_list(request):
     testimonial_list = Testimonial.objects.all().order_by('-created_at')
     paginator = Paginator(testimonial_list, 6)
     page = request.GET.get('page')
-    
     try:
         testimonials = paginator.page(page)
     except PageNotAnInteger:
         testimonials = paginator.page(1)
     except EmptyPage:
         testimonials = paginator.page(paginator.num_pages)
-    
     return render(request, 'admin_panel/testimonial_list.html', {'testimonials': testimonials})
 
 @login_required(login_url='admin_panel:login')
@@ -660,7 +596,6 @@ def testimonial_create(request):
         content = request.POST.get('content')
         rating = request.POST.get('rating', 5)
         photo = request.FILES.get('photo')
-        
         Testimonial.objects.create(
             name=name,
             designation=designation,
@@ -670,26 +605,21 @@ def testimonial_create(request):
         )
         messages.success(request, 'Testimonial added successfully!')
         return redirect('admin_panel:testimonial_list')
-    
     return render(request, 'admin_panel/testimonial_form.html')
 
 @login_required(login_url='admin_panel:login')
 def testimonial_edit(request, pk):
     testimonial = get_object_or_404(Testimonial, pk=pk)
-    
     if request.method == 'POST':
         testimonial.name = request.POST.get('name')
         testimonial.designation = request.POST.get('designation')
         testimonial.content = request.POST.get('content')
         testimonial.rating = request.POST.get('rating', 5)
-        
         if request.FILES.get('photo'):
             testimonial.photo = request.FILES.get('photo')
-        
         testimonial.save()
         messages.success(request, 'Testimonial updated successfully!')
         return redirect('admin_panel:testimonial_list')
-    
     return render(request, 'admin_panel/testimonial_form.html', {'testimonial': testimonial})
 
 @login_required(login_url='admin_panel:login')
@@ -700,7 +630,6 @@ def testimonial_delete(request, pk):
     return redirect('admin_panel:testimonial_list')
 
 
-
 # ==================== PUBLIC WEBSITE VIEWS (Frontend) ====================
 
 def index(request):
@@ -708,10 +637,8 @@ def index(request):
     news = News.objects.filter(is_published=True).order_by('-published_date')[:3]
     testimonials = Testimonial.objects.filter(is_approved=True).order_by('-created_at')
     gallery_images = GalleryImage.objects.all().order_by('-uploaded_at')[:8]
-    
     total_courses = Course.objects.filter(is_active=True).count()
     total_team = ManagementTeam.objects.count()
-
     context = {
         'courses': courses,
         'news': news,
@@ -726,7 +653,6 @@ def index(request):
 def about_page(request):
     team = ManagementTeam.objects.all().order_by('name')
     testimonials = Testimonial.objects.filter(is_approved=True).order_by('-created_at')
-
     context = {
         'team': team,
         'testimonials': testimonials,
@@ -734,48 +660,33 @@ def about_page(request):
     return render(request, 'about.html', context)
 
 def our_team(request):
-    
     team_qs = ManagementTeam.objects.all().order_by('name')
-
-
     paginator = Paginator(team_qs, 6) 
     page_number = request.GET.get('page')
     team = paginator.get_page(page_number)
-
     return render(request, 'team.html', {'team': team})
 
 def courses_page(request):
     course_list = Course.objects.filter(is_active=True).order_by('-created_at')
-    
     paginator = Paginator(course_list, 8) 
     page_number = request.GET.get('page')
-    
     try:
         courses = paginator.page(page_number)
     except PageNotAnInteger:
         courses = paginator.page(1)
     except EmptyPage:
         courses = paginator.page(paginator.num_pages)
-
-    context = {
-        'courses': courses
-    }
+    context = {'courses': courses}
     return render(request, 'courses.html', context)
 
 def course_detail(request, slug):
     course = get_object_or_404(Course, slug=slug)
-    
-    # CHANGED: Removed [:3] slicing to fetch ALL courses instead of just 3
-    # Renamed variable to 'all_courses' for clarity
     all_courses = Course.objects.filter(is_active=True).exclude(slug=slug).order_by('-created_at')
-    
     context = {
         'course': course,
-        'all_courses': all_courses,  # Make sure this key matches your template loop
+        'all_courses': all_courses,
     }
     return render(request, 'course-detail.html', context)
-
-# ==================== PUBLIC CONTACT PAGE ====================
 
 def contact_page(request):
     if request.method == 'POST':
@@ -783,38 +694,31 @@ def contact_page(request):
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        
         ContactMessage.objects.create(
             name=name,
             email=email,
             subject=subject, 
             message=message
         )
-        
         return render(request, 'contact.html', {'success': True})
-        
     return render(request, 'contact.html')
 
 def blog_page(request):
     search_query = request.GET.get('search-field') or request.POST.get('search-field')
     news_list = News.objects.filter(is_published=True).order_by('-published_date')
-
     if search_query:
         news_list = news_list.filter(
             Q(title__icontains=search_query) | 
             Q(content__icontains=search_query)
         )
-    
     paginator = Paginator(news_list, 6)
     page_number = request.GET.get('page')
-    
     try:
         news = paginator.page(page_number)
     except PageNotAnInteger:
         news = paginator.page(1)
     except EmptyPage:
         news = paginator.page(paginator.num_pages)
-
     context = {
         'news': news,
         'search_query': search_query
@@ -826,7 +730,6 @@ def news_detail(request, slug):
     news = get_object_or_404(News, slug=slug)
     recent_news = News.objects.filter(is_published=True).exclude(slug=slug).order_by('-published_date')[:3]
     categories = Category.objects.all()
-    
     context = {
         'news': news,
         'recent_news': recent_news,
@@ -834,7 +737,6 @@ def news_detail(request, slug):
     }
     return render(request, 'news-detail.html', context)
 
-# ==================== STATIC / PLACEHOLDER VIEWS ====================
 def services_page(request):
     return render(request, 'services.html')
 
@@ -850,27 +752,20 @@ def faq_page(request):
 def not_found_page(request):
     return render(request, 'not-found.html')
 
-
-# ==================== PUBLIC GALLERY VIEW ====================
-
 def gallery_page(request):
     category_id = request.GET.get('category')
     categories = Category.objects.all()
     images_list = GalleryImage.objects.all().order_by('-uploaded_at')
-    
     if category_id:
         images_list = images_list.filter(category__id=category_id)
-    
     paginator = Paginator(images_list, 9)
     page = request.GET.get('page')
-    
     try:
         images = paginator.page(page)
     except PageNotAnInteger:
         images = paginator.page(1)
     except EmptyPage:
         images = paginator.page(paginator.num_pages)
-    
     context = {
         'images': images,
         'categories': categories,
@@ -878,109 +773,101 @@ def gallery_page(request):
     }
     return render(request, 'gallery.html', context)
 
-#donation page 
-
-# admin_panel/views.py
-
 def donate(request):
     if request.method == 'POST':
         form = DonationForm(request.POST)
         if form.is_valid():
             donation = form.save(commit=False)
-            
             donation.payment_method = "UPI / QR Scan"
-            
             donation.save()
-            
             messages.success(request, 'Thank you! Your donation details have been submitted successfully.')
             return redirect('admin_panel:donate')
     else:
         form = DonationForm()
-    
     return render(request, 'donate.html', {'form': form})
-
-
 
 
 # ==================== PUBLIC REGISTRATION VIEW ====================
 
-# def send_email_in_thread(subject, message, recipient_list):
-#     try:
-#         print("Attempting to send email...") # Debug log
-#         send_mail(
-#             subject,
-#             message,
-#             settings.EMAIL_HOST_USER,
-#             recipient_list,
-#             fail_silently=False,
-#         )
-#         print("Email sent successfully!") # Debug log
-#     except Exception as e:
-#         # If email fails, print error to logs but DON'T crash the user's page
-#         print(f"Error sending email: {e}")
+# 1. THE HELPER FUNCTION (Re-enabled to prevent hanging)
+def send_email_in_thread(subject, message, recipient_list):
+    try:
+        print("Attempting to send email...") 
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            recipient_list,
+            fail_silently=False,
+        )
+        print("Email sent successfully!") 
+    except Exception as e:
+        print(f"Error sending email: {e}")
 
 # 2. THE MAIN VIEW
-
 def register_view(request):
     """
-    Handles student registration and sends an email notification to admin.
+    Handles student registration with background email sending.
     """
     form = StudentRegistrationForm()
-
+    
     if request.method == 'POST':
         form = StudentRegistrationForm(request.POST)
-
+        
         if form.is_valid():
             student = form.save()
-
+            
+            # Prepare Email Content
             course_title = student.course.title if student.course else "Not Selected"
             program_specific = student.program_name if student.program_name else "N/A"
-
+            
             subject = f"New Student Registration: {student.first_name} {student.last_name}"
-
+            
             message = (
                 f"A new student has registered via the website.\n\n"
+                f"--------------------------------------------\n"
                 f"FULL NAME: {student.first_name} {student.last_name}\n"
-                f"DOB: {student.dob}\n"
-                f"EMAIL: {student.email}\n"
-                f"MOBILE: {student.mobile}\n"
-                f"COURSE: {course_title}\n"
-                f"PROGRAM: {program_specific}\n"
+                f"DOB:       {student.dob}\n"
+                f"EMAIL:     {student.email}\n"
+                f"MOBILE:    {student.mobile}\n"
+                f"--------------------------------------------\n"
+                f"COURSE:     {course_title}\n"
+                f"SPECIFIC PROGRAM: {program_specific}\n"
+                f"--------------------------------------------\n\n"
+                f"Please verify this entry in the Admin Panel."
             )
-
-            print("EMAIL TEMPORARILY DISABLED — REGISTRATION CONTINUES")
-
-            messages.success(
-                request,
-                "Registration successful! We have received your details."
+            
+            recipient_list = [settings.EMAIL_HOST_USER]  
+            
+            # --- STARTING BACKGROUND THREAD ---
+            email_thread = threading.Thread(
+                target=send_email_in_thread, 
+                args=(subject, message, recipient_list)
             )
+            email_thread.start()
+
+            messages.success(request, 'Registration successful! We have received your details.')
             return redirect('admin_panel:register')
-
+            
         else:
-            messages.error(
-                request,
-                "Please correct the errors below and submit again."
-            )
-
+            messages.error(request, 'Please correct the errors in the form below.')
+            
     return render(request, 'register.html', {'form': form})
+
 
 # ==================== STUDENT REGISTRATION VIEWS ====================
 
 @login_required(login_url='admin_panel:login')
 def student_list(request):
-    # Show newest registrations first
     student_list = StudentRegistration.objects.all().order_by('-registered_at')
-    
-    paginator = Paginator(student_list, 10) # Show 10 per page
+    paginator = Paginator(student_list, 10) 
     page = request.GET.get('page')
-    
     try:
         students = paginator.page(page)
     except PageNotAnInteger:
         students = paginator.page(1)
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
-    
     return render(request, 'admin_panel/student_list.html', {'students': students})
 
 
@@ -993,5 +880,4 @@ def student_delete(request, pk):
 
 
 def page404(request, exception):
- 
     return render(request, 'not-found.html', status=404)
