@@ -948,18 +948,7 @@ def register_view(request):
                 f"PROGRAM: {program_specific}\n"
             )
 
-            try:
-                send_mail(
-                    subject,
-                    message,
-                    settings.EMAIL_HOST_USER,
-                    [settings.EMAIL_HOST_USER],
-                    fail_silently=False,
-                )
-            except Exception as e:
-                import traceback
-                print("EMAIL ERROR:")
-                print(traceback.format_exc())
+            print("EMAIL TEMPORARILY DISABLED — REGISTRATION CONTINUES")
 
             messages.success(
                 request,
