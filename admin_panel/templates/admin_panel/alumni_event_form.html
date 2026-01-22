@@ -1,0 +1,82 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if event %}Edit{% else %}Add{% endif %} Alumni Event | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+.modern-input { border: 1px solid #d1d5db; border-radius: 8px; padding: 0.85rem 1rem; background-color: #fff; }
+.image-preview { max-width: 400px; height: 250px; border: 2px dashed #d1d5db; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: 1rem; }
+.image-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.default__button { background: #4f46e5; color: #fff; padding: 0.85rem 1.6rem; border-radius: 8px; border: none; cursor: pointer; }
+.default__button.btn-secondary { background: #6c757d; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="dashboard__section__title">
+                    <h4 class="mb-0">{% if event %}Edit{% else %}Add New{% endif %} Alumni Event</h4>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" id="eventForm" class="mt-4">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-8 mb-4">
+                            <label class="form-label">Event Name <span class="text-danger">*</span></label>
+                            <input type="text" name="event_name" class="form-control modern-input" value="{{ event.event_name|default:'' }}" required>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label">Event Date <span class="text-danger">*</span></label>
+                            <input type="date" name="date" class="form-control modern-input" value="{{ event.date|date:'Y-m-d'|default:'' }}" required>
+                        </div>
+                        
+                        <div class="col-12 mb-4">
+                            <label class="form-label">Event Banner / Image</label>
+                            <input type="file" name="image" class="form-control modern-input" accept="image/*" onchange="previewImage(event)" {% if not event %}required{% endif %}>
+                            <div id="imagePreview" class="image-preview" {% if not event.image %}style="display: none;"{% endif %}>
+                                {% if event.image %}<img src="{{ event.image.url }}">{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="form-label">Detailed Event Description <span class="text-danger">*</span></label>
+                            <textarea name="description" id="description" class="form-control modern-input">{{ event.description|default:'' }}</textarea>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="default__button">{% if event %}Update{% else %}Create{% endif %} Event</button>
+                            <a href="{% url 'admin_panel:alumni_event_list' %}" class="default__button btn-secondary">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+    let editor;
+    ClassicEditor.create(document.querySelector('#description')).then(ed => editor = ed);
+    
+    document.querySelector('#eventForm').addEventListener('submit', () => {
+        document.querySelector('#description').value = editor.getData();
+    });
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const preview = document.getElementById('imagePreview');
+            preview.style.display = 'flex';
+            preview.innerHTML = `<img src="${e.target.result}">`;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+{% endblock %}

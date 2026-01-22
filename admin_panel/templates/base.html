@@ -18,6 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@600&family=Forum&family=Montserrat:wght@700&family=Oswald:wght@600&family=Outfit:wght@600&family=Playfair+Display:wght@700&family=Tenor+Sans&display=swap" rel="stylesheet">
 
 <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
 <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
@@ -78,6 +79,7 @@
     .header-top_list li .icon {
         color: #ffffff !important;
     }
+    
 </style>
 </head>
 
@@ -123,28 +125,28 @@
                                     
                                     <img src="{% static 'assets/images/logo.png' %}" alt="Darul Fatheh" class="main-logo" style="margin-right: 15px;">
                                     
-                                    <div style="display: flex; flex-direction: column; line-height: 1; align-items: flex-start;">
+                                    <div style="display: flex; flex-direction: column; line-height: 0.9; align-items: flex-start;">
                                         <span style="
-    font-family: 'Syncopate', sans-serif;
-    font-size: 27px; 
-    font-weight: 600; 
-    text-transform: uppercase; 
-    color: #2D4636; /* Matching the dark green in your image */
-    letter-spacing: -2.0px; /* Decreased spacing for a tighter look */
-    display: inline-block;
-    /* Artificial weight boost using text-shadow */
-    text-shadow: 0.5px 0 0 #2D4636, -0.5px 0 0 #2D4636; 
-    line-height: 1;">
-    DARUL FATHEH
-</span>
+                                            font-family: 'Tensor Sans', sans-serif;
+                                            font-size: 28px; 
+                                            font-weight: 900; /* Maximum thickness for authority */
+                                            text-transform: uppercase; 
+                                            color: #2D4636; 
+                                            letter-spacing: -1.2px; /* Tightened spacing for a solid, block-like look */
+                                            display: inline-block;
+                                            line-height: 1;">
+                                            DARUL FATHEH
+                                        </span>
                                         
                                         <span style="
                                             font-family: 'Public Sans', sans-serif;
-                                            font-size: 15px; 
-                                            font-weight: 2000; 
+                                            font-size: 14px; 
+                                            font-weight: 800; 
+                                            text-transform: uppercase;
                                             color: var(--color-two);
-                                            margin-top: 4px;
-                                            margin-left: 2px;">
+                                            letter-spacing: 0.5px; /* Slightly wider than top to balance the block */
+                                            margin-top: 2px;
+                                            margin-left: 1px;">
                                             Islamic Complex
                                         </span>
                                     </div>
@@ -167,8 +169,8 @@
                                         
                                         <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
                                         
-                                       
                                         <li><a href="{%url 'admin_panel:about'%}">About</a></li>
+                                        <li><a href="{% url 'admin_panel:alumni_page' %}">Alumni</a></li>
                                         <li><a href="{%url 'admin_panel:team'%}">Our Team</a></li>
                                         
                                         <li class="dropdown">
@@ -186,13 +188,18 @@
                                             </ul>
                                         </li>
                                         
-                                        
-                                        <li><a href="{%url 'admin_panel:blog'%}">Blogs</a></li>
-                                        <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
-                                        
                                         <li><a href="{% url 'admin_panel:contact' %}">Contact</a></li>
-                                        <li><a href="{% url 'admin_panel:donate' %}">Donations</a></li>
+                                        
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);">Others</a>
+                                            <ul>
 
+                                                <li><a href="{%url 'admin_panel:blog'%}">Blogs</a></li>
+                                                <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
+                                                
+                                                <li><a href="{% url 'admin_panel:donate' %}">Donations</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </nav>
@@ -278,15 +285,15 @@
                                 </ul>
                             </div>
                         </div>
-
+                        
                         <div class="footer-column col-lg-4 col-md-6 col-sm-12 text-center">
                             <div class="footer-widget links-widget">
                                 <h4 class="footer-title">Other Links</h4>
                                 <ul class="footer-list">
-                                    <li><a href="{%url 'admin_panel:team'%}">Our Team</a></li>
+                                    <li><a href="{% url 'admin_panel:team' %}">Our Team</a></li>
                                     <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
+                                    <li><a href="{% url 'admin_panel:alumni_page' %}">Alumni</a></li>
                                     <li><a href="{% url 'admin_panel:donate' %}">Donate</a></li>
-                                    <li><a href="{% url 'admin_panel:register' %}">Register Now</a></li>
                                 </ul>
                             </div>
                         </div>

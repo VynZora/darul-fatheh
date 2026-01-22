@@ -1,0 +1,139 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}{% if alumni %}Edit{% else %}Add New{% endif %} Alumni | Darul Fatheh Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* CKEditor Height & Form Styling */
+    .ck-editor__editable { min-height: 180px; }
+    .modern-input { border: 1px solid #d1d5db; border-radius: 8px; padding: 0.85rem 1rem; width: 100%; }
+    
+    .char-counter-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        padding: 5px 10px;
+        background: #f8fafc;
+        border-radius: 5px;
+    }
+    .char-count-text { font-weight: 700; font-size: 0.9rem; }
+    .limit-warning { color: #ef4444 !important; font-weight: bold; }
+
+    .image-preview {
+        width: 140px; height: 140px; border: 2px dashed #d1d5db;
+        border-radius: 50%; display: flex; align-items: center;
+        justify-content: center; overflow: hidden; margin-top: 1rem;
+    }
+    .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .default__button { background: #4f46e5; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; }
+    .btn-secondary { background: #6b7280; text-decoration: none; margin-left: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard sp_bottom_100">
+    <div class="container-fluid full__width__padding">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="dashboard__section__title mb-4">
+                    <h4>{% if alumni %}Edit{% else %}Add New{% endif %} Alumni Profile</h4>
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4">
+                        <form method="POST" enctype="multipart/form-data" id="alumniForm">
+                            {% csrf_token %}
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" name="name" class="modern-input" value="{{ alumni.name|default:'' }}" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Profile Photo <span class="text-danger">*</span></label>
+                                <input type="file" name="photo" class="form-control" accept="image/*" onchange="previewImage(event)" {% if not alumni %}required{% endif %}>
+                                <div id="imagePreview" class="image-preview">
+                                    {% if alumni.photo %}<img src="{{ alumni.photo.url }}">{% else %}<span class="text-muted small">Preview</span>{% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Bio / Description <span class="text-danger">*</span></label>
+                                <textarea name="description" id="description" class="form-control">{% if alumni %}{{ alumni.description }}{% endif %}</textarea>
+                                <div class="char-counter-wrapper">
+                                    <small class="text-muted">Max 180 characters recommended for even cards.</small>
+                                    <span class="char-count-text" id="charCount">0 / 180</span>
+                                </div>
+                                <div id="limitError" class="text-danger small mt-1" style="display:none;">Bio is too long! Please shorten it to keep the carousel even.</div>
+                            </div>
+                            
+                            <div class="border-top pt-4">
+                                <button type="submit" id="submitBtn" class="default__button">{% if alumni %}Update{% else %}Save{% endif %} Alumni</button>
+                                <a href="{% url 'admin_panel:alumni_list' %}" class="default__button btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+    let alumniEditor;
+    const MAX_CHAR = 180;
+
+    ClassicEditor
+        .create(document.querySelector('#description'), {
+            toolbar: ['bold', 'italic', 'link', 'bulletedList']
+        })
+        .then(editor => {
+            alumniEditor = editor;
+
+            // Monitor changes in CKEditor
+            editor.model.document.on('change:data', () => {
+                const rawData = editor.getData();
+                // Strip HTML tags to count only text
+                const plainText = rawData.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+                const currentLength = plainText.length;
+                
+                const countDisplay = document.getElementById('charCount');
+                const submitBtn = document.getElementById('submitBtn');
+                const errorMsg = document.getElementById('limitError');
+
+                countDisplay.textContent = `${currentLength} / ${MAX_CHAR}`;
+
+                if (currentLength > MAX_CHAR) {
+                    countDisplay.classList.add('limit-warning');
+                    errorMsg.style.display = 'block';
+                    submitBtn.disabled = true; // Block submission if over limit
+                } else {
+                    countDisplay.classList.remove('limit-warning');
+                    errorMsg.style.display = 'none';
+                    submitBtn.disabled = false;
+                }
+            });
+        })
+        .catch(error => console.error(error));
+
+    // Form submission sync
+    document.querySelector('#alumniForm').addEventListener('submit', function(e) {
+        if(alumniEditor) {
+            document.querySelector('#description').value = alumniEditor.getData();
+        }
+    });
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = `<img src="${e.target.result}">`;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+{% endblock %}

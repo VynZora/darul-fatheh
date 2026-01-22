@@ -34,16 +34,16 @@ try:
 except ImportError:
     pass
 
-try:
-    from .models import Event
-    @admin.register(Event)
-    class EventAdmin(admin.ModelAdmin):
-        list_display = ['title', 'location', 'event_date', 'organizer', 'is_active']
-        search_fields = ['title', 'location', 'organizer']
-        list_filter = ['is_active', 'event_date']
-        ordering = ['-event_date']
-except ImportError:
-    pass
+# try:
+#     from .models import Event
+#     @admin.register(Event)
+#     class EventAdmin(admin.ModelAdmin):
+#         list_display = ['title', 'location', 'event_date', 'organizer', 'is_active']
+#         search_fields = ['title', 'location', 'organizer']
+#         list_filter = ['is_active', 'event_date']
+#         ordering = ['-event_date']
+# except ImportError:
+#     pass
 
 try:
     from .models import PhotoAlbum
@@ -78,16 +78,16 @@ try:
 except ImportError:
     pass
 
-try:
-    from .models import Download
-    @admin.register(Download)
-    class DownloadAdmin(admin.ModelAdmin):
-        list_display = ['title', 'category', 'file_size', 'download_count', 'uploaded_at']
-        search_fields = ['title', 'description']
-        list_filter = ['category', 'uploaded_at']
-        ordering = ['-uploaded_at']
-except ImportError:
-    pass
+# try:
+#     from .models import Download
+#     @admin.register(Download)
+#     class DownloadAdmin(admin.ModelAdmin):
+#         list_display = ['title', 'category', 'file_size', 'download_count', 'uploaded_at']
+#         search_fields = ['title', 'description']
+#         list_filter = ['category', 'uploaded_at']
+#         ordering = ['-uploaded_at']
+# except ImportError:
+#     pass
 
 try:
     from .models import Testimonial

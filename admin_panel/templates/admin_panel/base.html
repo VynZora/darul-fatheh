@@ -704,17 +704,31 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{% url 'admin_panel:alumni_list' %}"
+                           class="{% if request.resolver_match.url_name == 'alumni_list' %}active{% endif %}">
+                            <i class="icofont-graduate-alt"></i>
+                            Alumni Profiles
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_panel:alumni_event_list' %}"
+                           class="{% if request.resolver_match.url_name in 'alumni_event_list alumni_event_create alumni_event_edit' %}active{% endif %}">
+                            <i class="icofont-calendar"></i>
+                            Alumni Events
+                        </a>
+                    </li>
+                    <li>
                         <a href="{% url 'admin_panel:message_list' %}" class="{% if 'message' in request.resolver_match.url_name %}active{% endif %}">
                             <i class="icofont-ui-messaging"></i>
                             Contact Messages
                         </a>
                     </li>
-                    <li>
+                    {% comment %} <li>
                         <a href="{% url 'admin_panel:download_list' %}" class="{% if 'download' in request.resolver_match.url_name %}active{% endif %}">
                             <i class="icofont-download"></i>
                             Downloads
                         </a>
-                    </li>
+                    </li> {% endcomment %}
                     <li>
                         <a href="{% url 'admin_panel:testimonial_list' %}" class="{% if 'testimonial' in request.resolver_match.url_name %}active{% endif %}">
                             <i class="icofont-star"></i>

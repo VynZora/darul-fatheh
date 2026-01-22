@@ -9,11 +9,11 @@ from django.utils.text import slugify
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import StudentRegistrationForm
-import threading # 1. CRITICAL: Re-enabled
+import threading 
 
 from .models import (
-    ManagementTeam, Course, News, Event, Category,
-    GalleryImage, DonationDetails, ContactMessage, Download, Testimonial, StudentRegistration
+    ManagementTeam, Course, News, Category,
+    GalleryImage, DonationDetails, ContactMessage, Testimonial, StudentRegistration, AlumniProfile,AlumniEvent
 )
 
 from .forms import (
@@ -55,11 +55,11 @@ def dashboard(request):
         'total_team': ManagementTeam.objects.count(),
         'total_courses': Course.objects.count(),
         'total_news': News.objects.count(),
-        'total_events': Event.objects.count(),
+        # 'total_events': Event.objects.count(),
         'total_albums': GalleryImage.objects.count(),
         'total_donations': DonationDetails.objects.count(),
         'total_messages': ContactMessage.objects.filter(is_read=False).count(),
-        'total_downloads': Download.objects.count(),
+        # 'total_downloads': Download.objects.count(),
         'total_testimonials': Testimonial.objects.count(),
         'recent_messages': ContactMessage.objects.all().order_by('-created_at')[:5],
         'recent_donations': DonationDetails.objects.all().order_by('-donated_at')[:5],
@@ -269,74 +269,6 @@ def news_delete(request, pk):
     messages.success(request, 'News deleted successfully!')
     return redirect('admin_panel:news_list')
 
-# ==================== EVENT VIEWS ====================
-@login_required(login_url='admin_panel:login')
-def event_list(request):
-    event_list = Event.objects.all().order_by('-event_date')
-    paginator = Paginator(event_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        events = paginator.page(page)
-    except PageNotAnInteger:
-        events = paginator.page(1)
-    except EmptyPage:
-        events = paginator.page(paginator.num_pages)
-    
-    return render(request, 'admin_panel/event_list.html', {'events': events})
-
-@login_required(login_url='admin_panel:login')
-def event_create(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        location = request.POST.get('location')
-        event_date = request.POST.get('event_date')
-        end_date = request.POST.get('end_date')
-        organizer = request.POST.get('organizer')
-        image = request.FILES.get('image')
-        
-        Event.objects.create(
-            title=title,
-            description=description,
-            location=location,
-            event_date=event_date,
-            end_date=end_date if end_date else None,
-            organizer=organizer,
-            image=image
-        )
-        messages.success(request, 'Event added successfully!')
-        return redirect('admin_panel:event_list')
-    
-    return render(request, 'admin_panel/event_form.html')
-
-@login_required(login_url='admin_panel:login')
-def event_edit(request, pk):
-    event = get_object_or_404(Event, pk=pk)
-    
-    if request.method == 'POST':
-        event.title = request.POST.get('title')
-        event.description = request.POST.get('description')
-        event.location = request.POST.get('location')
-        event.event_date = request.POST.get('event_date')
-        event.end_date = request.POST.get('end_date') if request.POST.get('end_date') else None
-        event.organizer = request.POST.get('organizer')
-        
-        if request.FILES.get('image'):
-            event.image = request.FILES.get('image')
-        
-        event.save()
-        messages.success(request, 'Event updated successfully!')
-        return redirect('admin_panel:event_list')
-    
-    return render(request, 'admin_panel/event_form.html', {'event': event})
-
-@login_required(login_url='admin_panel:login')
-def event_delete(request, pk):
-    event = get_object_or_404(Event, pk=pk)
-    event.delete()
-    messages.success(request, 'Event deleted successfully!')
-    return redirect('admin_panel:event_list')
 
 
 # ==================== GALLERY & CATEGORY VIEWS ====================
@@ -518,60 +450,60 @@ def message_delete(request, pk):
     return redirect('admin_panel:message_list')
 
 
-# ==================== DOWNLOAD VIEWS ====================
-@login_required(login_url='admin_panel:login')
-def download_list(request):
-    download_list = Download.objects.all().order_by('-uploaded_at')
-    paginator = Paginator(download_list, 6)
-    page = request.GET.get('page')
-    try:
-        downloads = paginator.page(page)
-    except PageNotAnInteger:
-        downloads = paginator.page(1)
-    except EmptyPage:
-        downloads = paginator.page(paginator.num_pages)
-    return render(request, 'admin_panel/download_list.html', {'downloads': downloads})
+# # ==================== DOWNLOAD VIEWS ====================
+# @login_required(login_url='admin_panel:login')
+# def download_list(request):
+#     download_list = Download.objects.all().order_by('-uploaded_at')
+#     paginator = Paginator(download_list, 6)
+#     page = request.GET.get('page')
+#     try:
+#         downloads = paginator.page(page)
+#     except PageNotAnInteger:
+#         downloads = paginator.page(1)
+#     except EmptyPage:
+#         downloads = paginator.page(paginator.num_pages)
+#     return render(request, 'admin_panel/download_list.html', {'downloads': downloads})
 
-@login_required(login_url='admin_panel:login')
-def download_create(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        category = request.POST.get('category')
-        file = request.FILES.get('file')
-        file_size = request.POST.get('file_size')
-        Download.objects.create(
-            title=title,
-            description=description,
-            category=category,
-            file=file,
-            file_size=file_size
-        )
-        messages.success(request, 'Download added successfully!')
-        return redirect('admin_panel:download_list')
-    return render(request, 'admin_panel/download_form.html')
+# @login_required(login_url='admin_panel:login')
+# def download_create(request):
+#     if request.method == 'POST':
+#         title = request.POST.get('title')
+#         description = request.POST.get('description')
+#         category = request.POST.get('category')
+#         file = request.FILES.get('file')
+#         file_size = request.POST.get('file_size')
+#         Download.objects.create(
+#             title=title,
+#             description=description,
+#             category=category,
+#             file=file,
+#             file_size=file_size
+#         )
+#         messages.success(request, 'Download added successfully!')
+#         return redirect('admin_panel:download_list')
+#     return render(request, 'admin_panel/download_form.html')
 
-@login_required(login_url='admin_panel:login')
-def download_edit(request, pk):
-    download = get_object_or_404(Download, pk=pk)
-    if request.method == 'POST':
-        download.title = request.POST.get('title')
-        download.description = request.POST.get('description')
-        download.category = request.POST.get('category')
-        download.file_size = request.POST.get('file_size')
-        if request.FILES.get('file'):
-            download.file = request.FILES.get('file')
-        download.save()
-        messages.success(request, 'Download updated successfully!')
-        return redirect('admin_panel:download_list')
-    return render(request, 'admin_panel/download_form.html', {'download': download})
+# @login_required(login_url='admin_panel:login')
+# def download_edit(request, pk):
+#     download = get_object_or_404(Download, pk=pk)
+#     if request.method == 'POST':
+#         download.title = request.POST.get('title')
+#         download.description = request.POST.get('description')
+#         download.category = request.POST.get('category')
+#         download.file_size = request.POST.get('file_size')
+#         if request.FILES.get('file'):
+#             download.file = request.FILES.get('file')
+#         download.save()
+#         messages.success(request, 'Download updated successfully!')
+#         return redirect('admin_panel:download_list')
+#     return render(request, 'admin_panel/download_form.html', {'download': download})
 
-@login_required(login_url='admin_panel:login')
-def download_delete(request, pk):
-    download = get_object_or_404(Download, pk=pk)
-    download.delete()
-    messages.success(request, 'Download deleted successfully!')
-    return redirect('admin_panel:download_list')
+# @login_required(login_url='admin_panel:login')
+# def download_delete(request, pk):
+#     download = get_object_or_404(Download, pk=pk)
+#     download.delete()
+#     messages.success(request, 'Download deleted successfully!')
+#     return redirect('admin_panel:download_list')
 
 
 # ==================== TESTIMONIAL VIEWS ====================
@@ -892,3 +824,183 @@ def student_delete(request, pk):
 
 def page404(request, exception):
     return render(request, 'not-found.html', status=404)
+
+
+
+
+
+
+# ==================== ALUMNI PROFILE VIEWS ====================
+
+@login_required(login_url='admin_panel:login')
+def alumni_list(request):
+    """Lists all alumni with pagination in the custom admin dashboard."""
+    alumni_qs = AlumniProfile.objects.all().order_by('-created_at')
+    paginator = Paginator(alumni_qs, 10) 
+    page = request.GET.get('page')
+    
+    try:
+        alumni_list = paginator.page(page)
+    except PageNotAnInteger:
+        alumni_list = paginator.page(1)
+    except EmptyPage:
+        alumni_list = paginator.page(paginator.num_pages)
+        
+    return render(request, 'admin_panel/alumni_list.html', {'alumni_list': alumni_list})
+
+
+@login_required(login_url='admin_panel:login')
+def alumni_create(request):
+    """Handles the creation of a new alumni profile."""
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        photo = request.FILES.get('photo')
+        
+        AlumniProfile.objects.create(
+            name=name,
+            description=description,
+            photo=photo
+        )
+        
+        messages.success(request, 'Alumni profile created successfully!')
+        return redirect('admin_panel:alumni_list')
+    
+    return render(request, 'admin_panel/alumni_form.html')
+
+
+@login_required(login_url='admin_panel:login')
+def alumni_edit(request, pk):
+    """Handles editing an existing alumni profile."""
+    alumni = get_object_or_404(AlumniProfile, pk=pk)
+    
+    if request.method == 'POST':
+        alumni.name = request.POST.get('name')
+        alumni.description = request.POST.get('description')
+        
+        if request.FILES.get('photo'):
+            alumni.photo = request.FILES.get('photo')
+            
+        alumni.save()
+        messages.success(request, 'Alumni profile updated successfully!')
+        return redirect('admin_panel:alumni_list')
+    
+    return render(request, 'admin_panel/alumni_form.html', {'alumni': alumni})
+
+
+@login_required(login_url='admin_panel:login')
+def alumni_delete(request, pk):
+    """Handles deletion of an alumni profile."""
+    alumni = get_object_or_404(AlumniProfile, pk=pk)
+    alumni.delete()
+    messages.success(request, 'Alumni profile deleted successfully!')
+    return redirect('admin_panel:alumni_list')
+
+
+
+# ==================== ALUMNI EVENT VIEWS ====================
+
+@login_required(login_url='admin_panel:login')
+def alumni_event_list(request):
+    """
+    Lists all alumni events with pagination.
+    """
+    event_list = AlumniEvent.objects.all().order_by('-date')
+    paginator = Paginator(event_list, 6)  # Showing 6 items per page
+    page = request.GET.get('page')
+    
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        events = paginator.page(1)
+    except EmptyPage:
+        events = paginator.page(paginator.num_pages)
+    
+    return render(request, 'admin_panel/alumni_event_list.html', {'events': events})
+
+
+@login_required(login_url='admin_panel:login')
+def alumni_event_create(request):
+    if request.method == 'POST':
+        event_name = request.POST.get('event_name')
+        date = request.POST.get('date')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+        
+        AlumniEvent.objects.create(
+            event_name=event_name,
+            date=date,
+            description=description,
+            image=image, 
+            is_visible='is_visible' in request.POST  
+        )
+        messages.success(request, 'Alumni Event added successfully!')
+        return redirect('admin_panel:alumni_event_list')
+    
+    return render(request, 'admin_panel/alumni_event_form.html')
+
+
+@login_required(login_url='admin_panel:login')
+def alumni_event_edit(request, pk):
+    event = get_object_or_404(AlumniEvent, pk=pk)
+    
+    if request.method == 'POST':
+        event.event_name = request.POST.get('event_name')
+        event.date = request.POST.get('date')
+        event.description = request.POST.get('description')
+        
+        if request.FILES.get('image'):
+            event.image = request.FILES.get('image')
+        
+        # Correctly toggle visibility based on checkbox
+        event.is_visible = 'is_visible' in request.POST 
+        
+        event.save()
+        messages.success(request, 'Alumni Event updated successfully!')
+        return redirect('admin_panel:alumni_event_list')
+    
+    return render(request, 'admin_panel/alumni_event_list.html', {'event': event})
+
+
+@login_required(login_url='admin_panel:login')
+def alumni_event_delete(request, pk):
+    """
+    Deletes an alumni event record.
+    """
+    event = get_object_or_404(AlumniEvent, pk=pk)
+    event.delete()
+    messages.success(request, 'Alumni Event deleted successfully!')
+    return redirect('admin_panel:alumni_event_list')
+
+
+
+
+# admin_panel/views.py
+
+# views.py
+
+def alumni_public_view(request):
+    """
+    Public frontend view for the Alumni section with visibility filtering.
+    """
+    # Only fetch events marked as visible
+    events = AlumniEvent.objects.filter(is_visible=True).order_by('-date')
+    
+    # Only fetch alumni profiles marked as visible
+    alumni_list = AlumniProfile.objects.all().order_by('-created_at')
+    
+    # Pagination logic remains the same
+    paginator = Paginator(alumni_list, 6) 
+    page = request.GET.get('page')
+    try:
+        alumni = paginator.page(page)
+    except PageNotAnInteger:
+        alumni = paginator.page(1)
+    except EmptyPage:
+        alumni = paginator.page(paginator.num_pages)
+
+    context = {
+        'events': events,
+        'alumni': alumni,
+    }
+    return render(request, 'alumni.html', context)

@@ -1,0 +1,197 @@
+{% extends "admin_panel/base.html" %}
+{% load static %}
+
+{% block title %}Alumni Events List | Darul Fatheh Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard__form__wraper">
+    
+    <div class="create__course__title mb-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h4 class="mb-0">Alumni Event List</h4>
+
+        <div class="d-flex align-items-center gap-2 ms-auto">
+            <div class="search-box">
+                <input type="text" id="eventSearchInput" class="form-control form-control-sm" placeholder="Search events...">
+            </div>
+        </div>
+        <a href="{% url 'admin_panel:alumni_event_create' %}" class="btn btn-success btn-sm">
+            <i class="fas fa-plus"></i> New Event
+        </a>
+    </div>
+
+    <div class="custom-table-container">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th> <th scope="col">Description Snippet</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="event-table-body">
+                {% for event in events %}
+                <tr class="searchable-event-row">
+                    <td>
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" alt="{{ event.event_name }}" class="img-fluid rounded" width="80" height="60" style="object-fit: cover;">
+                        {% else %}
+                            <div class="no-image-thumb">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td class="event-name-cell">
+                        <strong>{{ event.event_name }}</strong>
+                    </td>
+                    <td>{{ event.date|date:"M d, Y" }}</td>
+                    <td> {% if event.is_visible %}
+                            <span class="badge bg-success">Visible</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Hidden</span>
+                        {% endif %}
+                    </td>
+                    <td class="event-desc-cell">
+                        <p class="text-muted mb-0 small">{{ event.description|striptags|truncatechars:45 }}</p>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-warning me-1" data-bs-toggle="modal" data-bs-target="#updateEventModal{{ event.id }}">
+                                Update
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEventModal{{ event.id }}">
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-4"> <p class="text-muted">No events recorded. <a href="{% url 'admin_panel:alumni_event_create' %}">Create one now</a></p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3">
+        {% include 'admin_panel/pagination.html' with items=events %}
+    </div>
+
+</div>
+
+{% for event in events %}
+<div class="modal fade" id="updateEventModal{{ event.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" enctype="multipart/form-data" action="{% url 'admin_panel:alumni_event_edit' event.id %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Event: {{ event.event_name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">Event Name</label>
+                            <input type="text" name="event_name" class="form-control" value="{{ event.event_name }}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" name="date" class="form-control" value="{{ event.date|date:'Y-m-d' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="is_visible" 
+                                   id="visibleCheck{{ event.id }}" {% if event.is_visible %}checked{% endif %}>
+                            <label class="form-check-label fw-bold" for="visibleCheck{{ event.id }}">Show on Website</label>
+                        </div>
+                        <small class="text-muted">If unchecked, this event will be hidden from the frontend alumni timeline.</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control event-modal-editor" id="eventEditor{{ event.id }}">{{ event.description }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Event Image</label>
+                        <input type="file" name="image" class="form-control event-img-input" data-preview="#eventPrev{{ event.id }}" accept="image/*">
+                        <div class="mt-2 text-center">
+                            <img id="eventPrev{{ event.id }}" src="{{ event.image.url }}" class="img-fluid rounded shadow-sm" style="max-height: 150px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteEventModal{{ event.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="{% url 'admin_panel:alumni_event_delete' event.id %}">
+                {% csrf_token %}
+                <div class="modal-header"><h5 class="modal-title">Delete Event</h5></div>
+                <div class="modal-body">Delete <strong>"{{ event.event_name }}"</strong>? This cannot be undone.</div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+const eventEditors = new Map();
+document.addEventListener('DOMContentLoaded', function () {
+    // Search logic
+    const searchInput = document.getElementById('eventSearchInput');
+    const rows = document.querySelectorAll('.searchable-event-row');
+    searchInput.addEventListener('input', function () {
+        const keyword = this.value.toLowerCase();
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(keyword) ? '' : 'none';
+        });
+    });
+
+    // CKEditor for Modals
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('show.bs.modal', function () {
+            setTimeout(() => {
+                const textarea = this.querySelector('textarea.event-modal-editor');
+                if (textarea && !eventEditors.has(textarea.id)) {
+                    ClassicEditor.create(textarea).then(ed => eventEditors.set(textarea.id, ed));
+                }
+            }, 150);
+        });
+    });
+
+    // Added Image Preview Script for better UX
+    document.querySelectorAll('.event-img-input').forEach(input => {
+        input.addEventListener('change', function () {
+            const preview = document.querySelector(this.dataset.preview);
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => preview.src = e.target.result;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

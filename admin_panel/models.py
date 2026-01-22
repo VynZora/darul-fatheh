@@ -100,22 +100,7 @@ class News(models.Model):
         return self.title
 
 
-class Event(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    location = models.CharField(max_length=200)
-    event_date = models.DateTimeField()
-    end_date = models.DateTimeField(null=True, blank=True)
-    organizer = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='events/', blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        ordering = ['-event_date']
-    
-    def __str__(self):
-        return self.title
+
 
 
 class Category(models.Model):
@@ -181,29 +166,29 @@ class ContactMessage(models.Model):
         return f"{self.name} - {self.subject}"
 
 
-class Download(models.Model):
-    CATEGORY_CHOICES = [
-        ('syllabus', 'Syllabus'),
-        ('form', 'Form'),
-        ('brochure', 'Brochure'),
-        ('document', 'Document'),
-        ('other', 'Other'),
-    ]
+# class Download(models.Model):
+#     CATEGORY_CHOICES = [
+#         ('syllabus', 'Syllabus'),
+#         ('form', 'Form'),
+#         ('brochure', 'Brochure'),
+#         ('document', 'Document'),
+#         ('other', 'Other'),
+#     ]
     
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='document')
-    file = models.FileField(upload_to='downloads/')
-    file_size = models.CharField(max_length=50, blank=True)
-    download_count = models.IntegerField(default=0)
-    is_active = models.BooleanField(default=True)
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+#     title = models.CharField(max_length=200)
+#     description = models.TextField(blank=True)
+#     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='document')
+#     file = models.FileField(upload_to='downloads/')
+#     file_size = models.CharField(max_length=50, blank=True)
+#     download_count = models.IntegerField(default=0)
+#     is_active = models.BooleanField(default=True)
+#     uploaded_at = models.DateTimeField(auto_now_add=True)
     
-    class Meta:
-        ordering = ['-uploaded_at']
+#     class Meta:
+#         ordering = ['-uploaded_at']
     
-    def __str__(self):
-        return self.title
+#     def __str__(self):
+#         return self.title
 
 
 class Testimonial(models.Model):
@@ -244,3 +229,31 @@ class StudentRegistration(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+
+# models.py
+
+class AlumniProfile(OptimizedImageModel):
+    name = models.CharField(max_length=200)
+    photo = models.ImageField(upload_to='alumni/photos/')
+    description = models.TextField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    image_fields = ["photo"] # Connects to your optimize_image utility
+
+    def __str__(self):
+        return self.name
+
+class AlumniEvent(OptimizedImageModel):
+    event_name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='alumni/events/')
+    date = models.DateField()
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_visible = models.BooleanField(default=True) 
+
+    image_fields = ["image"]
+
+    def __str__(self):
+        return self.event_name

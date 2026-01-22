@@ -58,11 +58,11 @@ urlpatterns = [
     path('dashboard/news/<int:pk>/edit/', views.news_edit, name='news_edit'),
     path('dashboard/news/<int:pk>/delete/', views.news_delete, name='news_delete'),
     
-    # Events URLs
-    path('dashboard/events/', views.event_list, name='event_list'),
-    path('dashboard/events/create/', views.event_create, name='event_create'),
-    path('dashboard/events/<int:pk>/edit/', views.event_edit, name='event_edit'),
-    path('dashboard/events/<int:pk>/delete/', views.event_delete, name='event_delete'),
+    # # Events URLs
+    # path('dashboard/events/', views.event_list, name='event_list'),
+    # path('dashboard/events/create/', views.event_create, name='event_create'),
+    # path('dashboard/events/<int:pk>/edit/', views.event_edit, name='event_edit'),
+    # path('dashboard/events/<int:pk>/delete/', views.event_delete, name='event_delete'),
     
     # Photo Gallery URLs
     path("dashboard/categories/", views.category_list, name="category_list"),
@@ -84,11 +84,11 @@ urlpatterns = [
     path('dashboard/messages/<int:pk>/view/', views.message_view, name='message_view'),
     path('dashboard/messages/<int:pk>/delete/', views.message_delete, name='message_delete'),
     
-    # Downloads URLs
-    path('dashboard/downloads/', views.download_list, name='download_list'),
-    path('dashboard/downloads/create/', views.download_create, name='download_create'),
-    path('dashboard/downloads/<int:pk>/edit/', views.download_edit, name='download_edit'),
-    path('dashboard/downloads/<int:pk>/delete/', views.download_delete, name='download_delete'),
+    # # Downloads URLs
+    # path('dashboard/downloads/', views.download_list, name='download_list'),
+    # path('dashboard/downloads/create/', views.download_create, name='download_create'),
+    # path('dashboard/downloads/<int:pk>/edit/', views.download_edit, name='download_edit'),
+    # path('dashboard/downloads/<int:pk>/delete/', views.download_delete, name='download_delete'),
     
     # Testimonials URLs
     path('dashboard/testimonials/', views.testimonial_list, name='testimonial_list'),
@@ -104,5 +104,24 @@ urlpatterns = [
     # Admin Dashboard URLs
     path('students/', views.student_list, name='student_list'),
     path('students/<int:pk>/delete/', views.student_delete, name='student_delete'),
+
+
+    # Alumni Profile Management
+    path('alumni/list/', views.alumni_list, name='alumni_list'), 
+    path('alumni/create/', views.alumni_create, name='alumni_create'),
+    path('alumni/<int:pk>/edit/', views.alumni_edit, name='alumni_edit'),
+    path('alumni/<int:pk>/delete/', views.alumni_delete, name='alumni_delete'),
+
+    # Alumni Event Management
+    path('alumni-events/', views.alumni_event_list, name='alumni_event_list'),
+    path('alumni-events/create/', views.alumni_event_create, name='alumni_event_create'),
+    path('alumni-events/<int:pk>/edit/', views.alumni_event_edit, name='alumni_event_edit'),
+    path('alumni-events/<int:pk>/delete/', views.alumni_event_delete, name='alumni_event_delete'),
+
+    #public alumni page
+    path('alumni/', views.alumni_public_view, name='alumni_page'),
+    path('contact/', views.contact_page, name='contact_page'),
+
 ]
+
 handler404 = 'admin_panel.views.page404',
