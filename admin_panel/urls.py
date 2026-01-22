@@ -32,7 +32,7 @@ urlpatterns = [
     path('gallery/', views.gallery_page, name='gallery'),
 
     # Donate
-    path('donate/', views.donate, name='donate'),
+    path('donate/', views.donate, name='donate'), 
     # ==================== ADMIN DASHBOARD URLs (Backend) ====================
     
     # Authentication

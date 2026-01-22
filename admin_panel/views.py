@@ -109,7 +109,7 @@ def team_edit(request, pk):
     if request.method == 'POST':
         team.name = request.POST.get('name')
         team.position = request.POST.get('position')
-        team.bio = request.POST.get('bio')
+        # team.bio = request.POST.get('bio')
         
         if request.FILES.get('photo'):
             team.photo = request.FILES.get('photo')
@@ -773,18 +773,29 @@ def gallery_page(request):
     }
     return render(request, 'gallery.html', context)
 
+
 def donate(request):
     if request.method == 'POST':
-        form = DonationForm(request.POST)
-        if form.is_valid():
-            donation = form.save(commit=False)
-            donation.payment_method = "UPI / QR Scan"
-            donation.save()
-            messages.success(request, 'Thank you! Your donation details have been submitted successfully.')
-            return redirect('admin_panel:donate')
-    else:
-        form = DonationForm()
-    return render(request, 'donate.html', {'form': form})
+        donor_name = request.POST.get('donor_name')
+        amount = request.POST.get('amount')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        # message = request.POST.get('message')
+        screenshot = request.FILES.get('screenshot') 
+
+        DonationDetails.objects.create(
+            donor_name=donor_name,
+            amount=amount,
+            email=email,
+            phone=phone,
+            # message=message,
+            screenshot=screenshot,
+            # purpose="General Donation"
+        )
+        messages.success(request, "Thank you! Your donation details have been submitted for verification.")
+        return redirect('admin_panel:donate')
+    
+    return render(request, 'donate.html')
 
 
 # ==================== PUBLIC REGISTRATION VIEW ====================

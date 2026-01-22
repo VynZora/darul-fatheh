@@ -155,6 +155,7 @@ class DonationDetails(models.Model):
     message = models.TextField(blank=True)
     is_anonymous = models.BooleanField(default=False)
     donated_at = models.DateTimeField(auto_now_add=True)
+    screenshot = models.ImageField(upload_to='donation_proofs/', blank=True, null=True)
     
     class Meta:
         ordering = ['-donated_at']

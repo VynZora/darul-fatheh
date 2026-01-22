@@ -14,8 +14,10 @@
 <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
 
-{% comment %} <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"> {% endcomment %}
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+{% comment %} <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet"> {% endcomment %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
 <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
@@ -123,19 +125,23 @@
                                     
                                     <div style="display: flex; flex-direction: column; line-height: 1; align-items: flex-start;">
                                         <span style="
-                                            font-family: 'Cinzel', sans-serif;
-                                            font-size: 34px; 
-                                            font-weight: 2000; 
-                                            text-transform: uppercase; 
-                                            color: var(--main-color); 
-                                            letter-spacing: -0.5px;">
-                                            DARUL FATHEH
-                                        </span>
+    font-family: 'Syncopate', sans-serif;
+    font-size: 27px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    color: #2D4636; /* Matching the dark green in your image */
+    letter-spacing: -2.0px; /* Decreased spacing for a tighter look */
+    display: inline-block;
+    /* Artificial weight boost using text-shadow */
+    text-shadow: 0.5px 0 0 #2D4636, -0.5px 0 0 #2D4636; 
+    line-height: 1;">
+    DARUL FATHEH
+</span>
                                         
                                         <span style="
-                                            font-family: 'Cinzel', sans-serif;
+                                            font-family: 'Public Sans', sans-serif;
                                             font-size: 15px; 
-                                            font-weight: 400; 
+                                            font-weight: 2000; 
                                             color: var(--color-two);
                                             margin-top: 4px;
                                             margin-left: 2px;">
