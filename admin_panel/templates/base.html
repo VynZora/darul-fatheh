@@ -109,6 +109,7 @@
         .header_button-box .theme-btn {
             padding: 5px 15px;
             font-size: 13px;
+            margin-top: 12px;
         }
     }
 
@@ -139,6 +140,152 @@
             width: auto;
         }
     }
+
+    /* 8. Mobile header height adjustments */
+    @media (max-width: 768px) {
+        .main-header .header-upper .inner-container > .d-flex {
+            min-height: 100px !important;
+            height: 100px !important;
+        }
+        
+        .main-header .header-upper .logo-box {
+            padding: 10px 0 !important;
+        }
+    }
+
+    /* 9. Footer Link Columns - Left Aligned Lists */
+    .footer-widget.links-widget .footer-list {
+        text-align: left !important;
+        padding-left: 0 !important;
+    }
+
+    /* Desktop view - keep columns centered */
+    @media (min-width: 992px) {
+        .footer-column:nth-child(2),
+        .footer-column:nth-child(3) {
+            text-align: center !important;
+        }
+        
+        .footer-column:nth-child(2) .footer-widget,
+        .footer-column:nth-child(3) .footer-widget {
+            display: inline-block !important;
+            text-align: left !important;
+        }
+    }
+
+    /* Mobile Footer - properly aligned */
+@media (max-width: 991px) {
+    /* Force proper row layout */
+    .footer .widgets-section .row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        margin: 0 !important;
+    }
+    
+    /* Logo section - full width, centered, with spacing */
+    .footer-column:first-child {
+        text-align: center !important;
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 50px !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        order: 1 !important;
+    }
+    
+    .footer-widget.logo-widget {
+        text-align: center !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    .footer-widget.logo-widget .logo {
+        display: flex;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .footer-widget.logo-widget .logo a {
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .footer-widget.logo-widget .logo a span {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .footer-widget.logo-widget .footer_list {
+        text-align: center !important;
+        padding-left: 0 !important;
+    }
+    
+    .footer-widget.logo-widget .footer_socials {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    /* Links section - left side */
+    .footer-column:nth-child(2) {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        text-align: center !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        order: 2 !important;
+    }
+    
+    /* Others section - right side */
+    .footer-column:nth-child(3) {
+        width: 50% !important;
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        text-align: center !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        order: 3 !important;
+    }
+    
+    /* Center headings */
+    .footer-widget.links-widget .footer-title {
+        text-align: left !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Widget containers - inline-block for centering */
+    .footer-column:nth-child(2) .footer-widget,
+    .footer-column:nth-child(3) .footer-widget {
+        display: inline-block !important;
+        text-align: left !important;
+    }
+    
+    /* Lists - left aligned */
+    .footer-column:nth-child(2) .footer-list,
+    .footer-column:nth-child(3) .footer-list {
+        text-align: left !important;
+        padding-left: 0 !important;
+        list-style: none !important;
+    }
+}
+
+    /* Very small screens - stack vertically */
+    @media (max-width: 480px) {
+        .footer-column:nth-child(2),
+        .footer-column:nth-child(3) {
+            width: 100% !important;
+            flex: 0 0 100%;
+        }
+    }
+    /* Add right margin to social icons in mobile view only */
+@media (max-width: 991px) {
+    .footer-widget.logo-widget .footer_socials {
+        margin-right: 40px !important;
+    }
+}
 </style>
 </head>
 
@@ -307,7 +454,7 @@
                         </div>
                         <div class="footer-column col-lg-4 col-md-6 col-sm-12 text-center">
                             <div class="footer-widget links-widget">
-                                <h4 class="footer-title">Other Links</h4>
+                                <h4 class="footer-title">Others</h4>
                                 <ul class="footer-list">
                                     <li><a href="{% url 'admin_panel:team' %}">Our Team</a></li>
                                     <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 

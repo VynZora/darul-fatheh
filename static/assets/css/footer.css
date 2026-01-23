@@ -148,7 +148,8 @@
 .footer_socials{
     position: relative;
     margin-top: 10px;
-    margin-left: 10px;
+    /* margin-right:; */
+    /* margin-left: 10px; */
 }
 
 .footer_socials a{
@@ -169,6 +170,7 @@
     /* CHANGED: Replaced Yellow/Green with Deep Red */
     color: var(--white-color);
     background-color: var(--color-two);
+
 }
 
 .main-footer .widgets-section{
