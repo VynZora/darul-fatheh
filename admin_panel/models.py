@@ -4,18 +4,14 @@ from utils.image_optimizer import optimize_image
 from django.utils.text import slugify
 
 class OptimizedImageModel(models.Model):
-    """
-    Base class: any model inheriting this can declare image_fields = []
-    to auto-optimize images on save.
-    """
-    image_fields = []  # override in child models
+    image_fields = []  
 
     class Meta:
         abstract = True
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        # Optimize all declared image fields
+
         for field in self.image_fields:
             image_field = getattr(self, field, None)
             if image_field and hasattr(image_field, "path"):
@@ -25,9 +21,7 @@ class OptimizedImageModel(models.Model):
 class ManagementTeam(models.Model):
     name = models.CharField(max_length=200)
     position = models.CharField(max_length=200)
-    bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to='team/', blank=True, null=True)
-    # order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -40,29 +34,14 @@ class ManagementTeam(models.Model):
 
 
 class Course(models.Model):
-    LEVEL_CHOICES = [
-        ('beginner', 'Beginner'),
-        ('intermediate', 'Intermediate'),
-        ('advanced', 'Advanced'),
-    ]
-    
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
-    
-    
-    # NEW: Short description for the Card View
     short_description = models.TextField(blank=True, help_text="Short summary for the course card (approx. 1-2 sentences).")
-    
-    # EXISTING: This effectively becomes your "Detailed Description"
     description = models.TextField(verbose_name="Detailed Description")
-    
-    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='beginner')
     duration = models.CharField(max_length=100)
     instructor = models.CharField(max_length=200,blank=True)
-    # fee = models.DecimalField(max_digits=10, decimal_places=2)
     thumbnail = models.ImageField(upload_to='courses/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    start_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -80,7 +59,6 @@ class News(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
-    # author = models.CharField(max_length=100)
     image = models.ImageField(upload_to='news/', blank=True, null=True)
     is_published = models.BooleanField(default=True)
     published_date = models.DateTimeField(default=timezone.now)
@@ -122,7 +100,6 @@ class GalleryImage(OptimizedImageModel):
     image = models.ImageField(upload_to="gallery/")
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
-    # Tell base model which images to optimize
     image_fields = ["image"]
 
     def __str__(self):
@@ -131,8 +108,6 @@ class GalleryImage(OptimizedImageModel):
 
 class DonationDetails(models.Model):
     donor_name = models.CharField(max_length=200)
-    # amount = models.DecimalField(max_digits=10, decimal_places=2)
-    # purpose = models.CharField(max_length=200)
     payment_method = models.CharField(max_length=100)
     transaction_id = models.CharField(max_length=200, blank=True)
     email = models.EmailField(blank=True)
@@ -156,7 +131,6 @@ class ContactMessage(models.Model):
     phone = models.CharField(max_length=20, blank=True)
     subject = models.CharField(max_length=200)
     message = models.TextField()
-    is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -207,18 +181,14 @@ class Testimonial(models.Model):
         return f"{self.name} - {self.designation}"
     
 
-
-
 class StudentRegistration(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     dob = models.DateField(verbose_name="Date of Birth")
     email = models.EmailField()
     mobile = models.CharField(max_length=15)
-    
     course = models.ForeignKey('Course', on_delete=models.SET_NULL, null=True) 
     
-  
     program_name = models.CharField(
         max_length=200, 
         verbose_name="Specific Program Name", 
@@ -231,16 +201,13 @@ class StudentRegistration(models.Model):
         return f"{self.first_name} {self.last_name}"
     
 
-
-# models.py
-
 class AlumniProfile(OptimizedImageModel):
     name = models.CharField(max_length=200)
     photo = models.ImageField(upload_to='alumni/photos/')
     description = models.TextField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    image_fields = ["photo"] # Connects to your optimize_image utility
+    image_fields = ["photo"] 
 
     def __str__(self):
         return self.name

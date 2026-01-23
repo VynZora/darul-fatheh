@@ -33,7 +33,7 @@
             </thead>
             <tbody>
                 {% for student in students %}
-                <tr>
+                <tr class="searchable-student-row">
                     <td>
                         <div class="fw-bold">{{ student.registered_at|date:"M d, Y" }}</div>
                         <small class="text-muted">{{ student.registered_at|date:"h:i A" }}</small>
@@ -172,15 +172,81 @@
 
 {% block extra_js %}
 <script>
-    // Simple Client-Side Table Search Script
-    document.getElementById('studentSearchInput').addEventListener('keyup', function() {
-        var input = this.value.toLowerCase();
-        var rows = document.querySelectorAll('#studentTable tbody tr');
-        
-        rows.forEach(function(row) {
-            var text = row.innerText.toLowerCase();
-            row.style.display = text.indexOf(input) > -1 ? '' : 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    // CUSTOMIZE HIGHLIGHT COLOR HERE
+    const highlightColor = '#fff9c4'; // Change this to your preferred color
+
+    const searchInput = document.getElementById('studentSearchInput');
+    const rows = document.querySelectorAll('.searchable-student-row');
+    const searchableColumns = [1, 2, 3, 4]; // Reg Date, Full Name, Course/Program, Contact Info
+
+    // Store original text for searchable cells
+    rows.forEach(row => {
+        searchableColumns.forEach(index => {
+            const cell = row.querySelector(`td:nth-child(${index})`);
+            if (cell) {
+                cell.dataset.originalText = cell.innerHTML; // Use innerHTML to preserve structure
+            }
         });
     });
+
+    function escapeRegex(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlight(html, keyword) {
+        if (!keyword) return html;
+        
+        // Create a temporary div to work with HTML
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        
+        // Get all text nodes
+        const textNodes = [];
+        const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while (node = walker.nextNode()) {
+            textNodes.push(node);
+        }
+        
+        // Highlight text in text nodes
+        const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+        textNodes.forEach(textNode => {
+            const text = textNode.textContent;
+            if (regex.test(text)) {
+                const span = document.createElement('span');
+                span.innerHTML = text.replace(regex, `<mark style="background-color: ${highlightColor}; padding: 2px 4px; border-radius: 3px;">$1</mark>`);
+                textNode.parentNode.replaceChild(span, textNode);
+            }
+        });
+        
+        return temp.innerHTML;
+    }
+
+    searchInput.addEventListener('input', function() {
+        const keyword = this.value.trim().toLowerCase();
+
+        rows.forEach(row => {
+            let matched = false;
+
+            searchableColumns.forEach(index => {
+                const cell = row.querySelector(`td:nth-child(${index})`);
+                if (!cell) return;
+
+                const original = cell.dataset.originalText;
+                const lower = cell.textContent.toLowerCase();
+
+                if (keyword && lower.includes(keyword)) {
+                    matched = true;
+                    cell.innerHTML = highlight(original, keyword);
+                } else {
+                    cell.innerHTML = original;
+                }
+            });
+
+            row.style.display = matched || keyword === '' ? '' : 'none';
+        });
+    });
+});
 </script>
 {% endblock %}

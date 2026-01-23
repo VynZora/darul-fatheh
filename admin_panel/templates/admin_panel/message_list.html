@@ -132,4 +132,71 @@
 .custom-table-container { width: 100%; overflow-x: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; background: white; margin-bottom: 1rem; }
 .custom-table-container table { min-width: 900px; width: 100%; margin-bottom: 0; }
 </style>
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const rows = document.querySelectorAll('tbody tr');
+    const searchableColumns = [1, 2, 3, 4]; // Name, Email, Subject, Date columns
+    
+    // CUSTOMIZE HIGHLIGHT COLOR HERE
+    const highlightColor = '#fff9c4'; // Change this to your preferred color
+
+    // Store original text ONLY for searchable cells
+    rows.forEach(row => {
+        // Skip the "no messages" row
+        if (row.querySelector('td[colspan]')) {
+            return;
+        }
+        
+        searchableColumns.forEach(index => {
+            const cell = row.querySelector(`td:nth-child(${index})`);
+            if (cell) {
+                cell.dataset.originalText = cell.textContent;
+            }
+        });
+    });
+
+    function escapeRegex(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlight(text, keyword) {
+        if (!keyword) return text;
+        const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+        return text.replace(regex, `<mark style="background-color: ${highlightColor}; padding: 2px 4px; border-radius: 3px;">$1</mark>`);
+    }
+
+    searchInput.addEventListener('input', function() {
+        const keyword = this.value.trim().toLowerCase();
+
+        rows.forEach(row => {
+            // Skip the "no messages" row
+            if (row.querySelector('td[colspan]')) {
+                return;
+            }
+
+            let matched = false;
+
+            searchableColumns.forEach(index => {
+                const cell = row.querySelector(`td:nth-child(${index})`);
+                if (!cell) return;
+
+                const original = cell.dataset.originalText;
+                const lower = original.toLowerCase();
+
+                if (keyword && lower.includes(keyword)) {
+                    matched = true;
+                    cell.innerHTML = highlight(original, keyword);
+                } else {
+                    cell.innerHTML = original;
+                }
+            });
+
+            row.style.display = matched || keyword === '' ? '' : 'none';
+        });
+    });
+});
+</script>
+{% endblock %}
 {% endblock %}

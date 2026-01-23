@@ -16,7 +16,7 @@ try:
     from .models import Course
     @admin.register(Course)
     class CourseAdmin(admin.ModelAdmin):
-        list_display = ['title', 'level',]
+        list_display = ['title',]
         search_fields = ['title']
         # list_filter = ['level', 'is_active']
         # ordering = ['-created_at']
@@ -71,9 +71,9 @@ try:
     from .models import ContactMessage
     @admin.register(ContactMessage)
     class ContactMessageAdmin(admin.ModelAdmin):
-        list_display = ['name', 'email', 'subject', 'is_read', 'created_at']
+        list_display = ['name', 'email', 'subject', 'created_at']
         search_fields = ['name', 'email', 'subject', 'message']
-        list_filter = ['is_read', 'created_at']
+        list_filter = [ 'created_at']
         ordering = ['-created_at']
 except ImportError:
     pass

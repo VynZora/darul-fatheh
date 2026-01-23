@@ -67,7 +67,6 @@
                             </button>
                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteNewsModal{{ item.id }}">
                                 Delete
-                                
                             </button>
                         </div>
                     </td>
@@ -121,6 +120,7 @@
     </div>
 </div>
 {% endfor %}
+
 {% for item in news %}
 <div class="modal fade" id="deleteNewsModal{{ item.id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -152,6 +152,9 @@
     const newsEditors = new Map();
 
     document.addEventListener('DOMContentLoaded', function () {
+        // CUSTOMIZE HIGHLIGHT COLOR HERE
+        const highlightColor = '#fff9c4'; // Change this to your preferred color
+
         // Standardized CKEditor Loader
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('show.bs.modal', function () {
@@ -169,12 +172,53 @@
             });
         });
 
-        // News Search Logic
+        // News Search Logic with Highlighting
         const searchInput = document.getElementById('newsSearchInput');
+        const rows = document.querySelectorAll('.searchable-news-row');
+        const searchableColumns = [2, 3]; // Title and Published Date columns
+
+        // Store original text for searchable cells
+        rows.forEach(row => {
+            searchableColumns.forEach(index => {
+                const cell = row.querySelector(`td:nth-child(${index})`);
+                if (cell) {
+                    cell.dataset.originalText = cell.textContent;
+                }
+            });
+        });
+
+        function escapeRegex(text) {
+            return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function highlight(text, keyword) {
+            if (!keyword) return text;
+            const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+            return text.replace(regex, `<mark style="background-color: ${highlightColor}; padding: 2px 4px; border-radius: 3px;">$1</mark>`);
+        }
+
         searchInput.addEventListener('input', function () {
-            const keyword = this.value.toLowerCase();
-            document.querySelectorAll('.searchable-news-row').forEach(row => {
-                row.style.display = row.innerText.toLowerCase().includes(keyword) ? '' : 'none';
+            const keyword = this.value.trim().toLowerCase();
+
+            rows.forEach(row => {
+                let matched = false;
+
+                searchableColumns.forEach(index => {
+                    const cell = row.querySelector(`td:nth-child(${index})`);
+                    if (!cell) return;
+
+                    const original = cell.dataset.originalText;
+                    const lower = original.toLowerCase();
+
+                    if (keyword && lower.includes(keyword)) {
+                        matched = true;
+                        cell.innerHTML = highlight(original, keyword);
+                    } else {
+                        cell.innerHTML = original;
+                    }
+                });
+
+                row.style.display = matched || keyword === '' ? '' : 'none';
             });
         });
 

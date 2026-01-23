@@ -143,16 +143,79 @@
 const alumniEditors = new Map();
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Search Functionality matching Course page
+    // CUSTOMIZE HIGHLIGHT COLOR HERE
+    const highlightColor = '#fff9c4'; // Change this to your preferred color
+
+    // Search Functionality with Highlighting
     const searchInput = document.getElementById('alumniSearchInput');
     const rows = document.querySelectorAll('.searchable-row');
+    const searchableColumns = [2, 3]; // Name and Description columns
+
+    // Store original text for searchable cells
+    rows.forEach(row => {
+        searchableColumns.forEach(index => {
+            const cell = row.querySelector(`td:nth-child(${index})`);
+            if (cell) {
+                cell.dataset.originalText = cell.innerHTML;
+            }
+        });
+    });
+
+    function escapeRegex(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlight(html, keyword) {
+        if (!keyword) return html;
+        
+        // Create a temporary div to work with HTML
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        
+        // Get all text nodes
+        const textNodes = [];
+        const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while (node = walker.nextNode()) {
+            textNodes.push(node);
+        }
+        
+        // Highlight text in text nodes
+        const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+        textNodes.forEach(textNode => {
+            const text = textNode.textContent;
+            if (regex.test(text)) {
+                const span = document.createElement('span');
+                span.innerHTML = text.replace(regex, `<mark style="background-color: ${highlightColor}; padding: 2px 4px; border-radius: 3px;">$1</mark>`);
+                textNode.parentNode.replaceChild(span, textNode);
+            }
+        });
+        
+        return temp.innerHTML;
+    }
 
     searchInput.addEventListener('input', function () {
         const keyword = this.value.trim().toLowerCase();
+
         rows.forEach(row => {
-            const name = row.querySelector('.alumni-name-cell').textContent.toLowerCase();
-            const desc = row.querySelector('.alumni-desc-cell').textContent.toLowerCase();
-            row.style.display = (name.includes(keyword) || desc.includes(keyword)) ? '' : 'none';
+            let matched = false;
+
+            searchableColumns.forEach(index => {
+                const cell = row.querySelector(`td:nth-child(${index})`);
+                if (!cell) return;
+
+                const original = cell.dataset.originalText;
+                const lower = cell.textContent.toLowerCase();
+
+                if (keyword && lower.includes(keyword)) {
+                    matched = true;
+                    cell.innerHTML = highlight(original, keyword);
+                } else {
+                    cell.innerHTML = original;
+                }
+            });
+
+            row.style.display = matched || keyword === '' ? '' : 'none';
         });
     });
 

@@ -58,7 +58,7 @@ def dashboard(request):
         # 'total_events': Event.objects.count(),
         'total_albums': GalleryImage.objects.count(),
         'total_donations': DonationDetails.objects.count(),
-        'total_messages': ContactMessage.objects.filter(is_read=False).count(),
+        'total_messages': ContactMessage.objects.all().count(),
         # 'total_downloads': Download.objects.count(),
         'total_testimonials': Testimonial.objects.count(),
         'recent_messages': ContactMessage.objects.all().order_by('-created_at')[:5],
@@ -438,7 +438,7 @@ def message_list(request):
 @login_required(login_url='admin_panel:login')
 def message_view(request, pk):
     message = get_object_or_404(ContactMessage, pk=pk)
-    message.is_read = True
+    # message.is_read = True
     message.save()
     return render(request, 'admin_panel/message_view.html', {'message': message})
 
