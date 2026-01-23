@@ -14,7 +14,6 @@
 <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
 
-{% comment %} <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet"> {% endcomment %}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
@@ -71,25 +70,83 @@
         border-top-color: var(--color-two) !important;
     }
 
-    /* 6. [NEW] Make Top Bar Email White */
+    /* 6. Make Top Bar Email White */
     .header-top_list li a {
         color: #ffffff !important;
     }
-    /* Optional: If you want the icon white too */
     .header-top_list li .icon {
         color: #ffffff !important;
     }
-    
+
+    /* 7. FIX: PERSISTENT REGISTER BUTTON FOR 900px - 1420px */
+    @media (min-width: 992px) and (max-width: 1420px) {
+        .main-menu .navigation > li {
+            margin-right: 15px !important; /* Reduce spacing between menu items */
+        }
+        .main-menu .navigation > li > a {
+            padding: 25px 5px !important; /* Slimmer nav links */
+            font-size: 14px;
+        }
+        .header_button-box {
+            display: block !important;
+            margin-left: 10px;
+        }
+        .header_button-box .theme-btn {
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .main-header .header-upper .outer-box {
+            display: flex !important;
+            align-items: center;
+        }
+        .header_button-box {
+            display: block !important;
+            margin-right: 15px;
+        }
+        .header_button-box .theme-btn {
+            padding: 5px 15px;
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo-box span[style*="font-size: 28px"] {
+            font-size: 18px !important;
+        }
+        .logo-box span[style*="font-size: 14px"] {
+            font-size: 10px !important;
+        }
+        .main-logo {
+            max-height: 45px;
+            margin-right: 8px !important;
+        }
+    }
+
+    .mobile-button-box {
+        display: none;
+        padding: 20px 25px;
+    }
+
+    @media (max-width: 991px) {
+        .mobile-button-box {
+            display: block;
+        }
+        .mobile-menu .nav-logo img {
+            max-height: 60px;
+            width: auto;
+        }
+    }
 </style>
 </head>
 
 <body>
 
 <div class="page-wrapper">
-    
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
-    
     <div class="preloader"></div>
     
     <header class="main-header">
@@ -102,7 +159,6 @@
                                 <li><span class="icon fa-solid fa-envelope fa-fw"></span><a href="mailto:darulfatheh@gmail.com">darulfatheh@gmail.com</a></li>
                                 <li><span class="icon fa-solid fa-location-dot fa-fw"></span>Muthalakodam P.O, Idukki, Kerala</li>
                             </ul>
-                            {% comment %} <div class="bismillah"><img src="{% static 'assets/images/icons/' %}" alt="" /> </div> {% endcomment %}
                         </div>
                         <ul class="header-top_list-two">
                             <li><span class="icon fa-regular fa-sun fa-fw"></span>Sunrise At: <span id="header-sunrise">Loading...</span></li>
@@ -121,32 +177,13 @@
                         
                         <div class="logo-box">
                             <div class="logo">
-                                <a href="{% url 'admin_panel:index' %}" style="display: flex; align-items: center; text-decoration: none;">
-                                    
+                                <a href="{% url 'admin_panel:dashboard' %}" style="display: flex; align-items: center; text-decoration: none;">
                                     <img src="{% static 'assets/images/logo.png' %}" alt="Darul Fatheh" class="main-logo" style="margin-right: 15px;">
-                                    
                                     <div style="display: flex; flex-direction: column; line-height: 0.9; align-items: flex-start;">
-                                        <span style="
-                                            font-family: 'Tensor Sans', sans-serif;
-                                            font-size: 28px; 
-                                            font-weight: 900; /* Maximum thickness for authority */
-                                            text-transform: uppercase; 
-                                            color: #2D4636; 
-                                            letter-spacing: -1.2px; /* Tightened spacing for a solid, block-like look */
-                                            display: inline-block;
-                                            line-height: 1;">
+                                        <span style="font-family: 'Tensor Sans', sans-serif; font-size: 28px; font-weight: 900; text-transform: uppercase; color: #2D4636; letter-spacing: -1.2px; display: inline-block; line-height: 1;">
                                             DARUL FATHEH
                                         </span>
-                                        
-                                        <span style="
-                                            font-family: 'Public Sans', sans-serif;
-                                            font-size: 14px; 
-                                            font-weight: 800; 
-                                            text-transform: uppercase;
-                                            color: var(--color-two);
-                                            letter-spacing: 0.5px; /* Slightly wider than top to balance the block */
-                                            margin-top: 2px;
-                                            margin-left: 1px;">
+                                        <span style="font-family: 'Public Sans', sans-serif; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--color-two); letter-spacing: 0.5px; margin-top: 2px; margin-left: 1px;">
                                             Islamic Complex
                                         </span>
                                     </div>
@@ -166,38 +203,23 @@
                                 
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
-                                        
-                                        <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
-                                        
-                                        <li><a href="{%url 'admin_panel:about'%}">About</a></li>
-                                        <li><a href="{% url 'admin_panel:alumni_page' %}">Alumni</a></li>
-                                        <li><a href="{%url 'admin_panel:team'%}">Our Team</a></li>
-                                        
+                                        <li><a href="{% url 'admin_panel:dashboard' %}">Home</a></li>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Alumni</a></li>
+                                        <li><a href="{% url 'admin_panel:team_list' %}">Our Team</a></li>
                                         <li class="dropdown">
-                                            <a href="{% url 'admin_panel:courses' %}" onclick="window.location.href=this.href">Courses</a>
+                                            <a href="{% url 'admin_panel:course_list' %}">Courses</a>
                                             <ul>
-                                                {% for course in navbar_courses %}
-                                                    <li>
-                                                        <a href="{% url 'admin_panel:course_detail' course.slug %}">
-                                                            {{ course.title|truncatechars:25 }}
-                                                        </a>
-                                                    </li>
-                                                {% empty %}
-                                                    <li><a href="#">No courses available</a></li>
-                                                {% endfor %}
+                                                <li><a href="{% url 'admin_panel:course_list' %}">All Courses</a></li>
                                             </ul>
                                         </li>
-                                        
-                                        <li><a href="{% url 'admin_panel:contact' %}">Contact</a></li>
-                                        
+                                        <li><a href="#">Contact</a></li>
                                         <li class="dropdown">
                                             <a href="javascript:void(0);">Others</a>
                                             <ul>
-
-                                                <li><a href="{%url 'admin_panel:blog'%}">Blogs</a></li>
-                                                <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
-                                                
-                                                <li><a href="{% url 'admin_panel:donate' %}">Donations</a></li>
+                                                <li><a href="{% url 'admin_panel:news_list' %}">Blogs</a></li>
+                                                <li><a href="{% url 'admin_panel:list_image' %}">Gallery</a></li> 
+                                                <li><a href="{% url 'admin_panel:donation_list' %}">Donations</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -207,7 +229,7 @@
                         
                         <div class="outer-box d-flex align-items-center flex-wrap">
                             <div class="header_button-box">
-                                <a href="{% url 'admin_panel:register' %}" class="theme-btn btn-style-one">
+                                <a href="#" class="theme-btn btn-style-one">
                                     <span class="btn-wrap"><span class="text-one">Register Now</span><span class="text-two">Register Now</span></span>
                                 </a>
                             </div>
@@ -222,14 +244,18 @@
             <div class="menu-backdrop"></div>
             <div class="close-btn"><span class="icon flaticon-close-1"></span></div>
             <nav class="menu-box">
-                <div class="nav-logo"><a href="{% url 'admin_panel:index' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="" title=""></a></div>
+                <div class="nav-logo"><a href="{% url 'admin_panel:dashboard' %}"><img src="{% static 'assets/images/logo.png' %}" alt="" title=""></a></div>
                 <div class="menu-outer"></div>
+                <div class="mobile-button-box text-center">
+                    <a href="#" class="theme-btn btn-style-one">
+                        <span class="btn-wrap"><span class="text-one">Register Now</span><span class="text-two">Register Now</span></span>
+                    </a>
+                </div>
             </nav>
         </div>
     </header>
     
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
     
     <footer class="main-footer">
         <div class="footer_bg-image" style="background-image: url({% static 'assets/images/background/footer-bg.jpg' %})"></div>
@@ -237,96 +263,63 @@
             <div class="inner-container">
                 <div class="widgets-section">
                     <div class="row clearfix justify-content-center">
-                        
                         <div class="footer-column col-lg-4 col-md-6 col-sm-12 text-center">
                             <div class="footer-widget logo-widget">
                                 <div class="logo">
-                                    <a href="{% url 'admin_panel:index' %}" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                                        
+                                    <a href="{% url 'admin_panel:dashboard' %}" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
                                         <img src="{% static 'assets/images/logo.png' %}" alt="Darul Fatheh" style="max-height: 60px; width: auto; margin-right: 15px;">
-                                        
-                                        <span style="font-family: 'Lexend', sans-serif; font-size: 30px; font-weight: 800; color: white; letter-spacing: -0.5px; border-bottom: 3px solid var(--color-two); padding-bottom: 5px; line-height: 1;">
-                                        Darul Fatheh 
-                                        </span>
-                                        
+                                        <span style="font-family: 'Lexend', sans-serif; font-size: 30px; font-weight: 800; color: white; letter-spacing: -0.5px; border-bottom: 3px solid var(--color-two); padding-bottom: 5px; line-height: 1;">Darul Fatheh </span>
                                     </a>
                                 </div>
                                 <ul class="footer_list">
-                                    <li>
-                                        Kunnam, Muthalakodam P.O.,<br>
-                                        Thodupuzha, Idukki, Kerala
-                                    </li>
-                                    <li>
-                                        Phone: <a href="tel:+918848078986">+91 8848 078 986</a>
-                                    </li>
-                                    <li>
-                                        Phone: <a href="tel:+919495526282">+91 9495 526 282</a>
-                                    </li>
-                                    
+                                    <li>Kunnam, Muthalakodam P.O.,<br>Thodupuzha, Idukki, Kerala</li>
+                                    <li>Phone: <a href="tel:+918848078986">+91 8848 078 986</a></li>
+                                    <li>Phone: <a href="tel:+919495526282">+91 9495 526 282</a></li>
                                 </ul>
                                 <div class="footer_socials">
-                                    <a href="https://facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="https://twitter.com/"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i></a>
-                                    <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
                                 </div>
-                                
                             </div>
                         </div>
-
                         <div class="footer-column col-lg-4 col-md-6 col-sm-12 text-center">
                             <div class="footer-widget links-widget">
                                 <h4 class="footer-title">Links</h4>
                                 <ul class="footer-list">
-                                    <li><a href="{% url 'admin_panel:about' %}">About us</a></li>
-                                    <li><a href="{% url 'admin_panel:courses' %}">Courses</a></li>
-                                    <li><a href="{% url 'admin_panel:blog' %}">Latest News</a></li>
-                                    <li><a href="{% url 'admin_panel:contact' %}">Contact</a></li>
+                                    <li><a href="#">About us</a></li>
+                                    <li><a href="{% url 'admin_panel:course_list' %}">Courses</a></li>
+                                    <li><a href="{% url 'admin_panel:news_list' %}">Latest News</a></li>
+                                    <li><a href="{% url 'admin_panel:message_list' %}">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
-                        
                         <div class="footer-column col-lg-4 col-md-6 col-sm-12 text-center">
                             <div class="footer-widget links-widget">
                                 <h4 class="footer-title">Other Links</h4>
                                 <ul class="footer-list">
-                                    <li><a href="{% url 'admin_panel:team' %}">Our Team</a></li>
-                                    <li><a href="{% url 'admin_panel:gallery' %}">Gallery</a></li> 
-                                    <li><a href="{% url 'admin_panel:alumni_page' %}">Alumni</a></li>
-                                    <li><a href="{% url 'admin_panel:donate' %}">Donate</a></li>
+                                    <li><a href="{% url 'admin_panel:team_list' %}">Our Team</a></li>
+                                    <li><a href="{% url 'admin_panel:list_image' %}">Gallery</a></li> 
+                                    <li><a href="#">Alumni</a></li>
+                                    <li><a href="{% url 'admin_panel:donation_list' %}">Donate</a></li>
                                 </ul>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <div class="footer_bottom-bg" style="background-image: url({% static 'assets/images/background/' %})"></div>
             <div class="auto-container">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div class="copyright">
-                        © <span id="currentYear"></span> Darul Fatheh Islamic Complex. All rights reserved. Developed by <a href="https://vynzora.com/" style="color:white; text-decoration: underline;">Vynzora</a>
+                        © <span id="currentYear"></span> Darul Fatheh Islamic Complex. Developed by <a href="https://vynzora.com/" style="color:white; text-decoration: underline;">Vynzora</a>
                     </div>
-                    <ul class="footer-nav">
-                    </ul>
                 </div>
             </div>
         </div>
     </footer>
-    
-    <div class="search-popup">
-        <div class="color-layer"></div>
-        <button class="close-search"><span class="flaticon-close-1"></span></button>
-        <form method="get" action="{% url 'admin_panel:blog' %}">
-            <div class="form-group">
-                <input type="search" name="search-field" value="" placeholder="Search Here" required="">
-                <button class="fa fa-solid fa-magnifying-glass fa-fw" type="submit"></button>
-            </div>
-        </form>
-    </div>
-    
 </div>
 
 <div class="progress-wrap">
@@ -374,7 +367,6 @@
             .then(response => response.json())
             .then(data => {
                 const timings = data.data.timings;
-
                 function tConvert(time) {
                     time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
                     if (time.length > 1) { 
@@ -384,49 +376,12 @@
                     }
                     return time.join(''); 
                 }
-
                 function update(id, text) {
                     const el = document.getElementById(id);
                     if (el) el.innerText = text;
                 }
-
                 update('header-sunrise', tConvert(timings.Sunrise));
                 update('header-sunset', tConvert(timings.Maghrib));
-                
-                update('fajr-time', tConvert(timings.Fajr));
-                update('sunrise-time', tConvert(timings.Sunrise));
-                update('dhuhr-time', tConvert(timings.Dhuhr));
-                update('asr-time', tConvert(timings.Asr));
-                update('maghrib-time', tConvert(timings.Maghrib));
-                update('isha-time', tConvert(timings.Isha));
-
-                const now = new Date();
-                const currentTime = now.getHours() * 60 + now.getMinutes(); 
-
-                const prayerNames = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-                
-                function getMinutes(timeStr) {
-                    const parts = timeStr.split(':');
-                    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
-                }
-
-                let foundNext = false;
-                for (const name of prayerNames) {
-                    const timeVal = timings[name]; 
-                    const pMinutes = getMinutes(timeVal);
-                    
-                    if (pMinutes > currentTime) {
-                        update('next-prayer-name', name);
-                        update('next-prayer-time', tConvert(timeVal));
-                        foundNext = true;
-                        break;
-                    }
-                }
-
-                if (!foundNext) {
-                    update('next-prayer-name', "Fajr (Tomorrow)");
-                    update('next-prayer-time', tConvert(timings.Fajr));
-                }
             })
             .catch(error => console.error('Prayer time fetch error:', error));
     });
