@@ -88,13 +88,13 @@ def team_create(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         position = request.POST.get('position')
-        bio = request.POST.get('bio')
+        # bio = request.POST.get('bio')
         photo = request.FILES.get('photo')
         
         ManagementTeam.objects.create(
             name=name,
             position=position,
-            bio=bio,
+            # bio=bio,
             photo=photo
         )
         messages.success(request, 'Team member added successfully!')
@@ -377,7 +377,7 @@ def donation_list(request):
 def donation_create(request):
     if request.method == 'POST':
         donor_name = request.POST.get('donor_name')
-        amount = request.POST.get('amount')
+        # amount = request.POST.get('amount')
         payment_method = request.POST.get('payment_method')
         transaction_id = request.POST.get('transaction_id')
         email = request.POST.get('email')
@@ -386,7 +386,7 @@ def donation_create(request):
         
         DonationDetails.objects.create(
             donor_name=donor_name,
-            amount=amount,
+            # amount=amount,
             payment_method=payment_method,
             transaction_id=transaction_id,
             email=email,
@@ -402,7 +402,7 @@ def donation_edit(request, pk):
     donation = get_object_or_404(DonationDetails, pk=pk)
     if request.method == 'POST':
         donation.donor_name = request.POST.get('donor_name')
-        donation.amount = request.POST.get('amount')
+        # donation.amount = request.POST.get('amount')
         donation.payment_method = request.POST.get('payment_method')
         donation.transaction_id = request.POST.get('transaction_id')
         donation.email = request.POST.get('email')
@@ -709,7 +709,7 @@ def gallery_page(request):
 def donate(request):
     if request.method == 'POST':
         donor_name = request.POST.get('donor_name')
-        amount = request.POST.get('amount')
+        # amount = request.POST.get('amount')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         # message = request.POST.get('message')
@@ -717,7 +717,7 @@ def donate(request):
 
         DonationDetails.objects.create(
             donor_name=donor_name,
-            amount=amount,
+            # amount=amount,
             email=email,
             phone=phone,
             # message=message,

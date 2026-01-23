@@ -23,7 +23,7 @@
                     <th>Proof</th>
                     <th>Donor Name</th>
                     <th>Contact Info</th>
-                    <th>Amount</th>
+                    {% comment %} <th>Amount</th> {% endcomment %}
                     <th>Date</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -45,7 +45,7 @@
                             <i class="fas fa-envelope fa-xs text-muted"></i> {{ donation.email|default:"N/A" }}
                         </div>
                     </td>
-                    <td><span class="text-success font-weight-bold">₹{{ donation.amount }}</span></td>
+                    {% comment %} <td><span class="text-success font-weight-bold">₹{{ donation.amount }}</span></td> {% endcomment %}
                     <td>{{ donation.donated_at|date:"M d, Y" }}</td>
                     <td class="text-center">
                         {% if donation.screenshot %}

@@ -115,39 +115,17 @@
 
 {% block content %}
 <div class="main-page-content">
+    
     <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
         <div class="auto-container">
             <h2>Alumni Spotlight</h2>
         </div>
     </section>
 
-    <section class="spotlight-section pt-5 pb-5">
-        <div class="auto-container">
-            <div class="sec-title centered">
-                <h2 class="sec-title_heading">Our Distinguished Members</h2>
-            </div>
-            <div class="alumni-modern-slick">
-                {% for person in alumni %}
-                <div class="alumni-spotlight-item">
-                    <div class="profile-card-lengthy">
-                        <div class="avatar-box">
-                            <img src="{{ person.photo.url|default:'/static/assets/images/resource/author-1.jpg' }}" alt="{{ person.name }}">
-                        </div>
-                        <h3 class="member-name">{{ person.name }}</h3>
-                        <p class="alumni-bio-text">
-                            {{ person.description|striptags|truncatechars:250 }}
-                        </p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
     <section class="events-section">
         <div class="auto-container">
             <div class="sec-title">
-                <h2 class="sec-title_heading">Event Timeline</h2>
+                <h2 class="sec-title_heading">Upcoming Events & Programs</h2>
             </div>
             {% for event in events %}
             <div class="event-detail-row">
@@ -171,6 +149,31 @@
             {% endfor %}
         </div>
     </section>
+
+    <section class="spotlight-section pt-5 pb-5">
+        <div class="auto-container">
+            <div class="sec-title centered">
+                <h2 class="sec-title_heading">Our Alumni Stories</h2>
+            </div>
+            <div class="alumni-modern-slick">
+                {% for person in alumni %}
+                <div class="alumni-spotlight-item">
+                    <div class="profile-card-lengthy">
+                        <div class="avatar-box">
+                            <img src="{{ person.photo.url|default:'/static/assets/images/resource/author-1.jpg' }}" alt="{{ person.name }}">
+                        </div>
+                        <h3 class="member-name">{{ person.name }}</h3>
+                        <p class="alumni-bio-text">
+                            {{ person.description|striptags|truncatechars:250 }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    
 </div>
 {% endblock %}
 

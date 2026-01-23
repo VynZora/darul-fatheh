@@ -30,7 +30,7 @@ class DonationForm(forms.ModelForm):
             'donor_name', 
             'phone', 
             'email', 
-            'amount', 
+            # 'amount', 
             # 'transaction_id', 
             'message'
         ]
