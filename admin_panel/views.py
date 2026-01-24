@@ -9,6 +9,8 @@ from django.utils.text import slugify
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import StudentRegistrationForm
+import os
+import requests
 # import threading 
 
 from .models import (
@@ -771,6 +773,60 @@ def donate(request):
 #     return render(request, 'register.html', {'form': form})
 
 
+# def register_view(request):
+#     form = StudentRegistrationForm()
+
+#     if request.method == 'POST':
+#         form = StudentRegistrationForm(request.POST)
+
+#         if form.is_valid():
+#             student = form.save()
+
+#             email_subject = 'New Student Registration'
+
+#             email_body = '''
+# Dear Admin,
+
+# A new student has registered.
+
+# Name: {name}
+# Email: {email}
+# Mobile: {mobile}
+
+# Please check the admin panel for full details.
+
+# Best regards,
+# Darul Fatheh
+# '''.format(
+#                 name=f"{student.first_name} {student.last_name}",
+#                 email=student.email,
+#                 mobile=student.mobile
+#             )
+
+#             send_mail(
+#                 email_subject,
+#                 email_body,
+#                 settings.EMAIL_HOST_USER,
+#                 [settings.EMAIL_HOST_USER],
+#                 fail_silently=False,
+#             )
+
+#             messages.success(
+#                 request,
+#                 "Registration successful! We have received your details."
+#             )
+#             return redirect('admin_panel:register')
+
+#         else:
+#             messages.error(request, "Please correct the errors below.")
+
+#     return render(request, 'register.html', {'form': form})
+
+
+
+
+
+
 def register_view(request):
     form = StudentRegistrationForm()
 
@@ -780,34 +836,42 @@ def register_view(request):
         if form.is_valid():
             student = form.save()
 
-            email_subject = 'New Student Registration'
+            url = "https://api.brevo.com/v3/smtp/email"
 
-            email_body = '''
-Dear Admin,
+            payload = {
+                "sender": {
+                    "name": "Darul Fatheh",
+                    "email": "theofaber26@gmail.com"
+                },
+                "to": [
+                    {
+                        "email": "theofaber26@gmail.com",
+                        "name": "Admin"
+                    }
+                ],
+                "subject": "New Student Registration",
+                "htmlContent": f"""
+                    <p>Dear Admin,</p>
+                    <p>A new student has registered.</p>
+                    <p>
+                        <strong>Name:</strong> {student.first_name} {student.last_name}<br>
+                        <strong>Email:</strong> {student.email}<br>
+                        <strong>Mobile:</strong> {student.mobile}
+                    </p>
+                    <p>Regards,<br>Darul Fatheh</p>
+                """
+            }
 
-A new student has registered.
+            headers = {
+                "accept": "application/json",
+                "api-key": os.environ.get("BREVO_API_KEY"),
+                "content-type": "application/json"
+            }
 
-Name: {name}
-Email: {email}
-Mobile: {mobile}
+            response = requests.post(url, json=payload, headers=headers)
 
-Please check the admin panel for full details.
-
-Best regards,
-Darul Fatheh
-'''.format(
-                name=f"{student.first_name} {student.last_name}",
-                email=student.email,
-                mobile=student.mobile
-            )
-
-            send_mail(
-                email_subject,
-                email_body,
-                settings.EMAIL_HOST_USER,
-                [settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
+            if response.status_code not in (200, 201):
+                print("Brevo error:", response.text)
 
             messages.success(
                 request,
@@ -819,8 +883,6 @@ Darul Fatheh
             messages.error(request, "Please correct the errors below.")
 
     return render(request, 'register.html', {'form': form})
-
-
 
 # # ==================== STUDENT REGISTRATION VIEWS FOR LOCAL HOSTING ====================
 # def register_view(request):
