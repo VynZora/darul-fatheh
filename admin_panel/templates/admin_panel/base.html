@@ -86,6 +86,7 @@
         .logo img {
             height: 40px;
             width: auto;
+            margin-bottom: 10px;
         }
 
         .header-right {
@@ -573,9 +574,10 @@
             </button>
             
             <a href="{% url 'admin_panel:dashboard' %}" class="logo">
-                {% comment %} <i class="fas fa-graduation-cap fa-2x"></i> {% endcomment %}
+                <img src="{% static 'assets/images/logo.png' %}" alt="Darul Fatheh Logo">
                 <span>Darul Fatheh</span>
             </a>
+            
         </div>
 
         <div class="header-right">
