@@ -216,19 +216,25 @@
         }
     }
 
-    {% comment %} /* ══════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════
        EVENTS SECTION
     ══════════════════════════════════════════════════════════ */
     .events-section {
-        padding: 90px 0 120px;
+        padding: 100px 0 140px;
         background: var(--main-color);
         position: relative;
         overflow: hidden;
     }
 
+    .events-section .auto-container {
+        max-width: 1600px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
     .events-header {
         text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 70px;
     }
 
     .events-header .section-badge {
@@ -254,22 +260,23 @@
     }
 
     .events-slick {
-        margin: 0 -20px;
+        margin: 0 -10px;
     }
 
     .event-slide {
-        padding: 20px;
+        padding: 10px;
     }
 
     .event-card {
         background: #fff;
-        border-radius: 20px;
+        border-radius: 24px;
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         transition: all 0.4s ease;
         display: flex;
         flex-direction: row;
-        height: 340px;
+        height: 480px;
+        width: 100%;
     }
 
     .event-card:hover {
@@ -278,8 +285,8 @@
     }
 
     .event-image {
-        width: 340px;
-        min-width: 340px;
+        width: 320px;
+        min-width: 320px;
         height: 100%;
         position: relative;
         overflow: hidden;
@@ -302,17 +309,17 @@
         left: 20px;
         background: var(--color-two);
         color: #fff;
-        padding: 14px 16px;
-        border-radius: 12px;
+        padding: 15px 18px;
+        border-radius: 14px;
         text-align: center;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
         z-index: 2;
     }
 
     .event-date-day {
         display: block;
         font-family: 'Inter', sans-serif;
-        font-size: 1.7rem;
+        font-size: 1.8rem;
         font-weight: 800;
         line-height: 1;
     }
@@ -320,7 +327,7 @@
     .event-date-month {
         display: block;
         font-family: 'Public Sans', sans-serif;
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -329,45 +336,46 @@
     }
 
     .event-body {
-        padding: 30px 35px;
+        padding: 45px 50px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         flex: 1;
+        min-width: 0;
     }
 
     .event-meta {
         display: flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 15px;
+        gap: 15px;
+        margin-bottom: 20px;
         flex-wrap: wrap;
     }
 
     .event-meta-item {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         font-family: 'Public Sans', sans-serif;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 600;
-        color: #888;
+        color: #777;
         background: #f5f5f5;
-        padding: 6px 12px;
-        border-radius: 15px;
+        padding: 10px 18px;
+        border-radius: 20px;
     }
 
     .event-meta-item i {
         color: var(--color-two);
-        font-size: 0.75rem;
+        font-size: 0.85rem;
     }
 
     .event-title {
         font-family: 'Inter', sans-serif;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         font-weight: 700;
         color: var(--main-color);
-        margin: 0 0 15px;
+        margin: 0 0 20px;
         line-height: 1.35;
         transition: color 0.3s ease;
     }
@@ -378,18 +386,18 @@
 
     .event-description {
         font-family: 'Public Sans', sans-serif;
-        font-size: 0.95rem;
-        line-height: 1.7;
-        color: #666;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: #555;
         margin: 0;
         display: -webkit-box;
-        -webkit-line-clamp: 5;
+        -webkit-line-clamp: 8;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
     .events-slick .slick-dots {
-        bottom: -50px;
+        bottom: -60px;
     }
 
     .events-slick .slick-dots li button:before {
@@ -404,8 +412,8 @@
 
     .events-slick .slick-prev,
     .events-slick .slick-next {
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
         background: rgba(255,255,255,0.15);
         border-radius: 50%;
         z-index: 10;
@@ -422,21 +430,16 @@
     .events-slick .slick-prev:before,
     .events-slick .slick-next:before {
         color: #fff;
-        font-size: 18px;
+        font-size: 20px;
         opacity: 1;
     }
 
     .events-slick .slick-prev {
-        left: -60px;
+        left: 20px;
     }
 
     .events-slick .slick-next {
-        right: -60px;
-    }
-
-    @media (max-width: 1400px) {
-        .events-slick .slick-prev { left: 10px; }
-        .events-slick .slick-next { right: 10px; }
+        right: 20px;
     }
 
     @media (max-width: 991px) {
@@ -450,7 +453,13 @@
             height: 220px;
         }
         .event-body {
-            padding: 25px;
+            padding: 30px;
+        }
+        .event-title {
+            font-size: 1.3rem;
+        }
+        .event-description {
+            -webkit-line-clamp: 5;
         }
     }
 
@@ -480,136 +489,8 @@
         font-family: 'Public Sans', sans-serif;
         color: #999;
         margin: 0;
-    } {% endcomment %}
+    }
 
-
-    /* ================= EVENTS SECTION ================= */
-
-.events-section {
-    padding: 90px 0 140px;
-    background: var(--main-color);
-}
-
-.events-header {
-    text-align: center;
-    margin-bottom: 70px;
-}
-
-.events-header .section-heading {
-    color: #fff;
-}
-
-.events-header .section-desc {
-    color: rgba(255,255,255,0.8);
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.events-slick {
-    margin: 0 -25px;
-}
-
-.event-slide {
-    padding: 25px;
-}
-
-/* 🔥 INCREASED CARD SIZE */
-.event-card {
-    background: #fff;
-    border-radius: 26px;
-    overflow: hidden;
-    display: flex;
-    height: 420px;
-    box-shadow: 0 12px 45px rgba(0,0,0,0.12);
-    transition: all 0.4s ease;
-}
-
-.event-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 28px 60px rgba(0,0,0,0.18);
-}
-
-/* 🔥 BIGGER IMAGE */
-.event-image {
-    width: 420px;
-    min-width: 420px;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.event-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.event-card:hover .event-image img {
-    transform: scale(1.12);
-}
-
-.event-date-badge {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    background: var(--color-two);
-    color: #fff;
-    padding: 16px 18px;
-    border-radius: 14px;
-    text-align: center;
-}
-
-.event-date-day {
-    font-size: 1.9rem;
-    font-weight: 800;
-    line-height: 1;
-}
-
-.event-date-month {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-}
-
-/* 🔥 MORE SPACE INSIDE */
-.event-body {
-    padding: 40px 45px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.event-meta {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-}
-
-.event-meta-item {
-    font-size: 0.85rem;
-    background: #f5f5f5;
-    padding: 8px 14px;
-    border-radius: 18px;
-}
-
-/* 🔥 BIGGER TEXT */
-.event-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--main-color);
-    margin-bottom: 18px;
-}
-
-.event-description {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: #666;
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
     /* ══════════════════════════════════════════════════════════
        ALUMNI SECTION
     ══════════════════════════════════════════════════════════ */

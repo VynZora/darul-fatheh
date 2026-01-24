@@ -771,7 +771,6 @@ def donate(request):
 #     return render(request, 'register.html', {'form': form})
 
 
-
 def register_view(request):
     form = StudentRegistrationForm()
 
@@ -781,35 +780,34 @@ def register_view(request):
         if form.is_valid():
             student = form.save()
 
-            course_title = student.course.title if student.course else "Not Selected"
-            program_specific = student.program_name if student.program_name else "N/A"
+            email_subject = 'New Student Registration'
 
-            subject = f"New Student Registration: {student.first_name} {student.last_name}"
+            email_body = '''
+Dear Admin,
 
-            message = (
-                f"A new student has registered via the website.\n\n"
-                f"--------------------------------------------\n"
-                f"FULL NAME: {student.first_name} {student.last_name}\n"
-                f"DOB:       {student.dob}\n"
-                f"EMAIL:     {student.email}\n"
-                f"MOBILE:    {student.mobile}\n"
-                f"--------------------------------------------\n"
-                f"COURSE:     {course_title}\n"
-                f"SPECIFIC PROGRAM: {program_specific}\n"
-                f"--------------------------------------------\n\n"
-                f"Please verify this entry in the Admin Panel."
+A new student has registered.
+
+Name: {name}
+Email: {email}
+Mobile: {mobile}
+
+Please check the admin panel for full details.
+
+Best regards,
+Darul Fatheh
+'''.format(
+                name=f"{student.first_name} {student.last_name}",
+                email=student.email,
+                mobile=student.mobile
             )
 
-            try:
-                send_mail(
-                    subject,
-                    message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [settings.DEFAULT_FROM_EMAIL],
-                    fail_silently=False,
-                )
-            except Exception as e:
-                print("Email error:", e)
+            send_mail(
+                email_subject,
+                email_body,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
 
             messages.success(
                 request,
@@ -821,6 +819,7 @@ def register_view(request):
             messages.error(request, "Please correct the errors below.")
 
     return render(request, 'register.html', {'form': form})
+
 
 
 # # ==================== STUDENT REGISTRATION VIEWS FOR LOCAL HOSTING ====================
