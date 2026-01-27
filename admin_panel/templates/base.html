@@ -287,6 +287,48 @@
         margin-right: 40px !important;
     }
 }
+
+/* Mobile Logo Fix */
+@media (max-width: 991px) {
+    .logo-box .logo > a {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 2px !important;
+        margin-left: 10px !important;
+        margin-bottom: 20px !important;
+    }
+    .logo-box .logo .main-logo {
+        max-height: 50px !important;
+    }
+    .logo-box .logo > a > div {
+        align-items: center !important;
+    }
+    .logo-box .logo > a > div span:first-child {
+        font-size: 14px !important;
+    }
+    .logo-box .logo > a > div span:last-child {
+        font-size: 7px !important;
+        letter-spacing: 2px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-box .logo > a {
+        margin-left: 5px !important;
+        margin-bottom: 8px !important;
+        gap: 1px !important;
+    }
+    .logo-box .logo .main-logo {
+        max-height: 40px !important;
+    }
+    .logo-box .logo > a > div span:first-child {
+        font-size: 12px !important;
+    }
+    .logo-box .logo > a > div span:last-child {
+        font-size: 6px !important;
+        letter-spacing: 1.5px !important;
+    }
+}
 </style>
 </head>
 
