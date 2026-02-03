@@ -8,9 +8,8 @@ SECRET_KEY = 'django-insecure-hardcoded-key'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '13.233.201.151',
-    'localhost',
-    '127.0.0.1',
+    
+    '*',
 ]
 
 INSTALLED_APPS = [
@@ -54,13 +53,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'darul_fatheh_project.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'darul_fatheh_db',
-        'USER': 'darul_fatheh_user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -85,7 +80,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'theofaber26@gmail.com'
+EMAIL_HOST_USER = 'mail'
 EMAIL_HOST_PASSWORD = 'password'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
