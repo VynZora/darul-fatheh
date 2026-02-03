@@ -58,7 +58,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'darul_fatheh_db',
         'USER': 'darul_fatheh_user',
-        'PASSWORD': 'YOUR_DB_PASSWORD',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -86,6 +86,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'theofaber26@gmail.com'
-EMAIL_HOST_PASSWORD = 'cfxt ayuq ezyc rwxj'
+EMAIL_HOST_PASSWORD = 'password'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
