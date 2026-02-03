@@ -9,9 +9,9 @@ from django.utils.text import slugify
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import StudentRegistrationForm
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
 import os
-import requests
-# import threading 
 
 from .models import (
     ManagementTeam, Course, News, Category,
@@ -712,119 +712,10 @@ def donate(request):
     return render(request, 'donate.html')
 
 
+
+
+
 # ==================== PUBLIC REGISTRATION VIEW ====================
-
-# def send_email_in_thread(subject, message, recipient_list):
-#     try:
-#         print("Attempting to send email...") 
-#         send_mail(
-#             subject,
-#             message,
-#             settings.EMAIL_HOST_USER,
-#             recipient_list,
-#             fail_silently=False,
-#         )
-#         print("Email sent successfully!") 
-#     except Exception as e:
-#         print(f"Error sending email: {e}")
-
-# def register_view(request):
-#     form = StudentRegistrationForm()
-    
-#     if request.method == 'POST':
-#         form = StudentRegistrationForm(request.POST)
-        
-#         if form.is_valid():
-#             student = form.save()
-            
-#             course_title = student.course.title if student.course else "Not Selected"
-#             program_specific = student.program_name if student.program_name else "N/A"
-            
-#             subject = f"New Student Registration: {student.first_name} {student.last_name}"
-            
-#             message = (
-#                 f"A new student has registered via the website.\n\n"
-#                 f"--------------------------------------------\n"
-#                 f"FULL NAME: {student.first_name} {student.last_name}\n"
-#                 f"DOB:       {student.dob}\n"
-#                 f"EMAIL:     {student.email}\n"
-#                 f"MOBILE:    {student.mobile}\n"
-#                 f"--------------------------------------------\n"
-#                 f"COURSE:     {course_title}\n"
-#                 f"SPECIFIC PROGRAM: {program_specific}\n"
-#                 f"--------------------------------------------\n\n"
-#                 f"Please verify this entry in the Admin Panel."
-#             )
-            
-#             recipient_list = [settings.EMAIL_HOST_USER]  
-            
-#             email_thread = threading.Thread(
-#                 target=send_email_in_thread, 
-#                 args=(subject, message, recipient_list)
-#             )
-#             email_thread.start()
-
-#             messages.success(request, 'Registration successful! We have received your details.')
-#             return redirect('admin_panel:register')
-            
-#         else:
-#             messages.error(request, 'Please correct the errors in the form below.')
-            
-#     return render(request, 'register.html', {'form': form})
-
-
-# def register_view(request):
-#     form = StudentRegistrationForm()
-
-#     if request.method == 'POST':
-#         form = StudentRegistrationForm(request.POST)
-
-#         if form.is_valid():
-#             student = form.save()
-
-#             email_subject = 'New Student Registration'
-
-#             email_body = '''
-# Dear Admin,
-
-# A new student has registered.
-
-# Name: {name}
-# Email: {email}
-# Mobile: {mobile}
-
-# Please check the admin panel for full details.
-
-# Best regards,
-# Darul Fatheh
-# '''.format(
-#                 name=f"{student.first_name} {student.last_name}",
-#                 email=student.email,
-#                 mobile=student.mobile
-#             )
-
-#             send_mail(
-#                 email_subject,
-#                 email_body,
-#                 settings.EMAIL_HOST_USER,
-#                 [settings.EMAIL_HOST_USER],
-#                 fail_silently=False,
-#             )
-
-#             messages.success(
-#                 request,
-#                 "Registration successful! We have received your details."
-#             )
-#             return redirect('admin_panel:register')
-
-#         else:
-#             messages.error(request, "Please correct the errors below.")
-
-#     return render(request, 'register.html', {'form': form})
-
-
-
-
 
 def register_view(request):
     form = StudentRegistrationForm()
@@ -838,6 +729,8 @@ def register_view(request):
             course_title = student.course.title if student.course else "Not Selected"
             program_specific = student.program_name if student.program_name else "N/A"
 
+            subject = "New Student Registration"
+
             html_message = f"""
 <!DOCTYPE html>
 <html>
@@ -845,23 +738,23 @@ def register_view(request):
     <meta charset="UTF-8">
 </head>
 <body style="margin:0; padding:0; background-color:#f4f4f4; font-family: Arial, sans-serif;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 20px;">
         <tr>
             <td align="center">
                 <table width="600" cellpadding="0" cellspacing="0"
                        style="background:#ffffff; border-radius:8px; overflow:hidden;
-                              box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                              box-shadow:0 2px 8px rgba(0,0,0,0.1);">
 
                     <tr>
-                        <td style="background: #2D4636; padding: 30px; text-align: center;">
-                            <h1 style="margin:0; color:#ffffff; font-size:22px;">
+                        <td style="background:#2D4636; padding:30px; text-align:center;">
+                            <h2 style="margin:0; color:#ffffff;">
                                 New Student Registration
-                            </h1>
+                            </h2>
                         </td>
                     </tr>
 
                     <tr>
-                        <td style="padding: 35px 40px;">
+                        <td style="padding:30px;">
                             <p style="color:#555; font-size:15px;">
                                 A new student has registered on the website.
                             </p>
@@ -872,7 +765,7 @@ def register_view(request):
                                     <td style="padding:12px; font-weight:bold;">Full Name</td>
                                     <td style="padding:12px;">{student.first_name} {student.last_name}</td>
                                 </tr>
-                                <tr>
+                                <tr style="background:#f8f9fa;">
                                     <td style="padding:12px; font-weight:bold;">Email</td>
                                     <td style="padding:12px;">{student.email}</td>
                                 </tr>
@@ -880,7 +773,7 @@ def register_view(request):
                                     <td style="padding:12px; font-weight:bold;">Mobile</td>
                                     <td style="padding:12px;">{student.mobile}</td>
                                 </tr>
-                                <tr>
+                                <tr style="background:#f8f9fa;">
                                     <td style="padding:12px; font-weight:bold;">Course</td>
                                     <td style="padding:12px;">{course_title}</td>
                                 </tr>
@@ -908,93 +801,21 @@ def register_view(request):
 </html>
 """
 
-            payload = {
-                "sender": {
-                    "name": "Darul Fatheh",
-                    "email": "theofaber26@gmail.com"
-                },
-                "to": [
-                    {
-                        "email": "theofaber26@gmail.com",
-                        "name": "Admin"
-                    }
-                ],
-                "replyTo": {
-                    "email": student.email,
-                    "name": f"{student.first_name} {student.last_name}"
-                },
-                "subject": "New Student Registration",
-                "htmlContent": html_message
-            }
+            plain_message = strip_tags(html_message)
 
-            headers = {
-                "accept": "application/json",
-                "content-type": "application/json",
-                "api-key": os.environ.get("BREVO_API_KEY")
-            }
-
-            response = requests.post(
-                "https://api.brevo.com/v3/smtp/email",
-                json=payload,
-                headers=headers
+            email = EmailMultiAlternatives(
+                subject,
+                plain_message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
             )
-
-            if response.status_code not in (200, 201):
-                print("Brevo error:", response.text)
+            email.attach_alternative(html_message, "text/html")
+            email.send(fail_silently=False)
 
             messages.success(request, "Registration successful!")
             return redirect('admin_panel:register')
 
     return render(request, 'register.html', {'form': form})
-
-
-# # ==================== STUDENT REGISTRATION VIEWS FOR LOCAL HOSTING ====================
-# def register_view(request):
-#     form = StudentRegistrationForm()
-
-#     if request.method == 'POST':
-#         form = StudentRegistrationForm(request.POST)
-
-#         if form.is_valid():
-#             student = form.save()
-
-#             course_title = student.course.title if student.course else "Not Selected"
-#             program_specific = student.program_name if student.program_name else "N/A"
-
-#             subject = f"New Student Registration: {student.first_name} {student.last_name}"
-
-#             message = (
-#                 f"A new student has registered via the website.\n\n"
-#                 f"FULL NAME: {student.first_name} {student.last_name}\n"
-#                 f"DOB:       {student.dob}\n"
-#                 f"EMAIL:     {student.email}\n"
-#                 f"MOBILE:    {student.mobile}\n"
-#                 f"COURSE:     {course_title}\n"
-#                 f"SPECIFIC PROGRAM: {program_specific}\n"
-#             )
-
-#             try:
-#                 send_mail(
-#                     subject,
-#                     message,
-#                     settings.DEFAULT_FROM_EMAIL,
-#                     [settings.EMAIL_HOST_USER],
-#                     fail_silently=False,  
-#                 )
-#                 print("Email sent successfully")
-#             except Exception as e:
-#                 print("Email failed locally:", e)
-
-#             messages.success(
-#                 request,
-#                 "Registration successful! We have received your details."
-#             )
-#             return redirect('admin_panel:register')
-
-#         else:
-#             messages.error(request, "Please correct the errors below.")
-
-#     return render(request, 'register.html', {'form': form})
 
 
 
