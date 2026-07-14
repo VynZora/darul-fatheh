@@ -3,6 +3,736 @@
 
 {% block title %}Darul Fateh | About Us{% endblock %}
 
+{% block extra_css %}
+<style>
+
+    /*=========================================
+  SENATE SECTION
+=========================================*/
+
+#senate{
+    position: relative;
+    padding: 110px 0 120px;
+    background: linear-gradient(135deg, #0b3d2e 0%, #134d39 50%, #0b3d2e 100%);
+    overflow: hidden;
+}
+
+/* Decorative circles */
+#senate::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(255,255,255,.03);
+    top:-220px;
+    left:-180px;
+}
+
+#senate::after{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(212,175,55,.06);
+    right:-120px;
+    bottom:-120px;
+}
+
+/* Heading */
+
+#senate .sec-title_heading{
+    color:#ffffff;
+}
+
+#senate .sec-title_title{
+    color:#d4af37;
+}
+
+/* Optional: make cards stand out more */
+#senate .academic-council-card{
+    position:relative;
+    z-index:2;
+}
+#senate .academic-council-info{
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+#senate .academic-council-image{
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+/* ==========================================
+   ACADEMIC COUNCIL SECTION
+========================================== */
+
+.academic-council-section {
+    position: relative;
+    padding: 100px 0 120px;
+    background: #ffffff;
+}
+
+.academic-council-title {
+    margin-bottom: 55px;
+}
+
+.academic-council-row {
+    row-gap: 90px;
+}
+
+.academic-council-card {
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+    transition: transform 0.4s ease;
+}
+
+.academic-council-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Image */
+
+.academic-council-image {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    overflow: hidden;
+    background: #185b42;
+    border-radius: 55px;
+}
+
+.academic-council-image::after {
+    position: absolute;
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(5, 53, 36, 0.18) 100%
+    );
+}
+
+.academic-council-image img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 55px !important;
+    transition: transform 0.55s ease;
+}
+
+.academic-council-card:hover .academic-council-image img {
+    transform: scale(1.05);
+}
+
+/* Bottom overlapping information box */
+
+.academic-council-info {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 2;
+    width: calc(100% - 80px);
+    min-height: 190px;
+    padding: 42px 28px 28px;
+    text-align: center;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        145deg,
+        #fff8df 0%,
+        #eef9eb 100%
+    );
+    border-radius: 70px 70px 110px 110px;
+    box-shadow: 0 18px 45px rgba(22, 83, 57, 0.12);
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.academic-council-card:hover .academic-council-info {
+    transform: translateX(-50%) translateY(-6px);
+    box-shadow: 0 25px 55px rgba(22, 83, 57, 0.18);
+}
+
+.academic-council-info h3 {
+    margin: 0 0 12px;
+    color: #185b42;
+    font-size: 25px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.academic-council-info span {
+    display: block;
+    color: #c59a42;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 1199px) {
+    .academic-council-image {
+        height: 390px;
+        border-radius: 45px;
+    }
+
+    .academic-council-image img {
+        border-radius: 45px !important;
+    }
+
+    .academic-council-info {
+        width: calc(100% - 55px);
+    }
+
+    .academic-council-info h3 {
+        font-size: 22px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .academic-council-section {
+        padding: 80px 0 105px;
+    }
+
+    .academic-council-row {
+        row-gap: 85px;
+    }
+
+    .academic-council-image {
+        height: 420px;
+    }
+}
+
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
+    .academic-council-section {
+        padding: 65px 0 95px;
+    }
+
+    .academic-council-title {
+        margin-bottom: 40px;
+    }
+
+    .academic-council-card {
+        max-width: 390px;
+        padding-bottom: 65px;
+    }
+
+    .academic-council-image {
+        height: 400px;
+        border-radius: 38px;
+    }
+
+    .academic-council-image img {
+        border-radius: 38px !important;
+    }
+
+    .academic-council-info {
+        width: calc(100% - 45px);
+        min-height: 165px;
+        padding: 36px 22px 24px;
+        border-radius: 55px 55px 90px 90px;
+    }
+
+    .academic-council-info h3 {
+        font-size: 21px;
+    }
+
+    .academic-council-info span {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .academic-council-image {
+        height: 355px;
+    }
+
+    .academic-council-info {
+        width: calc(100% - 34px);
+        min-height: 155px;
+        padding: 32px 18px 22px;
+    }
+
+    .academic-council-info h3 {
+        font-size: 19px;
+    }
+}
+
+
+
+/* ==========================================
+   EXECUTIVE COUNCIL SECTION
+========================================== */
+
+/*=========================================
+  EXECUTIVE COUNCIL DARK SECTION
+=========================================*/
+
+#executive-council{
+    position: relative;
+    padding: 110px 0 120px;
+    background: linear-gradient(135deg,#0b3d2e 0%,#134d39 50%,#0b3d2e 100%);
+    overflow: hidden;
+}
+
+/* Decorative circles */
+
+#executive-council::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(255,255,255,.03);
+    top:-220px;
+    left:-180px;
+}
+
+#executive-council::after{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(212,175,55,.06);
+    right:-120px;
+    bottom:-120px;
+}
+
+/* Heading */
+
+#executive-council .sec-title_heading{
+    color:#fff;
+}
+
+#executive-council .sec-title_title{
+    color:#d4af37;
+}
+
+/* Cards */
+
+#executive-council .executive-council-card{
+    position:relative;
+    z-index:2;
+}
+
+#executive-council .executive-council-image{
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+#executive-council .executive-council-info{
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+
+.executive-council-title {
+    margin-bottom: 55px;
+}
+
+.executive-council-row {
+    row-gap: 90px;
+}
+
+.executive-council-card {
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+    transition: transform 0.4s ease;
+}
+
+.executive-council-card:hover {
+    transform: translateY(-8px);
+}
+
+.executive-council-image {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    overflow: hidden;
+    background: #185b42;
+    border-radius: 55px;
+}
+
+.executive-council-image::after {
+    position: absolute;
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(5, 53, 36, 0.18) 100%
+    );
+}
+
+.executive-council-image img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 55px !important;
+    transition: transform 0.55s ease;
+}
+
+.executive-council-card:hover .executive-council-image img {
+    transform: scale(1.05);
+}
+
+.executive-council-info {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 2;
+    width: calc(100% - 80px);
+    min-height: 190px;
+    padding: 42px 28px 28px;
+    text-align: center;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        145deg,
+        #fff8df 0%,
+        #eef9eb 100%
+    );
+    border-radius: 70px 70px 110px 110px;
+    box-shadow: 0 18px 45px rgba(22, 83, 57, 0.12);
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.executive-council-card:hover .executive-council-info {
+    transform: translateX(-50%) translateY(-6px);
+    box-shadow: 0 25px 55px rgba(22, 83, 57, 0.18);
+}
+
+.executive-council-info h3 {
+    margin: 0 0 12px;
+    color: #185b42;
+    font-size: 25px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.executive-council-info span {
+    display: block;
+    color: #c59a42;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 1199px) {
+    .executive-council-image {
+        height: 390px;
+        border-radius: 45px;
+    }
+
+    .executive-council-image img {
+        border-radius: 45px !important;
+    }
+
+    .executive-council-info {
+        width: calc(100% - 55px);
+    }
+
+    .executive-council-info h3 {
+        font-size: 22px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .executive-council-section {
+        padding: 80px 0 105px;
+    }
+
+    .executive-council-row {
+        row-gap: 85px;
+    }
+
+    .executive-council-image {
+        height: 420px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .executive-council-section {
+        padding: 65px 0 95px;
+    }
+
+    .executive-council-title {
+        margin-bottom: 40px;
+    }
+
+    .executive-council-card {
+        max-width: 390px;
+        padding-bottom: 65px;
+    }
+
+    .executive-council-image {
+        height: 400px;
+        border-radius: 38px;
+    }
+
+    .executive-council-image img {
+        border-radius: 38px !important;
+    }
+
+    .executive-council-info {
+        width: calc(100% - 45px);
+        min-height: 165px;
+        padding: 36px 22px 24px;
+        border-radius: 55px 55px 90px 90px;
+    }
+
+    .executive-council-info h3 {
+        font-size: 21px;
+    }
+
+    .executive-council-info span {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .executive-council-image {
+        height: 355px;
+    }
+
+    .executive-council-info {
+        width: calc(100% - 34px);
+        min-height: 155px;
+        padding: 32px 18px 22px;
+    }
+
+    .executive-council-info h3 {
+        font-size: 19px;
+    }
+}
+
+
+
+
+
+/* ==========================================
+   FINANCE COMMITTEE SECTION
+========================================== */
+
+.finance-committee-section {
+    position: relative;
+    padding: 100px 0 120px;
+    background: #ffffff;
+}
+
+.finance-committee-title {
+    margin-bottom: 55px;
+}
+
+.finance-committee-row {
+    row-gap: 90px;
+}
+
+.finance-committee-card {
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+    transition: transform 0.4s ease;
+}
+
+.finance-committee-card:hover {
+    transform: translateY(-8px);
+}
+
+.finance-committee-image {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    overflow: hidden;
+    background: #185b42;
+    border-radius: 55px;
+}
+
+.finance-committee-image::after {
+    position: absolute;
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(5, 53, 36, 0.18) 100%
+    );
+}
+
+.finance-committee-image img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 55px !important;
+    transition: transform 0.55s ease;
+}
+
+.finance-committee-card:hover .finance-committee-image img {
+    transform: scale(1.05);
+}
+
+.finance-committee-info {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 2;
+    width: calc(100% - 80px);
+    min-height: 190px;
+    padding: 42px 28px 28px;
+    text-align: center;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        145deg,
+        #fff8df 0%,
+        #eef9eb 100%
+    );
+    border-radius: 70px 70px 110px 110px;
+    box-shadow: 0 18px 45px rgba(22, 83, 57, 0.12);
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.finance-committee-card:hover .finance-committee-info {
+    transform: translateX(-50%) translateY(-6px);
+    box-shadow: 0 25px 55px rgba(22, 83, 57, 0.18);
+}
+
+.finance-committee-info h3 {
+    margin: 0 0 12px;
+    color: #185b42;
+    font-size: 25px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.finance-committee-info span {
+    display: block;
+    color: #c59a42;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+/* Laptop */
+
+@media only screen and (max-width: 1199px) {
+    .finance-committee-image {
+        height: 390px;
+        border-radius: 45px;
+    }
+
+    .finance-committee-image img {
+        border-radius: 45px !important;
+    }
+
+    .finance-committee-info {
+        width: calc(100% - 55px);
+    }
+
+    .finance-committee-info h3 {
+        font-size: 22px;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 991px) {
+    .finance-committee-section {
+        padding: 80px 0 105px;
+    }
+
+    .finance-committee-row {
+        row-gap: 85px;
+    }
+
+    .finance-committee-image {
+        height: 420px;
+    }
+}
+
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
+    .finance-committee-section {
+        padding: 65px 0 95px;
+    }
+
+    .finance-committee-title {
+        margin-bottom: 40px;
+    }
+
+    .finance-committee-card {
+        max-width: 390px;
+        padding-bottom: 65px;
+    }
+
+    .finance-committee-image {
+        height: 400px;
+        border-radius: 38px;
+    }
+
+    .finance-committee-image img {
+        border-radius: 38px !important;
+    }
+
+    .finance-committee-info {
+        width: calc(100% - 45px);
+        min-height: 165px;
+        padding: 36px 22px 24px;
+        border-radius: 55px 55px 90px 90px;
+    }
+
+    .finance-committee-info h3 {
+        font-size: 21px;
+    }
+
+    .finance-committee-info span {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .finance-committee-image {
+        height: 355px;
+    }
+
+    .finance-committee-info {
+        width: calc(100% - 34px);
+        min-height: 155px;
+        padding: 32px 18px 22px;
+    }
+
+    .finance-committee-info h3 {
+        font-size: 19px;
+    }
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
     <section class="page-title" style="background-image:url({% static 'assets/images/background/page-title.jpg' %})">
@@ -237,6 +967,333 @@
             </div>
         </div>
     </section> {% endcomment %}
+
+
+
+ <!-- Senate Section Start -->
+<section class="academic-council-section" id="senate">
+
+    <div class="auto-container">
+
+        <div class="sec-title centered academic-council-title">
+            <h2 class="sec-title_heading">
+                Senate Members
+            </h2>
+        </div>
+
+        <div class="row clearfix academic-council-row">
+
+            <!-- Member 1 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="academic-council-card wow fadeInUp">
+
+                    <div class="academic-council-image">
+                        <img src="{% static 'assets/images/senate/senate-1.jpeg' %}" alt="">
+                    </div>
+
+                    <div class="academic-council-info">
+                        <h3>Sheikh Abubakr Ahmad</h3>
+                        <span>Chairman</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="academic-council-card wow fadeInUp" data-wow-delay="100ms">
+
+                    <div class="academic-council-image">
+                        <img src="{% static 'assets/images/senate/senate-1.jpeg' %}" alt="">
+                    </div>
+
+                    <div class="academic-council-info">
+                        <h3>Dr Muhammad Abdul Hakkim Azhari</h3>
+                        <span>Rector</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="academic-council-card wow fadeInUp" data-wow-delay="200ms">
+
+                    <div class="academic-council-image">
+                        <img src="{% static 'assets/images/senate/senate-1.jpeg' %}" alt="">
+                    </div>
+
+                    <div class="academic-council-info">
+                        <h3>Asaf Nurani</h3>
+                        <span>Pro-Rector</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Senate Section End -->
+
+
+
+
+<!-- Academic Council Section Start -->
+<section class="academic-council-section" id="academic-council">
+    <div class="auto-container">
+
+        <div class="sec-title centered academic-council-title">
+
+            <h2 class="sec-title_heading">
+                Academic Council
+            </h2>
+        </div>
+
+        <div class="row clearfix academic-council-row">
+
+            <!-- Member 1 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="academic-council-card wow fadeInUp">
+
+                    <div class="academic-council-image">
+                        <img
+                            src="{% static 'assets/images/academic-council/member-1.jpeg' %}"
+                            alt="M. P. Abdul Kareem Saqafi"
+                        >
+                    </div>
+
+                    <div class="academic-council-info">
+                        <h3>M. P. Abdul Kareem Saqafi</h3>
+                        <span>Manager</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="academic-council-card wow fadeInUp" data-wow-delay="100ms">
+
+                    <div class="academic-council-image">
+                        <img
+                            src="{% static 'assets/images/academic-council/member-1.jpeg' %}"
+                            alt="Sheikh Abubakar Ahmed"
+                        >
+                    </div>
+
+                    <div class="academic-council-info">
+                        <h3>Sheikh Abubakar Ahmed</h3>
+                        <span>President</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="academic-council-card wow fadeInUp" data-wow-delay="200ms">
+
+                    <div class="academic-council-image">
+                        <img
+                            src="{% static 'assets/images/academic-council/member-1.jpeg' %}"
+                            alt="T. K. Abdul Kareem Saqafi"
+                        >
+                    </div>
+
+                    <div class="academic-council-info">
+                        <h3>T. K. Abdul Kareem Saqafi</h3>
+                        <span>Secretary</span>
+                    </div>
+
+                </div>
+            </div>
+
+           
+
+           
+
+            
+
+        </div>
+
+    </div>
+</section>
+<!-- Academic Council Section End -->
+
+
+
+
+
+<!-- Executive Council Section Start -->
+<section class="executive-council-section" id="executive-council">
+    <div class="auto-container">
+
+        <div class="sec-title centered executive-council-title">
+
+            <h2 class="sec-title_heading">
+                Executive Council
+            </h2>
+        </div>
+
+        <div class="row clearfix executive-council-row">
+
+            <!-- Member 1 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="executive-council-card wow fadeInUp">
+
+                    <div class="executive-council-image">
+                        <img
+                            src="{% static 'assets/images/executive-council/member-1.jpeg' %}"
+                            alt="Executive Council Member"
+                        >
+                    </div>
+
+                    <div class="executive-council-info">
+                        <h3>Member Name</h3>
+                        <span>President</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="executive-council-card wow fadeInUp" data-wow-delay="100ms">
+
+                    <div class="executive-council-image">
+                        <img
+                            src="{% static 'assets/images/executive-council/member-1.jpeg' %}"
+                            alt="Executive Council Member"
+                        >
+                    </div>
+
+                    <div class="executive-council-info">
+                        <h3>Member Name</h3>
+                        <span>Vice President</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div class="executive-council-card wow fadeInUp" data-wow-delay="200ms">
+
+                    <div class="executive-council-image">
+                        <img
+                            src="{% static 'assets/images/executive-council/member-1.jpeg' %}"
+                            alt="Executive Council Member"
+                        >
+                    </div>
+
+                    <div class="executive-council-info">
+                        <h3>Member Name</h3>
+                        <span>General Secretary</span>
+                    </div>
+
+                </div>
+            </div>
+
+          
+
+           
+
+            
+
+        </div>
+
+    </div>
+</section>
+<!-- Executive Council Section End -->
+
+
+
+
+<!-- Finance Committee Section Start -->
+<section class="finance-committee-section" id="finance-committee">
+
+    <div class="auto-container">
+
+        <div class="sec-title centered finance-committee-title">
+            <div class="sec-title_title">
+                Administration
+            </div>
+
+            <h2 class="sec-title_heading">
+                Finance Committee
+            </h2>
+        </div>
+
+        <div class="row clearfix finance-committee-row">
+
+            <!-- Member -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                <div class="finance-committee-card wow fadeInUp">
+
+                    <div class="finance-committee-image">
+                        <img src="{% static 'assets/images/finance/member-1.jpeg' %}" alt="">
+                    </div>
+
+                    <div class="finance-committee-info">
+                        <h3>Member Name</h3>
+                        <span>Chairman</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Member -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                <div class="finance-committee-card wow fadeInUp" data-wow-delay="100ms">
+
+                    <div class="finance-committee-image">
+                        <img src="{% static 'assets/images/finance/member-1.jpeg' %}" alt="">
+                    </div>
+
+                    <div class="finance-committee-info">
+                        <h3>Member Name</h3>
+                        <span>Secretary</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Member -->
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                <div class="finance-committee-card wow fadeInUp" data-wow-delay="200ms">
+
+                    <div class="finance-committee-image">
+                        <img src="{% static 'assets/images/finance/member-1.jpeg' %}" alt="">
+                    </div>
+
+                    <div class="finance-committee-info">
+                        <h3>Member Name</h3>
+                        <span>Treasurer</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Copy the above card for more members -->
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Finance Committee Section End -->
+
+
+
 
     <section class="testimonial-two" id="testimonials" style="background-image:url({% static 'assets/images/background/testimonial-two_bg.png' %})">
         <div class="auto-container">

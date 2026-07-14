@@ -348,6 +348,534 @@
         margin-bottom: 12px;
     }
 }
+
+
+
+
+/* =========================================
+   ABOUT MEGA DROPDOWN
+========================================= */
+
+.main-menu .navigation > li.about-nav-item {
+    position: relative;
+}
+
+.main-menu .navigation > li.about-nav-item > .about-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.about-nav-arrow {
+    font-size: 9px;
+    transition: transform 0.3s ease;
+}
+
+.main-menu .navigation > li.about-nav-item:hover .about-nav-arrow {
+    transform: rotate(180deg);
+}
+
+/* =========================================
+   DROPDOWN CONTAINER
+========================================= */
+
+.about-mega-dropdown {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 50%;
+
+    width: 460px;
+    min-height: 280px;
+
+    display: grid;
+    grid-template-columns: 188px 1fr;
+
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 60px rgba(8, 39, 26, 0.18),
+        0 5px 18px rgba(8, 39, 26, 0.08);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translate(-50%, 18px);
+
+    transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease,
+        transform 0.28s ease;
+
+    z-index: 99999;
+}
+
+/* Prevent dropdown from closing when moving mouse */
+.about-mega-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: 0;
+
+    width: 100%;
+    height: 18px;
+}
+
+.main-menu .navigation > li.about-nav-item:hover .about-mega-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translate(-50%, 0);
+}
+
+/* =========================================
+   LEFT COLUMN
+========================================= */
+
+.about-mega-left {
+    padding: 22px 14px;
+
+    background: #f5f7f6;
+    border-right: 1px solid #e5ebe7;
+}
+
+.about-menu-tab {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 0 9px;
+    padding: 13px 14px 13px 16px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: transparent;
+    color: #123b2a;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Remove unwanted circle animation */
+.about-menu-tab::before,
+.about-menu-tab::after {
+    display: none !important;
+    content: none !important;
+}
+
+.about-menu-tab span {
+    position: relative;
+    display: inline-block;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.about-menu-tab i {
+    color: #74837b;
+    font-size: 10px;
+
+    opacity: 0;
+    transform: translateX(-7px);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Active and hover tab */
+.about-menu-tab:hover,
+.about-menu-tab.active {
+    background: #e5ebe7;
+    color: #123b2a;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(20, 78, 53, 0.05);
+}
+
+/* Text animation */
+.about-menu-tab:hover span,
+.about-menu-tab.active span {
+    transform: translateX(5px);
+}
+
+/* Arrow animation */
+.about-menu-tab:hover i,
+.about-menu-tab.active i {
+    opacity: 1;
+    color: #18573c;
+    transform: translateX(0);
+}
+
+/* =========================================
+   RIGHT COLUMN
+========================================= */
+
+.about-mega-right {
+    position: relative;
+
+    min-height: 280px;
+    padding: 27px 24px;
+
+    background: #ffffff;
+}
+
+.about-menu-panel {
+    display: none;
+}
+
+.about-menu-panel.active {
+    display: block;
+    animation: aboutPanelEnter 0.3s ease forwards;
+}
+
+.about-menu-panel h5 {
+    position: relative;
+
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+
+    color: #102b20;
+
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.about-menu-panel h5::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 40px;
+    height: 2px;
+
+    border-radius: 10px;
+    background: var(--color-two);
+}
+
+.about-menu-panel p {
+    margin: 0 0 22px;
+
+    color: #4d5b54;
+
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.65;
+}
+
+/* =========================================
+   LEARN MORE BUTTON
+========================================= */
+
+.about-read-more {
+    position: relative;
+    overflow: hidden;
+
+    display: inline-flex !important;
+    align-items: center;
+
+    padding: 9px 14px !important;
+
+    border-radius: 7px;
+
+    background: transparent !important;
+    color: #17563a !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.about-read-more::before,
+.about-read-more::after {
+    display: none !important;
+    content: none !important;
+}
+
+.about-read-more span {
+    display: inline-block;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.about-read-more:hover {
+    background: #f3efe6 !important;
+    color: var(--color-two) !important;
+}
+
+.about-read-more:hover span {
+    transform: translateX(6px);
+}
+
+/* =========================================
+   LEADERSHIP LINKS
+========================================= */
+
+.about-leadership-links {
+    position: static !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+
+.about-leadership-links li {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+
+    border: none !important;
+    background: transparent !important;
+}
+
+.about-leadership-links li a {
+    position: relative !important;
+    overflow: hidden;
+
+    display: flex !important;
+    align-items: center;
+
+    width: 100%;
+    min-height: 43px;
+
+    padding: 10px 13px !important;
+
+    border: none !important;
+    border-radius: 8px;
+
+    background: transparent !important;
+    color: #172b22 !important;
+
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.3;
+    text-transform: none !important;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Remove circles and theme arrows */
+.about-leadership-links li a::before,
+.about-leadership-links li a::after {
+    display: none !important;
+    content: none !important;
+}
+
+.about-leadership-links li a span {
+    position: relative;
+    display: inline-block;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Same clean hover as Courses dropdown */
+.about-leadership-links li a:hover {
+    background: #f3efe6 !important;
+    color: #17543a !important;
+}
+
+.about-leadership-links li a:hover span {
+    transform: translateX(7px);
+    color: #17543a;
+}
+
+/* =========================================
+   PANEL ANIMATION
+========================================= */
+
+@keyframes aboutPanelEnter {
+    from {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .about-mega-dropdown {
+        width: 420px;
+        grid-template-columns: 170px 1fr;
+    }
+
+    .about-mega-right {
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .about-mega-dropdown {
+        display: none !important;
+    }
+
+    .about-nav-arrow {
+        display: none;
+    }
+}
+
+
+/* ==================================================
+   ABOUT DROPDOWN — COURSES-LIKE TEXT HOVER ANIMATION
+================================================== */
+
+/* Remove background-box hover from left tabs */
+.about-menu-tab,
+.about-menu-tab:hover,
+.about-menu-tab.active {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Left tab text */
+.about-menu-tab span {
+    position: relative;
+    display: inline-block;
+    color: #123b2a;
+    transition:
+        transform 0.35s ease,
+        color 0.35s ease;
+}
+
+/* Animate only the text */
+.about-menu-tab:hover span,
+.about-menu-tab.active span {
+    transform: translateX(8px);
+    color: var(--color-two) !important;
+}
+
+/* Keep arrow clean */
+.about-menu-tab i {
+    opacity: 0;
+    color: var(--color-two);
+    transform: translateX(-8px);
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+.about-menu-tab:hover i,
+.about-menu-tab.active i {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Remove background hover from right-side links */
+.about-leadership-links li a,
+.about-leadership-links li a:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Right-side link text */
+.about-leadership-links li a span {
+    position: relative;
+    display: inline-block;
+    color: #172b22;
+    transition:
+        transform 0.35s ease,
+        color 0.35s ease;
+}
+
+/* Same text movement as Courses */
+.about-leadership-links li a:hover span {
+    transform: translateX(8px);
+    color: var(--color-two) !important;
+}
+
+/* Learn More animation */
+.about-read-more,
+.about-read-more:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.about-read-more span {
+    position: relative;
+    display: inline-block;
+    transition:
+        transform 0.35s ease,
+        color 0.35s ease;
+}
+
+.about-read-more:hover span {
+    transform: translateX(8px);
+    color: var(--color-two) !important;
+}
+
+/* Prevent theme circle/shape animation */
+.about-menu-tab::before,
+.about-menu-tab::after,
+.about-read-more::before,
+.about-read-more::after,
+.about-leadership-links li a::before,
+.about-leadership-links li a::after {
+    content: none !important;
+    display: none !important;
+}
+
+
+
+
+
 </style>
 </head>
 
@@ -389,10 +917,10 @@
                                 <a href="{% url 'admin_panel:index' %}" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; gap: 2px; margin-left: 20px; margin-bottom: 20px;">
                                     <img src="{% static 'assets/images/logo.png' %}" alt="Darul Fatheh" class="main-logo" style="max-height: 70px;">
                                     <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
-                                        <span style="font-family: 'Cinzel', sans-serif; font-size: 20px; font-weight: 800; color: #2D4636; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1;">
+                                        <span style="font-family: 'Bauhaus 93 Regular', sans-serif; font-size: 20px; font-weight: 900; color: #184E3A; letter-spacing: 1px; text-transform: uppercase; line-height: 1;">
                                             DARUL FATHEH
                                         </span>
-                                        <span style="font-family: 'Public Sans', sans-serif; font-size: 9px; font-weight: 500; text-transform: uppercase; color: var(--color-two); letter-spacing: 2.5px; line-height: 1;">
+                                        <span style="font-family: 'Bauhaus 93 Regular', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--color-two); letter-spacing: 1.5px; line-height: 1;">
                                             Islamic Complex
                                         </span>
                                     </div>
@@ -413,7 +941,109 @@
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
                                         <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
-                                        <li><a href="{% url 'admin_panel:about' %}">About</a></li>
+                                        
+
+                                       <li class="about-nav-item">
+    <a href="{% url 'admin_panel:about' %}" class="about-nav-link">
+        About
+        <i class="fa-solid fa-chevron-down about-nav-arrow"></i>
+    </a>
+
+    <div class="about-mega-dropdown">
+
+        <!-- LEFT COLUMN -->
+        <div class="about-mega-left">
+
+            <button
+                type="button"
+                class="about-menu-tab active"
+                data-about-panel="aboutOverviewPanel"
+            >
+                <span>Overview</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <button
+                type="button"
+                class="about-menu-tab"
+                data-about-panel="aboutLeadershipPanel"
+            >
+                <span>Leadership</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="about-mega-right">
+
+            <!-- Overview content -->
+            <div
+                class="about-menu-panel active"
+                id="aboutOverviewPanel"
+            >
+                <h5>Overview</h5>
+
+                <p>
+                    Learn about our institution's mission,
+                    vision, and rich history.
+                </p>
+            </div>
+
+            <!-- Leadership content -->
+            <div
+                class="about-menu-panel"
+                id="aboutLeadershipPanel"
+            >
+                <h5>Leadership</h5>
+
+                <ul class="about-leadership-links">
+
+                    <li>
+                        <a
+                            href="{% url 'admin_panel:about' %}#senate"
+                            class="about-animated-link"
+                        >
+                            <span>Senate</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="{% url 'admin_panel:about' %}#academic-council"
+                            class="about-animated-link"
+                        >
+                            <span>Academic Council</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="{% url 'admin_panel:about' %}#executive-council"
+                            class="about-animated-link"
+                        >
+                            <span>Executive Council</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="{% url 'admin_panel:about' %}#finance-committee"
+                            class="about-animated-link"
+                        >
+                            <span>Finance Committee</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</li>
+                                        
+
+
                                         <li><a href="{% url 'admin_panel:alumni_page' %}">Alumni</a></li>
                                         <li><a href="{% url 'admin_panel:team' %}">Our Team</a></li>
                                         <li class="dropdown">
@@ -606,6 +1236,73 @@
             .catch(error => console.error('Prayer time fetch error:', error));
     });
 </script>
+
+{% comment %} about section js {% endcomment %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const aboutMenu = document.querySelector(".about-nav-item");
+
+    if (!aboutMenu) {
+        return;
+    }
+
+    const aboutTabs = aboutMenu.querySelectorAll(".about-menu-tab");
+    const aboutPanels = aboutMenu.querySelectorAll(".about-menu-panel");
+
+    function showAboutPanel(selectedTab) {
+        const panelId = selectedTab.dataset.aboutPanel;
+        const selectedPanel = document.getElementById(panelId);
+
+        aboutTabs.forEach(function (tab) {
+            tab.classList.remove("active");
+        });
+
+        aboutPanels.forEach(function (panel) {
+            panel.classList.remove("active");
+        });
+
+        selectedTab.classList.add("active");
+
+        if (selectedPanel) {
+            selectedPanel.classList.add("active");
+        }
+    }
+
+    aboutTabs.forEach(function (tab) {
+
+        /* Desktop hover */
+        tab.addEventListener("mouseenter", function () {
+            showAboutPanel(tab);
+        });
+
+        /* Keyboard and click support */
+        tab.addEventListener("click", function (event) {
+            event.preventDefault();
+            showAboutPanel(tab);
+        });
+
+        tab.addEventListener("focus", function () {
+            showAboutPanel(tab);
+        });
+    });
+
+    /* Reset back to Overview whenever menu closes */
+    aboutMenu.addEventListener("mouseleave", function () {
+        const overviewTab = aboutMenu.querySelector(
+            '[data-about-panel="aboutOverviewPanel"]'
+        );
+
+        if (overviewTab) {
+            showAboutPanel(overviewTab);
+        }
+    });
+
+});
+
+
+</script>
+{% comment %} about section js end {% endcomment %}
 
 {% block extra_js %}{% endblock %}
 

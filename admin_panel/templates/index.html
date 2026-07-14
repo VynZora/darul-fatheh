@@ -8,15 +8,7 @@
 
 <style>
     /* Paste the fix here */
-    .service-block_one-text {
-        display: -webkit-box;
-        -webkit-line-clamp: 5; /* Adjust this number to show more/less text */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 140px; /* Ensures alignment */
-
-
-    }
+   
     .sec-title_title {
         color: var(--main-color) !important;
     }
@@ -49,6 +41,410 @@
     overflow: hidden !important;
     border-radius: 50% !important;
 }
+
+
+
+/* =====================================================
+   ISLAMIC EDUCATION SERVICES – FINAL FIXED DESIGN
+===================================================== */
+
+.service-one {
+    position: relative;
+    padding: 85px 0 110px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* Keep the complete content inside the gold border */
+.service-one .auto-container {
+    position: relative;
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding-left: 65px;
+    padding-right: 65px;
+}
+
+/* Heading */
+.service-one .sec-title {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.service-one .sec-title_heading {
+    margin: 0;
+    color: #ffffff;
+    line-height: 1.18;
+}
+
+/* Center cards inside border */
+.service-one .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    row-gap: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-one .service-block_one {
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 0;
+}
+
+/* Main service card */
+.service-one .service-block_one-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    overflow: hidden;
+    border: 1px solid rgba(191, 139, 33, 0.55);
+    border-radius: 28px;
+    background-color: #ffffff;
+    box-shadow: 0 14px 35px rgba(0, 45, 33, 0.13);
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+}
+
+/* Gold line at top */
+.service-one .service-block_one-inner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 38px;
+    width: 65px;
+    height: 5px;
+    border-radius: 0 0 10px 10px;
+    background-color: #bf8b21;
+    transition: width 0.4s ease;
+}
+
+/* Soft corner decoration */
+.service-one .service-block_one-inner::after {
+    content: "";
+    position: absolute;
+    right: -65px;
+    bottom: -75px;
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    background-color: rgba(191, 139, 33, 0.06);
+    pointer-events: none;
+}
+
+/* Card content */
+.service-one .service-block_one-upper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 48px 38px 40px;
+}
+
+/* Icon */
+.service-one .service-block_one-icon {
+    position: absolute !important;
+    top: 38px !important;
+    right: 34px !important;
+    left: auto !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    width: 78px !important;
+    height: 78px !important;
+    margin: 0 !important;
+
+    color: #ffffff !important;
+    font-size: 38px !important;
+    line-height: 1 !important;
+
+    border-radius: 50%;
+    background-color: #bf8b21 !important;
+    box-shadow: 0 10px 24px rgba(191, 139, 33, 0.24);
+
+    transition:
+        transform 0.4s ease,
+        background-color 0.4s ease;
+}
+
+.service-one .service-block_one-icon::before {
+    color: #ffffff !important;
+}
+
+.service-one .service-block_one-icon::after {
+    display: none !important;
+}
+
+/* Card title */
+.service-one .service-block_one-heading {
+    position: relative;
+    max-width: calc(100% - 105px);
+    min-height: 72px;
+    margin: 0 0 22px;
+    padding-top: 8px;
+
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.service-one .service-block_one-heading a {
+    color: #073f30 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Description */
+.service-one .service-block_one-text {
+    position: relative;
+    display: block !important;
+
+    min-height: auto !important;
+    margin: 0;
+
+    color: #687283;
+    font-size: 17px;
+    line-height: 1.75;
+
+    overflow: visible !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: initial !important;
+}
+
+/* Hover */
+.service-one .service-block_one-inner:hover {
+    transform: translateY(-8px);
+    border-color: #bf8b21;
+    box-shadow: 0 22px 48px rgba(0, 45, 33, 0.18);
+}
+
+.service-one .service-block_one-inner:hover::before {
+    width: 105px;
+}
+
+.service-one .service-block_one-inner:hover .service-block_one-icon {
+    transform: rotate(-7deg) scale(1.06);
+    background-color: #0d513d !important;
+}
+
+.service-one .service-block_one-inner:hover
+.service-block_one-heading a {
+    color: #bf8b21 !important;
+}
+
+/* =====================================================
+   FIX THE GAP ABOVE THE YELLOW STUDENT SECTION
+===================================================== */
+
+.students-one {
+    position: relative;
+    margin-top: 0 !important;
+    padding-top: 55px !important;
+    padding-bottom: 110px;
+}
+
+/* Keep yellow section aligned with service section */
+.students-one .auto-container {
+    width: 100%;
+    max-width: 1390px;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* Slightly curved yellow box */
+.students-one .inner-container {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 1199px) {
+    .service-one .auto-container {
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+
+    .service-one .service-block_one-inner {
+        min-height: 345px;
+    }
+
+    .service-one .service-block_one-upper {
+        padding: 42px 32px 38px;
+    }
+
+    .service-one .service-block_one-icon {
+        top: 32px !important;
+        right: 28px !important;
+        width: 70px !important;
+        height: 70px !important;
+        font-size: 33px !important;
+    }
+
+    .service-one .service-block_one-heading {
+        max-width: calc(100% - 88px);
+        font-size: 23px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .service-one {
+        padding: 65px 0 75px;
+    }
+
+    .service-one .auto-container {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .service-one .sec-title {
+        margin-bottom: 35px;
+    }
+
+    .service-one .sec-title_heading {
+        font-size: 32px;
+    }
+
+    .service-one .sec-title_heading br {
+        display: none;
+    }
+
+    .service-one .row {
+        row-gap: 22px;
+    }
+
+    .service-one .service-block_one-inner {
+        min-height: auto;
+        border-radius: 22px;
+    }
+
+    .service-one .service-block_one-upper {
+        padding: 32px 25px;
+    }
+
+    .service-one .service-block_one-icon {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+
+        width: 64px !important;
+        height: 64px !important;
+        margin-bottom: 22px !important;
+
+        font-size: 30px !important;
+    }
+
+    .service-one .service-block_one-heading {
+        max-width: 100%;
+        min-height: auto;
+        margin-bottom: 17px;
+        padding-top: 0;
+        font-size: 22px;
+    }
+
+    .service-one .service-block_one-heading br {
+        display: none;
+    }
+
+    .service-one .service-block_one-text {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .students-one {
+        margin-top: 0 !important;
+        padding-top: 35px;
+    }
+
+    .students-one .auto-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* =====================================================
+   FINAL SERVICE CARD POSITION FIX
+   Keep cards inside the gold decorative frame
+===================================================== */
+
+@media only screen and (min-width: 1200px) {
+
+    .service-one {
+        /* More safe space above and below the cards */
+        padding: 85px 0 155px !important;
+
+        /* Keep the decorative background correctly positioned */
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
+    /* Main heading and cards container */
+    .service-one .auto-container {
+        width: 100% !important;
+        max-width: 1320px !important;
+        margin: 0 auto !important;
+        padding-left: 70px !important;
+        padding-right: 70px !important;
+    }
+
+    /* Make the cards area narrower than the gold border */
+    .service-one .row {
+        width: 100% !important;
+        max-width: 1100px !important;
+
+        margin-left: auto !important;
+        margin-right: auto !important;
+
+        display: flex !important;
+        justify-content: center !important;
+        align-items: stretch !important;
+
+        column-gap: 28px !important;
+        row-gap: 30px !important;
+    }
+
+    /* Override Bootstrap column width */
+    .service-one .service-block_one {
+        flex: 0 0 calc((100% - 56px) / 3) !important;
+        width: calc((100% - 56px) / 3) !important;
+        max-width: calc((100% - 56px) / 3) !important;
+
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Slightly reduce card height */
+    .service-one .service-block_one-inner {
+        min-height: 340px !important;
+    }
+
+    .service-one .service-block_one-upper {
+        padding: 45px 35px 38px !important;
+    }
+
+    /* Keep heading centered above the card row */
+    .service-one .sec-title {
+        max-width: 800px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 48px !important;
+    }
+}
+
+
+
+
+
 
 
 
@@ -245,7 +641,6 @@
     <section class="service-one" style="background-image:url({% static 'assets/images/background/service-bg.png' %})">
         <div class="auto-container">
             <div class="sec-title centered light">
-                <div class="sec-title_title">WHAT WE OFFER</div>
                 <h2 class="sec-title_heading">
                     Comprehensive <br> Islamic Education Services
                 </h2>

@@ -789,6 +789,363 @@
         background: rgba(255,255,255,0.1);
         transform: translateY(-3px);
     }
+
+
+
+
+
+ /* ==================================================
+   EVENT IMAGE CLICK EFFECT
+================================================== */
+
+.event-image {
+    cursor: pointer;
+}
+
+.event-popup-image {
+    cursor: zoom-in;
+}
+
+.event-image-view-icon {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    color: #fff;
+    font-size: 17px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+    pointer-events: none;
+    z-index: 3;
+
+    opacity: 0;
+    transform: translateY(10px);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.event-image:hover .event-image-view-icon {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.event-image:hover .event-image-view-icon {
+    background: var(--color-two);
+}
+
+
+/* ==================================================
+   EVENT IMAGE MODAL
+================================================== */
+
+.event-image-modal {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px;
+
+    background: rgba(5, 10, 8, 0.88);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+    z-index: 999999;
+}
+
+.event-image-modal.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* Popup inner wrapper */
+
+.event-popup-container {
+    position: relative;
+
+    width: 92vw;
+    max-width: 1450px;
+    max-height: 92vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* Large popup image */
+
+.event-image-modal-content {
+    display: block;
+
+    width: auto;
+    max-width: 100%;
+
+    height: auto;
+    max-height: calc(92vh - 75px);
+
+    object-fit: contain;
+
+    border-radius: 22px;
+
+    background: #111;
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+
+    cursor: default;
+
+    animation: eventPopupZoom 0.35s ease;
+}
+
+
+/* Popup title */
+
+.event-popup-title {
+    margin: 18px 0 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+
+    color: #fff;
+
+    line-height: 1.4;
+
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+    animation: eventPopupTitleUp 0.4s ease;
+}
+
+
+/* Close button */
+
+.event-image-close {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+
+    width: 56px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    color: #fff;
+    font-size: 25px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+    z-index: 1000001;
+}
+
+.event-image-close:hover {
+    background: var(--color-two);
+    border-color: var(--color-two);
+
+    transform: rotate(90deg) scale(1.08);
+}
+
+.event-image-close:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 4px;
+}
+
+
+/* Prevent page scrolling when popup is open */
+
+body.event-modal-open {
+    overflow: hidden;
+}
+
+
+/* Animations */
+
+@keyframes eventPopupZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes eventPopupTitleUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Tablet */
+
+@media (max-width: 991px) {
+    .event-image-modal {
+        padding: 25px;
+    }
+
+    .event-popup-container {
+        width: 94vw;
+    }
+
+    .event-image-modal-content {
+        max-height: calc(90vh - 70px);
+        border-radius: 18px;
+    }
+
+    .event-popup-title {
+        font-size: 1.15rem;
+    }
+
+    .event-image-close {
+        top: 20px;
+        right: 20px;
+
+        width: 50px;
+        height: 50px;
+
+        font-size: 22px;
+    }
+
+    .event-image-view-icon {
+        opacity: 1;
+        transform: none;
+
+        width: 42px;
+        height: 42px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 575px) {
+    .event-image-modal {
+        padding: 15px;
+    }
+
+    .event-popup-container {
+        width: 100%;
+        max-height: 90vh;
+    }
+
+    .event-image-modal-content {
+        max-width: 100%;
+        max-height: calc(88vh - 65px);
+
+        border-radius: 14px;
+    }
+
+    .event-popup-title {
+        margin-top: 14px;
+        padding: 0 45px;
+
+        font-size: 1rem;
+    }
+
+    .event-image-close {
+        top: 14px;
+        right: 14px;
+
+        width: 44px;
+        height: 44px;
+
+        font-size: 20px;
+    }
+
+    .event-image-view-icon {
+        right: 12px;
+        bottom: 12px;
+
+        width: 38px;
+        height: 38px;
+
+        font-size: 14px;
+    }
+}
+
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    .event-image-modal,
+    .event-image-modal-content,
+    .event-popup-title,
+    .event-image-close {
+        animation: none;
+        transition: none;
+    }
+}
+
+
+
+
 </style>
 {% endblock %}
 
@@ -901,7 +1258,16 @@
                     <div class="event-slide">
                         <div class="event-card">
                             <div class="event-image">
-                                <img src="{{ event.image.url }}" alt="{{ event.event_name }}">
+                                 <img
+        src="{{ event.image.url }}"
+        alt="{{ event.event_name }}"
+        class="event-popup-image"
+        data-title="{{ event.event_name }}"
+    >
+
+    <div class="event-image-view-icon">
+        <i class="fa-solid fa-expand"></i>
+    </div>
                                 <div class="event-date-badge">
                                     <span class="event-date-day">{{ event.date|date:"d" }}</span>
                                     <span class="event-date-month">{{ event.date|date:"M" }}</span>
@@ -993,9 +1359,43 @@
     </section>
 
 </div>
+
+
+<!-- EVENT IMAGE POPUP -->
+<div
+    id="eventImageModal"
+    class="event-image-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+>
+    <button
+        type="button"
+        class="event-image-close"
+        id="eventImageClose"
+        aria-label="Close image popup"
+    >
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="event-popup-container">
+
+        <img
+            id="eventModalImage"
+            class="event-image-modal-content"
+            src=""
+            alt=""
+        >
+
+        <h4 id="eventPopupTitle" class="event-popup-title"></h4>
+
+    </div>
+</div>
+
+
 {% endblock %}
 
-{% block extra_js %}
+{% comment %} {% block extra_js %}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
@@ -1049,4 +1449,325 @@ $(document).ready(function(){
 
 });
 </script>
+
+<script>
+$(document).ready(function(){
+
+    $('.alumni-modern-slick').slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4500,
+        speed: 600,
+        pauseOnHover: true,
+        cssEase: 'ease-in-out',
+        arrows: true,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 2,
+                    arrows: true
+                }
+            },
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 1,
+                    arrows: false,
+                    dots: true
+                }
+            }
+        ]
+    });
+
+    if ($('.odometer').length) {
+
+        $('.odometer').each(function() {
+            $(this).text('0');
+        });
+
+        $('.odometer').appear(function() {
+
+            const odo = $(this);
+            const count = odo.attr('data-count');
+
+            setTimeout(function(){
+                odo.html(count);
+            }, 150);
+        });
+    }
+
+
+    // ========================================
+    // EVENT IMAGE POPUP
+    // ========================================
+
+    const eventModal = $('#eventImageModal');
+    const eventModalImage = $('#eventModalImage');
+    const eventPopupTitle = $('#eventPopupTitle');
+    const eventCloseButton = $('#eventImageClose');
+
+
+    $('.event-popup-image').on('click', function () {
+
+        const imageSource = $(this).attr('src');
+        const imageAlt = $(this).attr('alt') || '';
+        const imageTitle = $(this).attr('data-title') || imageAlt;
+
+        eventModalImage.attr({
+            src: imageSource,
+            alt: imageAlt
+        });
+
+        eventPopupTitle.text(imageTitle);
+
+        eventModal.addClass('show');
+        eventModal.attr('aria-hidden', 'false');
+
+        $('body').addClass('event-modal-open');
+
+        setTimeout(function () {
+            eventCloseButton.trigger('focus');
+        }, 100);
+    });
+
+
+    function closeEventImageModal() {
+
+        eventModal.removeClass('show');
+        eventModal.attr('aria-hidden', 'true');
+
+        $('body').removeClass('event-modal-open');
+
+        setTimeout(function () {
+            eventModalImage.attr('src', '');
+            eventPopupTitle.text('');
+        }, 300);
+    }
+
+
+    eventCloseButton.on('click', function () {
+        closeEventImageModal();
+    });
+
+
+    eventModal.on('click', function (event) {
+
+        if (event.target === this) {
+            closeEventImageModal();
+        }
+    });
+
+
+    $('.event-popup-container').on('click', function (event) {
+        event.stopPropagation();
+    });
+
+
+    $(document).on('keydown', function (event) {
+
+        if (event.key === 'Escape' && eventModal.hasClass('show')) {
+            closeEventImageModal();
+        }
+    });
+
+});
+</script>
+{% endblock %} {% endcomment %}
+
+{% block extra_js %}
+
+<script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js">
+</script>
+
+<script>
+$(document).ready(function () {
+
+    /* =========================================
+       ALUMNI CAROUSEL
+    ========================================= */
+
+    const alumniCarousel = $('.alumni-modern-slick');
+
+    if (alumniCarousel.length && !alumniCarousel.hasClass('slick-initialized')) {
+
+        alumniCarousel.slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4500,
+            speed: 600,
+            pauseOnHover: true,
+            cssEase: 'ease-in-out',
+            arrows: true,
+
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                        arrows: true
+                    }
+                },
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 1,
+                        arrows: false,
+                        dots: true
+                    }
+                }
+            ]
+        });
+    }
+
+
+    /* =========================================
+       ODOMETER COUNTER
+    ========================================= */
+
+    if ($('.odometer').length) {
+
+        $('.odometer').each(function () {
+            $(this).text('0');
+        });
+
+        if ($.fn.appear) {
+
+            $('.odometer').appear(function () {
+
+                const odometer = $(this);
+                const count = odometer.attr('data-count');
+
+                setTimeout(function () {
+                    odometer.html(count);
+                }, 150);
+            });
+
+        } else {
+
+            $('.odometer').each(function () {
+                $(this).text($(this).attr('data-count'));
+            });
+        }
+    }
+
+
+    /* =========================================
+       EVENT IMAGE POPUP
+    ========================================= */
+
+    const eventModal = $('#eventImageModal');
+    const eventModalImage = $('#eventModalImage');
+    const eventPopupTitle = $('#eventPopupTitle');
+    const eventCloseButton = $('#eventImageClose');
+
+    let lastClickedImage = null;
+
+
+    function openEventImageModal(imageElement) {
+
+        const clickedImage = $(imageElement);
+
+        const imageSource = clickedImage.attr('src');
+        const imageAlt = clickedImage.attr('alt') || '';
+        const imageTitle =
+            clickedImage.attr('data-title') ||
+            imageAlt ||
+            'Event image';
+
+        lastClickedImage = imageElement;
+
+        eventModalImage.attr({
+            src: imageSource,
+            alt: imageAlt
+        });
+
+        eventPopupTitle.text(imageTitle);
+
+        eventModal
+            .addClass('show')
+            .attr('aria-hidden', 'false');
+
+        $('body').addClass('event-modal-open');
+
+        setTimeout(function () {
+            eventCloseButton.trigger('focus');
+        }, 100);
+    }
+
+
+    function closeEventImageModal() {
+
+        eventModal
+            .removeClass('show')
+            .attr('aria-hidden', 'true');
+
+        $('body').removeClass('event-modal-open');
+
+        setTimeout(function () {
+
+            eventModalImage.attr({
+                src: '',
+                alt: ''
+            });
+
+            eventPopupTitle.text('');
+
+        }, 300);
+
+        if (lastClickedImage) {
+            $(lastClickedImage).trigger('focus');
+        }
+    }
+
+
+    // Open when event image is clicked
+    $(document).on('click', '.event-popup-image', function () {
+        openEventImageModal(this);
+    });
+
+
+    // Close button
+    eventCloseButton.on('click', function () {
+        closeEventImageModal();
+    });
+
+
+    // Close when clicking outside the image
+    eventModal.on('click', function (event) {
+
+        if (event.target === this) {
+            closeEventImageModal();
+        }
+    });
+
+
+    // Do not close when clicking the image or title
+    $('.event-popup-container').on('click', function (event) {
+        event.stopPropagation();
+    });
+
+
+    // Close with Escape key
+    $(document).on('keydown', function (event) {
+
+        if (
+            event.key === 'Escape' &&
+            eventModal.hasClass('show')
+        ) {
+            closeEventImageModal();
+        }
+    });
+
+});
+</script>
+
 {% endblock %}
