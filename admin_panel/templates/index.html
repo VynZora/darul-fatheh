@@ -638,13 +638,13 @@
 .home-event-content {
     flex: 1;
     min-width: 0;
+    height: 100%;
     padding: 30px 35px;
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .home-event-content::-webkit-scrollbar {
@@ -700,17 +700,33 @@
 }
 
 .home-event-text {
-    margin: 0;
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 12px;
 
-    color: #606060;
-    font-family: "Public Sans", sans-serif;
-    font-size: 15px;
-    line-height: 1.75;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.home-event-text::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+/* Gold indicator */
+.home-event-text::after{
+    content:"";
+    position:absolute;
+    top:0;
+    right:2px;
+    width:3px;
+    height:40px;
+    border-radius:20px;
+    background:#c69a2b;
 }
 
 .home-no-events {
@@ -920,13 +936,15 @@ body.home-event-modal-open {
     }
 
     .home-event-content {
-        padding: 25px;
-        overflow: visible;
-    }
+    height: auto;
+    overflow: visible;
+}
 
-    .home-event-text {
-        -webkit-line-clamp: 5;
-    }
+.home-event-text {
+    max-height: 180px;
+    overflow-y: auto;
+    -webkit-line-clamp: unset;
+}
 
     .home-event-expand {
         opacity: 1;
@@ -981,6 +999,7 @@ body.home-event-modal-open {
         font-size: 19px;
     }
 }
+
 
 
 
@@ -1551,7 +1570,7 @@ body.home-event-modal-open {
                     </h3>
 
                     <div class="home-event-text">
-                        {{ event.description|striptags|truncatechars:180 }}
+                        {{ event.description|striptags }}
                     </div>
 
                 </div>
