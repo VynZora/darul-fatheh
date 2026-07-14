@@ -288,47 +288,6 @@
     }
 }
 
-/* Mobile Logo Fix */
-@media (max-width: 991px) {
-    .logo-box .logo > a {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 2px !important;
-        margin-left: 10px !important;
-        margin-bottom: 20px !important;
-    }
-    .logo-box .logo .main-logo {
-        max-height: 50px !important;
-    }
-    .logo-box .logo > a > div {
-        align-items: center !important;
-    }
-    .logo-box .logo > a > div span:first-child {
-        font-size: 14px !important;
-    }
-    .logo-box .logo > a > div span:last-child {
-        font-size: 7px !important;
-        letter-spacing: 2px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-box .logo > a {
-        margin-left: 5px !important;
-        margin-bottom: 8px !important;
-        gap: 1px !important;
-    }
-    .logo-box .logo .main-logo {
-        max-height: 40px !important;
-    }
-    .logo-box .logo > a > div span:first-child {
-        font-size: 12px !important;
-    }
-    .logo-box .logo > a > div span:last-child {
-        font-size: 6px !important;
-        letter-spacing: 1.5px !important;
-    }
-}
 @media (max-width: 991px) {
     .footer-widget.logo-widget .logo a {
         display: flex;
@@ -873,7 +832,551 @@
 }
 
 
+/* =========================================
+   ABOUT MOBILE MENU — CORRECTED
+========================================= */
 
+/* Hide the special mobile submenu only inside desktop navigation */
+.main-menu .about-mobile-submenu {
+    display: none !important;
+}
+
+@media (max-width: 991px) {
+
+    /* Hide desktop mega dropdown in mobile menu */
+    .mobile-menu .about-mega-dropdown {
+        display: none !important;
+    }
+
+    /* Hide custom desktop arrow */
+    .mobile-menu .about-nav-arrow {
+        display: none !important;
+    }
+
+    /*
+       Important:
+       Do not use !important here.
+       The theme's JavaScript needs to change this to display:block.
+    */
+    .mobile-menu .about-mobile-submenu {
+        display: none;
+        position: relative !important;
+
+        width: 100% !important;
+        min-width: 100% !important;
+
+        top: auto !important;
+        left: auto !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+
+        background: #f7f9f8 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* About main row */
+    .mobile-menu .navigation > li.about-nav-item > a {
+        display: block !important;
+        width: 100% !important;
+
+        padding: 14px 22px !important;
+
+        color: #111111 !important;
+        background: #ffffff !important;
+    }
+
+    /* Overview and Leadership rows */
+    .mobile-menu .about-mobile-submenu > li {
+        position: relative !important;
+
+        display: block !important;
+        width: 100% !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        border-top: 1px solid #e2e7e4 !important;
+        background: transparent !important;
+    }
+
+    .mobile-menu .about-mobile-submenu > li > a {
+        display: block !important;
+        width: 100% !important;
+
+        padding: 13px 45px 13px 38px !important;
+
+        color: #173d2e !important;
+        background: transparent !important;
+
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        text-transform: none !important;
+    }
+
+    /* Leadership nested list */
+    .mobile-menu .about-mobile-submenu > li > ul {
+        display: none;
+        position: relative !important;
+
+        width: 100% !important;
+        min-width: 100% !important;
+
+        top: auto !important;
+        left: auto !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+
+        background: #edf2ef !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .mobile-menu .about-mobile-submenu > li > ul > li {
+        display: block !important;
+        width: 100% !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        border-top: 1px solid rgba(23, 61, 46, 0.09) !important;
+    }
+
+    .mobile-menu .about-mobile-submenu > li > ul > li > a {
+        display: block !important;
+        width: 100% !important;
+
+        padding: 12px 22px 12px 55px !important;
+
+        color: #506159 !important;
+        background: transparent !important;
+
+        font-size: 15px !important;
+        font-weight: 400 !important;
+        text-transform: none !important;
+    }
+
+    .mobile-menu .about-mobile-submenu a:hover {
+        color: var(--color-two) !important;
+        background: #ffffff !important;
+    }
+
+    /* Dropdown toggle buttons */
+    .mobile-menu .about-nav-item > .dropdown-btn,
+    .mobile-menu .about-mobile-submenu li.dropdown > .dropdown-btn {
+        color: #17563a !important;
+    }
+}
+
+
+
+
+/* ==================================================
+   COMPLETE RESPONSIVE HEADER FIX
+================================================== */
+
+/* Main header row */
+.main-header .header-upper .inner-container > .d-flex {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    min-height: 130px;
+}
+
+/* ==================================================
+   LOGO
+================================================== */
+
+.header-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 5px;
+
+    margin: 0;
+    padding: 10px 0;
+
+    text-decoration: none !important;
+}
+
+.header-brand .main-logo {
+    display: block;
+
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 70px;
+
+    margin: 0;
+}
+
+.header-brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 3px;
+    line-height: 1;
+}
+
+.header-brand-name {
+    color: #184e3a;
+
+    font-family: "Bauhaus 93 Regular", sans-serif;
+    font-size: clamp(18px, 1.6vw, 25px);
+    font-weight: 800;
+    line-height: 1;
+
+    letter-spacing: clamp(1px, 0.15vw, 1.8px);
+    white-space: nowrap;
+}
+
+.header-brand-subtitle {
+    color: var(--color-two);
+
+    font-family: "Bauhaus 93 Regular", sans-serif;
+    font-size: clamp(9px, 0.9vw, 14px);
+    font-weight: 700;
+    line-height: 1;
+
+    letter-spacing: clamp(1.5px, 0.25vw, 3px);
+    white-space: nowrap;
+}
+
+/* ==================================================
+   LARGE DESKTOP: 1400px AND ABOVE
+================================================== */
+
+@media (min-width: 1400px) {
+
+    .main-header .header-upper .auto-container {
+        max-width: 1500px;
+    }
+
+    .main-menu .navigation > li {
+        margin-right: 22px !important;
+    }
+
+    .main-menu .navigation > li:last-child {
+        margin-right: 0 !important;
+    }
+
+    .main-menu .navigation > li > a {
+        padding: 38px 5px !important;
+        font-size: 16px !important;
+    }
+
+    .header_button-box {
+        margin-left: 25px;
+    }
+}
+
+/* ==================================================
+   NORMAL DESKTOP: 1241px–1399px
+================================================== */
+
+@media (min-width: 1241px) and (max-width: 1399px) {
+
+    .main-header .header-upper .auto-container {
+        max-width: 100%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .header-brand .main-logo {
+        max-height: 62px;
+    }
+
+    .header-brand-name {
+        font-size: 20px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .main-menu .navigation > li {
+        margin-right: 10px !important;
+    }
+
+    .main-menu .navigation > li > a {
+        padding: 34px 4px !important;
+        font-size: 14px !important;
+    }
+
+    .header_button-box {
+        margin-left: 12px !important;
+    }
+
+    .header_button-box .theme-btn {
+        padding: 9px 17px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* ==================================================
+   TABLET AND SMALL LAPTOP
+   Switch to mobile menu before content starts wrapping
+================================================== */
+
+@media (max-width: 1240px) {
+
+    /* Hide desktop navigation */
+    .main-header .nav-outer {
+        display: none !important;
+    }
+
+    /* Show mobile menu icon */
+    .main-header .mobile-nav-toggler {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+
+        width: 44px;
+        height: 44px;
+
+        margin-left: 12px;
+
+        color: #184e3a;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    /* Keep logo, button and menu icon in one row */
+    .main-header .header-upper .inner-container > .d-flex {
+        min-height: 105px !important;
+        height: auto !important;
+
+        flex-wrap: nowrap !important;
+    }
+
+    .main-header .header-upper .auto-container {
+        max-width: 100%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    .main-header .logo-box {
+        flex-shrink: 0;
+        padding: 0 !important;
+    }
+
+    .header-brand {
+        padding: 8px 0;
+    }
+
+    .header-brand .main-logo {
+        max-height: 52px !important;
+    }
+
+    .header-brand-name {
+        font-size: 17px !important;
+        letter-spacing: 1.2px !important;
+    }
+
+    .header-brand-subtitle {
+        font-size: 8px !important;
+        letter-spacing: 1.8px !important;
+    }
+
+    .main-header .outer-box {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+
+        margin-left: auto;
+    }
+
+    .header_button-box {
+        display: block !important;
+
+        margin: 0 !important;
+    }
+
+    .header_button-box .theme-btn {
+        margin: 0 !important;
+        padding: 9px 17px !important;
+
+        font-size: 13px !important;
+        white-space: nowrap;
+    }
+}
+
+/* ==================================================
+   TABLET: 769px–991px
+================================================== */
+
+@media (min-width: 769px) and (max-width: 991px) {
+
+    .main-header .header-upper .inner-container > .d-flex {
+        min-height: 100px !important;
+    }
+
+    .header-brand .main-logo {
+        max-height: 48px !important;
+    }
+
+    .header-brand-name {
+        font-size: 16px !important;
+    }
+
+    .header-brand-subtitle {
+        font-size: 8px !important;
+    }
+
+    .header_button-box .theme-btn {
+        padding: 8px 14px !important;
+        font-size: 12px !important;
+    }
+}
+
+/* ==================================================
+   MOBILE: 481px–768px
+================================================== */
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .main-header .header-upper .auto-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .main-header .header-upper .inner-container > .d-flex {
+        min-height: 88px !important;
+    }
+
+    .header-brand {
+        gap: 3px;
+    }
+
+    .header-brand .main-logo {
+        max-height: 42px !important;
+    }
+
+    .header-brand-name {
+        font-size: 14px !important;
+        letter-spacing: 1px !important;
+    }
+
+    .header-brand-subtitle {
+        font-size: 7px !important;
+        letter-spacing: 1.5px !important;
+    }
+
+    .header_button-box .theme-btn {
+        padding: 7px 11px !important;
+        font-size: 11px !important;
+    }
+
+    .main-header .mobile-nav-toggler {
+        width: 40px;
+        height: 40px;
+
+        margin-left: 8px;
+
+        font-size: 25px;
+    }
+}
+
+/* ==================================================
+   SMALL MOBILE: 480px AND BELOW
+================================================== */
+
+@media (max-width: 480px) {
+
+    .main-header .header-upper .auto-container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .main-header .header-upper .inner-container > .d-flex {
+        min-height: 78px !important;
+    }
+
+    .header-brand {
+        gap: 2px !important;
+        padding: 5px 0 !important;
+    }
+
+    .header-brand .main-logo {
+        max-height: 36px !important;
+    }
+
+    .header-brand-name {
+        font-size: 12px !important;
+        letter-spacing: 0.7px !important;
+    }
+
+    .header-brand-subtitle {
+        font-size: 6px !important;
+        letter-spacing: 1.1px !important;
+    }
+
+    /*
+       Hide the desktop Register button on very small screens.
+       Register Now remains available inside the mobile menu.
+    */
+    .main-header .header-upper .header_button-box {
+        display: none !important;
+    }
+
+    .main-header .mobile-nav-toggler {
+        width: 38px;
+        height: 38px;
+
+        margin-left: 8px;
+
+        font-size: 24px;
+    }
+}
+
+/* ==================================================
+   TOP HEADER RESPONSIVENESS
+================================================== */
+
+@media (max-width: 1240px) {
+
+    .header-top .inner-container > .d-flex {
+        gap: 8px 20px;
+    }
+
+    .header-top_list,
+    .header-top_list-two {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        gap: 6px 18px;
+
+        margin: 0;
+    }
+
+    .header-top_list li,
+    .header-top_list-two li {
+        margin: 0 !important;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header-top {
+        display: none !important;
+    }
+}
 
 
 </style>
@@ -912,24 +1415,34 @@
                 <div class="inner-container">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
                         
-                        <div class="logo-box">
-                            <div class="logo">
-                                <a href="{% url 'admin_panel:index' %}" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; gap: 2px; margin-left: 20px; margin-bottom: 20px;">
-                                    <img src="{% static 'assets/images/logo.png' %}" alt="Darul Fatheh" class="main-logo" style="max-height: 70px;">
-                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
-                                        <span style="font-family: 'Bauhaus 93 Regular', sans-serif; font-size: 20px; font-weight: 900; color: #184E3A; letter-spacing: 1px; text-transform: uppercase; line-height: 1;">
-                                            DARUL FATHEH
-                                        </span>
-                                        <span style="font-family: 'Bauhaus 93 Regular', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--color-two); letter-spacing: 1.5px; line-height: 1;">
-                                            Islamic Complex
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+<div class="logo-box">
+    <div class="logo">
+
+        <a href="{% url 'admin_panel:index' %}" class="header-brand">
+
+            <img
+                src="{% static 'assets/images/logo.png' %}"
+                alt="Darul Fatheh"
+                class="main-logo"
+            >
+
+            <div class="header-brand-text">
+                <span class="header-brand-name">
+                    DARUL FATHEH
+                </span>
+
+                <span class="header-brand-subtitle">
+                    ISLAMIC COMPLEX
+                </span>
+            </div>
+
+        </a>
+
+    </div>
+</div>
 
                         <div class="nav-outer">
-                            <nav class="main-menu navbar-expand-md">
+                            <nav class="main-menu navbar-expand-xl">
                                 <div class="navbar-header">
                                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="icon-bar"></span>
@@ -943,15 +1456,19 @@
                                         <li><a href="{% url 'admin_panel:index' %}">Home</a></li>
                                         
 
-                                       <li class="about-nav-item">
+<li class="about-nav-item dropdown">
+
+    <!-- Main About link -->
     <a href="{% url 'admin_panel:about' %}" class="about-nav-link">
         About
         <i class="fa-solid fa-chevron-down about-nav-arrow"></i>
     </a>
 
+    <!-- ==========================================
+         DESKTOP ABOUT MEGA DROPDOWN
+    =========================================== -->
     <div class="about-mega-dropdown">
 
-        <!-- LEFT COLUMN -->
         <div class="about-mega-left">
 
             <button
@@ -974,10 +1491,8 @@
 
         </div>
 
-        <!-- RIGHT COLUMN -->
         <div class="about-mega-right">
 
-            <!-- Overview content -->
             <div
                 class="about-menu-panel active"
                 id="aboutOverviewPanel"
@@ -985,12 +1500,17 @@
                 <h5>Overview</h5>
 
                 <p>
-                    Learn about our institution's mission,
-                    vision, and rich history.
+                    Explore the story, mission, and vision of Darul Fatheh.
                 </p>
+
+                <a
+                    href="{% url 'admin_panel:about' %}"
+                    class="about-read-more"
+                >
+                    <span>Explore Overview</span>
+                </a>
             </div>
 
-            <!-- Leadership content -->
             <div
                 class="about-menu-panel"
                 id="aboutLeadershipPanel"
@@ -1000,37 +1520,25 @@
                 <ul class="about-leadership-links">
 
                     <li>
-                        <a
-                            href="{% url 'admin_panel:about' %}#senate"
-                            class="about-animated-link"
-                        >
+                        <a href="{% url 'admin_panel:about' %}#senate">
                             <span>Senate</span>
                         </a>
                     </li>
 
                     <li>
-                        <a
-                            href="{% url 'admin_panel:about' %}#academic-council"
-                            class="about-animated-link"
-                        >
+                        <a href="{% url 'admin_panel:about' %}#academic-council">
                             <span>Academic Council</span>
                         </a>
                     </li>
 
                     <li>
-                        <a
-                            href="{% url 'admin_panel:about' %}#executive-council"
-                            class="about-animated-link"
-                        >
+                        <a href="{% url 'admin_panel:about' %}#executive-council">
                             <span>Executive Council</span>
                         </a>
                     </li>
 
                     <li>
-                        <a
-                            href="{% url 'admin_panel:about' %}#finance-committee"
-                            class="about-animated-link"
-                        >
+                        <a href="{% url 'admin_panel:about' %}#finance-committee">
                             <span>Finance Committee</span>
                         </a>
                     </li>
@@ -1040,6 +1548,52 @@
 
         </div>
     </div>
+
+    <!-- ==========================================
+         MOBILE ABOUT DROPDOWN
+    =========================================== -->
+    <ul class="about-mobile-submenu">
+
+        <li>
+            <a href="{% url 'admin_panel:about' %}">
+                Overview
+            </a>
+        </li>
+
+        <li class="dropdown">
+            <a href="javascript:void(0);">
+                Leadership
+            </a>
+
+            <ul>
+                <li>
+                    <a href="{% url 'admin_panel:about' %}#senate">
+                        Senate
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'admin_panel:about' %}#academic-council">
+                        Academic Council
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'admin_panel:about' %}#executive-council">
+                        Executive Council
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'admin_panel:about' %}#finance-committee">
+                        Finance Committee
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+
 </li>
                                         
 
@@ -1301,6 +1855,39 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mobileMenu = document.querySelector(".mobile-menu");
+
+    if (!mobileMenu) {
+        return;
+    }
+
+    mobileMenu.addEventListener("click", function (event) {
+
+        const link = event.target.closest(
+            '.about-mobile-submenu a[href*="#"]'
+        );
+
+        if (!link) {
+            return;
+        }
+
+        document.body.classList.remove("mobile-menu-visible");
+
+        const backdrop = document.querySelector(
+            ".mobile-menu .menu-backdrop"
+        );
+
+        if (backdrop) {
+            backdrop.click();
+        }
+    });
+
+});
 </script>
 {% comment %} about section js end {% endcomment %}
 
