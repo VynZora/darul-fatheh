@@ -1285,7 +1285,7 @@ body.event-modal-open {
                                     </span>
                                 </div>
                                 <h3 class="event-title">{{ event.event_name }}</h3>
-                                <p class="event-description">{{ event.description|safe }}</p>
+                                <p class="event-description">{{ event.description|striptags|truncatechars:180 }}</p>
                             </div>
                         </div>
                     </div>

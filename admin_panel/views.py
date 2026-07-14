@@ -559,6 +559,9 @@ def index(request):
     gallery_images = GalleryImage.objects.all().order_by('-uploaded_at')[:8]
     total_courses = Course.objects.filter(is_active=True).count()
     total_team = ManagementTeam.objects.count()
+    events = AlumniEvent.objects.filter(
+        is_visible=True
+    ).order_by("-date")[:4]
     context = {
         'courses': courses,
         'news': news,
@@ -566,6 +569,7 @@ def index(request):
         'gallery_images': gallery_images,
         'total_courses': total_courses,
         'total_team': total_team,
+        "events": events,
     }
     return render(request, 'index.html', context)
 

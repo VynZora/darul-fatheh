@@ -446,6 +446,543 @@
 
 
 
+/* =====================================================
+   HOME EVENTS & ACTIVITIES SECTION
+===================================================== */
+
+.home-events-section {
+    position: relative;
+    padding: 95px 0 120px;
+    background: var(--main-color);
+    overflow: hidden;
+}
+
+.home-events-section .auto-container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.home-events-header {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.home-events-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+
+    color: var(--color-two);
+    font-family: "Public Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.home-events-badge::before,
+.home-events-badge::after {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--color-two);
+}
+
+.home-events-heading {
+    margin: 0 0 18px;
+
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.home-events-description {
+    max-width: 650px;
+    margin: 0 auto;
+
+    color: rgba(255, 255, 255, 0.78);
+    font-family: "Public Sans", sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+.home-events-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.home-event-card {
+    display: flex;
+    width: 100%;
+    height: 290px;
+
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.13);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.home-event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.22);
+}
+
+.home-event-image {
+    position: relative;
+    width: 310px;
+    min-width: 310px;
+    height: 100%;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: #f2f2f2;
+}
+
+.home-event-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    transition: transform 0.6s ease;
+}
+
+.home-event-card:hover .home-event-image img {
+    transform: scale(1.06);
+}
+
+.home-event-date {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 2;
+
+    min-width: 67px;
+    padding: 13px 14px;
+
+    text-align: center;
+    color: #ffffff;
+    background: var(--color-two);
+    border-radius: 13px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.home-event-date-day {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.home-event-date-month {
+    display: block;
+    margin-top: 5px;
+
+    font-family: "Public Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.home-event-expand {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    color: #ffffff;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.home-event-image:hover .home-event-expand {
+    opacity: 1;
+    transform: translateY(0);
+    background: var(--color-two);
+}
+
+.home-event-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px 35px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    overflow-y: auto;
+}
+
+.home-event-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.home-event-content::-webkit-scrollbar-thumb {
+    background: var(--color-two);
+    border-radius: 5px;
+}
+
+.home-event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.home-event-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    color: #747474;
+    font-family: "Public Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    background: #f5f5f5;
+    border-radius: 30px;
+}
+
+.home-event-meta-item i {
+    color: var(--color-two);
+}
+
+.home-event-title {
+    margin: 0 0 14px;
+
+    color: var(--main-color);
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.35;
+
+    transition: color 0.3s ease;
+}
+
+.home-event-card:hover .home-event-title {
+    color: var(--color-two);
+}
+
+.home-event-text {
+    margin: 0;
+
+    color: #606060;
+    font-family: "Public Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.home-no-events {
+    grid-column: 1 / -1;
+    padding: 65px 25px;
+
+    text-align: center;
+    background: #ffffff;
+    border-radius: 24px;
+}
+
+.home-no-events i {
+    display: block;
+    margin-bottom: 15px;
+    color: #c8c8c8;
+    font-size: 55px;
+}
+
+.home-no-events h4 {
+    margin-bottom: 8px;
+    color: var(--main-color);
+    font-size: 22px;
+}
+
+.home-no-events p {
+    margin: 0;
+    color: #808080;
+}
+
+/* =====================================================
+   EVENT IMAGE POPUP
+===================================================== */
+
+.home-event-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    background: rgba(3, 10, 8, 0.9);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.home-event-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.home-event-modal-inner {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 94vw;
+    max-width: 1400px;
+    max-height: 92vh;
+}
+
+.home-event-modal-image {
+    display: block;
+
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: calc(92vh - 80px);
+
+    object-fit: contain;
+    background: #111111;
+    border-radius: 20px;
+
+    box-shadow: 0 30px 85px rgba(0, 0, 0, 0.55);
+}
+
+.home-event-modal-title {
+    margin: 16px 0 0;
+    padding: 0 60px;
+
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.home-event-modal-close {
+    position: fixed;
+    top: 22px;
+    right: 25px;
+    z-index: 1000000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+    padding: 0;
+
+    color: #ffffff;
+    font-size: 22px;
+
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.home-event-modal-close:hover {
+    transform: rotate(90deg);
+    background: var(--color-two);
+}
+
+body.home-event-modal-open {
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 1199px) {
+    .home-event-card {
+        height: 320px;
+    }
+
+    .home-event-image {
+        width: 270px;
+        min-width: 270px;
+    }
+
+    .home-event-content {
+        padding: 28px;
+    }
+
+    .home-event-title {
+        font-size: 21px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .home-events-section {
+        padding: 75px 0 95px;
+    }
+
+    .home-events-heading {
+        font-size: 38px;
+    }
+
+    .home-events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-event-card {
+        height: 300px;
+    }
+
+    .home-event-image {
+        width: 340px;
+        min-width: 340px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .home-events-section .auto-container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .home-events-heading {
+        font-size: 32px;
+    }
+
+    .home-events-description {
+        font-size: 15px;
+    }
+
+    .home-event-card {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .home-event-image {
+        width: 100%;
+        min-width: 100%;
+        height: 280px;
+    }
+
+    .home-event-content {
+        padding: 25px;
+        overflow: visible;
+    }
+
+    .home-event-text {
+        -webkit-line-clamp: 5;
+    }
+
+    .home-event-expand {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .home-events-section {
+        padding: 60px 0 75px;
+    }
+
+    .home-events-header {
+        margin-bottom: 35px;
+    }
+
+    .home-events-heading {
+        font-size: 28px;
+    }
+
+    .home-event-image {
+        height: 245px;
+    }
+
+    .home-event-content {
+        padding: 22px 20px 25px;
+    }
+
+    .home-event-title {
+        font-size: 20px;
+    }
+
+    .home-event-modal {
+        padding: 14px;
+    }
+
+    .home-event-modal-image {
+        max-height: calc(88vh - 70px);
+        border-radius: 14px;
+    }
+
+    .home-event-modal-title {
+        padding: 0 42px;
+        font-size: 16px;
+    }
+
+    .home-event-modal-close {
+        top: 13px;
+        right: 13px;
+        width: 44px;
+        height: 44px;
+        font-size: 19px;
+    }
+}
+
+
 
 
 </style>
@@ -930,6 +1467,111 @@
         });
     </script>
 
+
+
+
+    <!-- =====================================================
+     EVENTS & ACTIVITIES
+===================================================== -->
+<section class="home-events-section">
+    <div class="auto-container">
+
+        <div class="home-events-header">
+            <span class="home-events-badge">Upcoming Programs</span>
+
+            <h2 class="home-events-heading">
+                Events &amp; Activities
+            </h2>
+
+            <p class="home-events-description">
+                Join us for enriching programs, gatherings, and celebrations
+                that bring our community together through knowledge,
+                faith, and spiritual growth.
+            </p>
+        </div>
+
+        <div class="home-events-grid">
+
+            {% for event in events %}
+            <article class="home-event-card">
+
+                <div
+                    class="home-event-image js-home-event-image"
+                    data-image="{{ event.image.url }}"
+                    data-title="{{ event.event_name }}"
+                    role="button"
+                    tabindex="0"
+                    aria-label="View {{ event.event_name }} image"
+                >
+                    {% if event.image %}
+                        <img
+                            src="{{ event.image.url }}"
+                            alt="{{ event.event_name }}"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <img
+                            src="{% static 'assets/images/resource/event-placeholder.jpg' %}"
+                            alt="{{ event.event_name }}"
+                            loading="lazy"
+                        >
+                    {% endif %}
+
+                    <div class="home-event-date">
+                        <span class="home-event-date-day">
+                            {{ event.date|date:"d" }}
+                        </span>
+
+                        <span class="home-event-date-month">
+                            {{ event.date|date:"M" }}
+                        </span>
+                    </div>
+
+                    <span class="home-event-expand">
+                        <i class="fa-solid fa-expand"></i>
+                    </span>
+                </div>
+
+                <div class="home-event-content">
+
+                    <div class="home-event-meta">
+                        <span class="home-event-meta-item">
+                            <i class="fa-regular fa-calendar"></i>
+                            {{ event.date|date:"l" }}
+                        </span>
+
+                        <span class="home-event-meta-item">
+                            <i class="fa-regular fa-clock"></i>
+                            {{ event.date|date:"F d, Y" }}
+                        </span>
+                    </div>
+
+                    <h3 class="home-event-title">
+                        {{ event.event_name }}
+                    </h3>
+
+                    <div class="home-event-text">
+                        {{ event.description|striptags|truncatechars:180 }}
+                    </div>
+
+                </div>
+            </article>
+
+            {% empty %}
+            <div class="home-no-events">
+                <i class="fa-regular fa-calendar-xmark"></i>
+                <h4>No Upcoming Events</h4>
+                <p>New events and programs will be announced soon.</p>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+
+
     <section class="cta-one">
         <div class="auto-container">
             <div class="inner-container d-flex justify-content-between align-items-center flex-wrap" 
@@ -1320,4 +1962,119 @@
         </div>
     </section>
 
+
+
+    <!-- EVENT IMAGE POPUP -->
+<div
+    class="home-event-modal"
+    id="homeEventModal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="homeEventModalTitle"
+>
+    <button
+        type="button"
+        class="home-event-modal-close"
+        id="homeEventModalClose"
+        aria-label="Close event image"
+    >
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="home-event-modal-inner">
+        <img
+            src=""
+            alt=""
+            class="home-event-modal-image"
+            id="homeEventModalImage"
+        >
+
+        <h3
+            class="home-event-modal-title"
+            id="homeEventModalTitle"
+        ></h3>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("homeEventModal");
+    const modalImage = document.getElementById("homeEventModalImage");
+    const modalTitle = document.getElementById("homeEventModalTitle");
+    const closeButton = document.getElementById("homeEventModalClose");
+    const eventImages = document.querySelectorAll(".js-home-event-image");
+
+    if (!modal || !modalImage || !modalTitle || !closeButton) {
+        return;
+    }
+
+    function openEventModal(imageUrl, title) {
+        if (!imageUrl) {
+            return;
+        }
+
+        modalImage.src = imageUrl;
+        modalImage.alt = title || "Event image";
+        modalTitle.textContent = title || "";
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("home-event-modal-open");
+
+        closeButton.focus();
+    }
+
+    function closeEventModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("home-event-modal-open");
+
+        modalImage.src = "";
+        modalImage.alt = "";
+        modalTitle.textContent = "";
+    }
+
+    eventImages.forEach(function (eventImage) {
+        eventImage.addEventListener("click", function () {
+            openEventModal(
+                eventImage.dataset.image,
+                eventImage.dataset.title
+            );
+        });
+
+        eventImage.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+
+                openEventModal(
+                    eventImage.dataset.image,
+                    eventImage.dataset.title
+                );
+            }
+        });
+    });
+
+    closeButton.addEventListener("click", closeEventModal);
+
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            closeEventModal();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (
+            event.key === "Escape" &&
+            modal.classList.contains("is-open")
+        ) {
+            closeEventModal();
+        }
+    });
+});
+</script>
 {% endblock %}

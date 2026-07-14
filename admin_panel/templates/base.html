@@ -24,7 +24,7 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
 {% block extra_css %}{% endblock %}
 
 <style>
@@ -998,62 +998,7 @@
    LOGO
 ================================================== */
 
-.header-brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    gap: 5px;
-
-    margin: 0;
-    padding: 10px 0;
-
-    text-decoration: none !important;
-}
-
-.header-brand .main-logo {
-    display: block;
-
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 70px;
-
-    margin: 0;
-}
-
-.header-brand-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 3px;
-    line-height: 1;
-}
-
-.header-brand-name {
-    color: #184e3a;
-
-    font-family: "Bauhaus 93 Regular", sans-serif;
-    font-size: clamp(18px, 1.6vw, 25px);
-    font-weight: 800;
-    line-height: 1;
-
-    letter-spacing: clamp(1px, 0.15vw, 1.8px);
-    white-space: nowrap;
-}
-
-.header-brand-subtitle {
-    color: var(--color-two);
-
-    font-family: "Bauhaus 93 Regular", sans-serif;
-    font-size: clamp(9px, 0.9vw, 14px);
-    font-weight: 700;
-    line-height: 1;
-
-    letter-spacing: clamp(1.5px, 0.25vw, 3px);
-    white-space: nowrap;
-}
 
 /* ==================================================
    LARGE DESKTOP: 1400px AND ABOVE
@@ -1095,18 +1040,6 @@
         padding-right: 25px;
     }
 
-    .header-brand .main-logo {
-        max-height: 62px;
-    }
-
-    .header-brand-name {
-        font-size: 20px;
-    }
-
-    .header-brand-subtitle {
-        font-size: 10px;
-        letter-spacing: 2px;
-    }
 
     .main-menu .navigation > li {
         margin-right: 10px !important;
@@ -1178,19 +1111,6 @@
         padding: 8px 0;
     }
 
-    .header-brand .main-logo {
-        max-height: 52px !important;
-    }
-
-    .header-brand-name {
-        font-size: 17px !important;
-        letter-spacing: 1.2px !important;
-    }
-
-    .header-brand-subtitle {
-        font-size: 8px !important;
-        letter-spacing: 1.8px !important;
-    }
 
     .main-header .outer-box {
         display: flex !important;
@@ -1225,18 +1145,6 @@
         min-height: 100px !important;
     }
 
-    .header-brand .main-logo {
-        max-height: 48px !important;
-    }
-
-    .header-brand-name {
-        font-size: 16px !important;
-    }
-
-    .header-brand-subtitle {
-        font-size: 8px !important;
-    }
-
     .header_button-box .theme-btn {
         padding: 8px 14px !important;
         font-size: 12px !important;
@@ -1260,20 +1168,6 @@
 
     .header-brand {
         gap: 3px;
-    }
-
-    .header-brand .main-logo {
-        max-height: 42px !important;
-    }
-
-    .header-brand-name {
-        font-size: 14px !important;
-        letter-spacing: 1px !important;
-    }
-
-    .header-brand-subtitle {
-        font-size: 7px !important;
-        letter-spacing: 1.5px !important;
     }
 
     .header_button-box .theme-btn {
@@ -1311,19 +1205,6 @@
         padding: 5px 0 !important;
     }
 
-    .header-brand .main-logo {
-        max-height: 36px !important;
-    }
-
-    .header-brand-name {
-        font-size: 12px !important;
-        letter-spacing: 0.7px !important;
-    }
-
-    .header-brand-subtitle {
-        font-size: 6px !important;
-        letter-spacing: 1.1px !important;
-    }
 
     /*
        Hide the desktop Register button on very small screens.
@@ -1379,6 +1260,256 @@
 }
 
 
+/* ==================================================
+   DARUL FATHEH HEADER LOGO
+   Reference-style typography, original colours kept
+================================================== */
+
+.header-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: max-content;
+    padding: 8px 0;
+    margin: 0;
+
+    text-decoration: none !important;
+}
+
+.header-brand .main-logo {
+    display: block;
+
+    width: auto;
+    height: 64px;
+    max-width: 100%;
+    margin-bottom:8px;
+
+    margin: 0 0 8px;
+    object-fit: contain;
+}
+
+.header-brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    text-align: center;
+}
+
+/* Main block-style name */
+.header-brand-name {
+    display: block;
+
+    font-family: "Titan One", sans-serif;
+    font-size: 29px;
+    font-weight: 400;
+    line-height: 0.95;
+
+    letter-spacing: -1px;
+
+    color: #184e3a;
+    -webkit-text-stroke: 1px #0d2e20;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.15);
+
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.header-brand-subtitle {
+    display: block;
+
+    margin-top: 7px;
+
+    font-family: "Titan One", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1;
+
+    letter-spacing: 1.2px;
+
+    color: #b88925;
+
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ==================================================
+   LARGE DESKTOP
+================================================== */
+
+@media (min-width: 1400px) {
+    .header-brand .main-logo {
+        height: 60px;
+    }
+
+    .header-brand-name {
+        font-size: 31px;
+        letter-spacing: 0.4px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 12px;
+        letter-spacing: 3.6px;
+    }
+}
+
+/* ==================================================
+   DESKTOP / SMALL LAPTOP
+================================================== */
+
+@media (min-width: 992px) and (max-width: 1399px) {
+    .header-brand .main-logo {
+        height: 54px;
+    }
+
+    .header-brand-name {
+        font-size: 26px;
+    }
+
+    .header-brand-subtitle {
+        margin-top: 6px;
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+}
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (min-width: 769px) and (max-width: 991px) {
+    .header-brand {
+        padding: 5px 0;
+    }
+
+    .header-brand .main-logo {
+        height: 48px;
+        margin-bottom: 5px;
+    }
+
+    .header-brand-name {
+        font-size: 18px;
+        letter-spacing: 0.8px;
+    }
+
+    .header-brand-subtitle {
+        margin-top: 5px;
+        font-size: 8px;
+        letter-spacing: 3px;
+    }
+}
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .header-brand {
+        padding: 4px 0;
+    }
+
+    .header-brand .main-logo {
+        height: 40px;
+        margin-bottom: 4px;
+    }
+
+    .header-brand-name {
+        font-size: 15px;
+        letter-spacing: 0.5px;
+    }
+
+    .header-brand-subtitle {
+        margin-top: 4px;
+        font-size: 6.5px;
+        letter-spacing: 2.4px;
+    }
+}
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width: 480px) {
+    .header-brand {
+        padding: 3px 0;
+    }
+
+    .header-brand .main-logo {
+        height: 34px;
+        margin-bottom: 3px;
+    }
+
+    .header-brand-name {
+        font-size: 12px;
+        letter-spacing: 0.3px;
+    }
+
+    .header-brand-subtitle {
+        margin-top: 3px;
+        font-size: 5.5px;
+        letter-spacing: 1.8px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .header-brand-name {
+        font-size: 32px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+    .header-brand-name {
+        font-size: 27px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+    .header-brand-name {
+        font-size: 19px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 9px;
+        margin-top: 4px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .header-brand-name {
+        font-size: 15px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 7px;
+        margin-top: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-brand-name {
+        font-size: 12px;
+    }
+
+    .header-brand-subtitle {
+        font-size: 5.5px;
+        margin-top: 3px;
+    }
+}
+
+
 </style>
 </head>
 
@@ -1422,11 +1553,12 @@
 
             <img
                 src="{% static 'assets/images/logo.png' %}"
-                alt="Darul Fatheh"
+                alt="Darul Fatheh Islamic Complex"
                 class="main-logo"
             >
 
             <div class="header-brand-text">
+
                 <span class="header-brand-name">
                     DARUL FATHEH
                 </span>
@@ -1434,6 +1566,7 @@
                 <span class="header-brand-subtitle">
                     ISLAMIC COMPLEX
                 </span>
+
             </div>
 
         </a>
