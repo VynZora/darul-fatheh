@@ -311,62 +311,45 @@
     background-color: var(--white-color);
 }
 
+
 /* ====================================================================
-   Footer Bottom (Fixed Centering)
-   ==================================================================== */
+   Footer Bottom — Compact Single Row
+==================================================================== */
 
 .footer-bottom {
     position: relative;
-    padding: 40px 0px;
-    border-top: 1px solid rgba(255,255,255,0.10);
-    text-align: center !important; 
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,.10);
 }
 
-.footer-bottom .auto-container,
-.footer-bottom .inner-container {
-    text-align: center !important;
-    float: none !important;
-    width: 100%;
+.footer-bottom .auto-container{
+    width:100%;
 }
 
-.copyright {
-    position: relative;
-    opacity: 0.70;
-    font-weight: 400;
-    font-size: var(--font-14);
-    color: var(--white-color);
-    
-    display: block !important;
-    width: 100% !important;
-    text-align: center !important;
-    float: none !important;
-    margin: 0 auto;
+.ark-footer-bottom-content{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    flex-wrap:nowrap;
 }
 
-.footer-nav {
-    position: relative;
-    display: inline-block !important;
-    float: none !important;
-    margin-top: 10px;
-    text-align: center;
+.copyright{
+    margin:0;
+    white-space:nowrap;
+    color:#fff;
+    opacity:.7;
 }
 
-.footer-nav li {
-    position: relative;
-    display: inline-block;
-    margin: 0px 10px;
+.ark-footer-credit{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    white-space:nowrap;
 }
 
-.footer-nav li a {
-    position: relative;
-    opacity: 0.70;
-    font-weight: 400;
-    font-size: var(--font-14);
-    color: var(--white-color);
-}
-
-.footer-nav li a:hover {
-    color: var(--main-color);
+.ark-footer-credit a{
+    color:var(--color-two);
 }
 
 .footer_bottom-bg {
