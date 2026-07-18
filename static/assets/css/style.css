@@ -12067,17 +12067,18 @@ a:hover {
 }
 
 .ark-footer-symbol {
-    width: 62px;
-    height: 62px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     flex-shrink: 0;
 }
 
 .ark-footer-name {
     width: auto;
-    max-width: 225px;
-    max-height: 62px;
+    max-width: 280px;
+    max-height: 80px;
     object-fit: contain;
+	margin-top: 25px !important;
 }
 
 .ark-footer-description {
@@ -12381,13 +12382,13 @@ a:hover {
     }
 
     .ark-footer-symbol {
-        width: 54px;
-        height: 54px;
+        width: 80px;
+        height: 80px;
     }
 
     .ark-footer-name {
-        max-width: 205px;
-        max-height: 55px;
+        max-width: 250px;
+        max-height: 75px;
     }
 
     .ark-footer .footer-title {
@@ -12445,12 +12446,12 @@ a:hover {
     }
 
     .ark-footer-symbol {
-        width: 48px;
-        height: 48px;
+        width: 60px;
+        height: 60px;
     }
 
     .ark-footer-name {
-        max-width: 175px;
+        max-width: 205px;
     }
 
     .ark-footer-description,
