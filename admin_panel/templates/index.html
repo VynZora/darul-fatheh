@@ -1087,15 +1087,19 @@ body.home-event-modal-open {
                     <div class="auto-container">
                         <div class="slider-one_content">
                             <div class="slider-one_content-inner">
-                                <div class="slider-one_title">Established Islamic Institution</div>
+                                <div class="slider-one_title">Since Inception</div>
+                                {% comment %} <div class="slider-one_title">Established Islamic Institution</div> {% endcomment %}
 
                                     <h1 class="slider-one_heading">
                                         Darul Fatheh <br>
                                     </h1>
-
-                                    <div class="slider-one_text">
+                                    {% comment %} <div class="slider-one_text">
                                         A trusted center for Islamic learning with a strong academic
                                         and spiritual foundation.
+                                    </div> {% endcomment %}
+
+                                    <div class="slider-one_text">
+                                        Founded on 18 June 1992,Honoring 34 remarkable years.
                                     </div>
                                 <div class="slider-one_button">
                                     <a href="{% url 'admin_panel:courses' %}" class="theme-btn btn-style-two">
@@ -1115,15 +1119,19 @@ body.home-event-modal-open {
                     <div class="auto-container">
                         <div class="slider-one_content">
                             <div class="slider-one_content-inner">
-                                <div class="slider-one_title">Rooted in Qur’an & Sunnah</div>
+                                <div class="slider-one_title">Years of Vision, Values & Success</div>
+                                {% comment %} <div class="slider-one_title">Rooted in Qur’an & Sunnah</div> {% endcomment %}
 
                                     <h1 class="slider-one_heading">
                                         Darul Fatheh <br> 
                                     </h1>
-
-                                    <div class="slider-one_text">
+                                    {% comment %} <div class="slider-one_text">
                                         Providing authentic Islamic education guided by qualified scholars
                                         in a disciplined learning environment.
+                                    </div> {% endcomment %}
+
+                                    <div class="slider-one_text">
+                                        Nine institutions,One mission.Qur'an, character and academic excellence under the guidance of Markaz.
                                     </div>
                                 <div class="slider-one_button">
                                     <a href="{% url 'admin_panel:courses' %}" class="theme-btn btn-style-two">
@@ -1189,11 +1197,21 @@ body.home-event-modal-open {
                             </div>
                 
                             <h2 class="sec-title_heading">Welcome to Darul Fatheh</h2>
-                
-                            <div class="sec-title_text">
+                    {% comment %} <div class="sec-title_text">
                                 We welcome students to Darul Fatheh Islamic Complex, where we offer
                                 structured Islamic education combining spiritual development,
                                 moral values, and academic excellence based on the Qur’an and Sunnah.
+                            </div> {% endcomment %}
+
+
+                            <div class="sec-title_text">
+                                Darul Fatheh Islamic Complex stands as a preeminent center of learning, harmoniously weaving the depth of classical Islamic scholarship with a wide-ranging spectrum of contemporary academic disciplines.
+
+Its pluralistic and cosmopolitan learning environment fosters intellectual discourse, incisive critical inquiry, and reciprocal respect, while its tranquil campus cultivates the spiritual, intellectual, and personal maturation of every student.
+
+Anchored in unwavering moral principles and an abiding commitment to holistic education, the institution equips its learners to emerge as erudite, principled, and compassionate custodians of tomorrow.
+
+Sustained by a cadre of devoted educators and a vision steeped in excellence, Darul Fatheh Islamic Complex continues to enlighten intellects, cultivate character, and prepare successive generations to render meaningful and enduring contributions to society.
                             </div>
                         </div>
                 
@@ -1229,13 +1247,866 @@ body.home-event-modal-open {
                         </div>
                         <div class="welcome-one_years d-flex align-items-center flex-wrap">
                             <span class="fa-solid fa-globe fa-fw"></span>
-                            Since 1995 Operating in the world
+                            Since 1992 34 Years of Excellence
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
+
+    <!-- =====================================================
+     RELATIONSHIP WITH MARKAZ
+===================================================== -->
+{% comment %} <section class="ark-markaz-section">
+    <div class="ark-markaz-pattern ark-markaz-pattern-left"></div>
+    <div class="ark-markaz-pattern ark-markaz-pattern-right"></div>
+
+    <div class="auto-container">
+
+        <div class="ark-markaz-wrapper">
+
+            <!-- LEFT SIDE -->
+            <div class="ark-markaz-brand">
+
+                <div class="ark-markaz-logo-box">
+                    <img
+                        src="{% static 'assets/images/Logo_of_Markazu_Saqafathi_Sunniyya.png' %}"
+                        alt="MARKAZ AWIS Logo"
+                        class="ark-markaz-logo"
+                    >
+                </div>
+
+                <div class="ark-markaz-brand-divider">
+                    <span></span>
+                    <i class="fa-solid fa-diamond"></i>
+                    <span></span>
+                </div>
+
+                <div class="ark-markaz-guided">
+                    Guided by
+                </div>
+
+                <h3 class="ark-markaz-brand-name">
+                    MARKAZ AWIS
+                </h3>
+
+                <p class="ark-markaz-parent-text">
+                    Our Parent Body
+                </p>
+
+                <div class="ark-markaz-brand-divider ark-markaz-brand-divider-bottom">
+                    <span></span>
+                    <i class="fa-solid fa-diamond"></i>
+                    <span></span>
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="ark-markaz-content">
+
+                
+
+                <div class="ark-markaz-subtitle">
+                    Institutional Guidance
+                </div>
+
+                <h2 class="ark-markaz-heading">
+                    Under the Guidance of
+                    <strong>MARKAZ AWIS</strong>
+                </h2>
+
+                <div class="ark-markaz-heading-line">
+                </div>
+
+                <p class="ark-markaz-description">
+                    Darul Fatheh Islamic Complex proudly functions under the
+                    educational vision and guidance of
+                    <strong>MARKAZ AWIS</strong>. Through this relationship,
+                    the institution combines authentic Islamic scholarship,
+                    contemporary academic excellence, moral education and
+                    leadership development to prepare students for meaningful
+                    service to society.
+                </p>
+
+                <div class="ark-markaz-features">
+
+                    <!-- Feature 1 -->
+                    <article class="ark-markaz-feature">
+                        <div class="ark-markaz-feature-icon">
+                            <i class="fa-solid fa-book-quran"></i>
+                        </div>
+
+                        <h4>
+                            Authentic Islamic Scholarship
+                        </h4>
+
+                        <span class="ark-markaz-card-line"></span>
+                    </article>
+
+                    <!-- Feature 2 -->
+                    <article class="ark-markaz-feature">
+                        <div class="ark-markaz-feature-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <h4>
+                            Academic Excellence
+                        </h4>
+
+                        <span class="ark-markaz-card-line"></span>
+                    </article>
+
+                    <!-- Feature 3 -->
+                    <article class="ark-markaz-feature">
+                        <div class="ark-markaz-feature-icon">
+                            <i class="fa-solid fa-people-group"></i>
+                        </div>
+
+                        <h4>
+                            Moral &amp; Character Development
+                        </h4>
+
+                        <span class="ark-markaz-card-line"></span>
+                    </article>
+
+                    <!-- Feature 4 -->
+                    <article class="ark-markaz-feature">
+                        <div class="ark-markaz-feature-icon">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+
+                        <h4>
+                            Holistic Education
+                        </h4>
+
+                        <span class="ark-markaz-card-line"></span>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section> {% endcomment %}
+
+<!-- =====================================================
+     RELATIONSHIP WITH MARKAZ - NEW DESIGN
+===================================================== -->
+<section class="ark-markaz-section">
+
+    <!-- Optional decorative background -->
+    <div class="ark-markaz-pattern ark-markaz-pattern-left"></div>
+    <div class="ark-markaz-pattern ark-markaz-pattern-right"></div>
+
+    <div class="auto-container">
+
+        <div class="ark-markaz-new-wrapper">
+
+            <!-- =========================================
+                 MARKAZ LOGO
+            ========================================== -->
+            <div class="ark-markaz-new-logo-box">
+                <img
+                    src="{% static 'assets/images/Logo_of_Markazu_Saqafathi_Sunniyya.png' %}"
+                    alt="MARKAZ AWIS"
+                    class="ark-markaz-new-logo"
+                >
+            </div>
+
+
+            <!-- =========================================
+                 MAIN CONTENT BOX
+            ========================================== -->
+            <div class="ark-markaz-info-box">
+
+                <div class="ark-markaz-new-subtitle">
+                    Institutional Guidance
+                </div>
+
+                <h2 class="ark-markaz-new-heading">
+                    Under The Guidance Of
+                    <strong>MARKAZ </strong>
+                </h2>
+
+                <p class="ark-markaz-new-description">
+                    Darul Fatheh Islamic Complex proudly functions under the
+                    educational vision and guidance of
+                    <strong>MARKAZ </strong>.
+                    Through this relationship, the institution combines
+                    authentic Islamic scholarship, contemporary academic
+                    excellence, moral education and leadership development
+                    to prepare students for meaningful service to society.
+                </p>
+
+            </div>
+
+
+            <!-- =========================================
+                 FOUR FEATURE CARDS
+            ========================================== -->
+            <div class="ark-markaz-new-features">
+
+                <!-- CARD 01 -->
+                <article class="ark-markaz-new-card">
+
+                    <div class="ark-markaz-new-card-icon">
+                        <i class="fa-solid fa-book-quran"></i>
+                    </div>
+
+                    <h4>
+                        Authentic Islamic
+                        <br>
+                        Scholarship
+                    </h4>
+
+                    <span class="ark-markaz-new-card-line"></span>
+
+                </article>
+
+
+                <!-- CARD 02 -->
+                <article class="ark-markaz-new-card">
+
+                    <div class="ark-markaz-new-card-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <h4>
+                        Academic
+                        <br>
+                        Excellence
+                    </h4>
+
+                    <span class="ark-markaz-new-card-line"></span>
+
+                </article>
+
+
+                <!-- CARD 03 -->
+                <article class="ark-markaz-new-card">
+
+                    <div class="ark-markaz-new-card-icon">
+                        <i class="fa-solid fa-people-group"></i>
+                    </div>
+
+                    <h4>
+                        Moral &amp; Character
+                        <br>
+                        Development
+                    </h4>
+
+                    <span class="ark-markaz-new-card-line"></span>
+
+                </article>
+
+
+                <!-- CARD 04 -->
+                <article class="ark-markaz-new-card">
+
+                    <div class="ark-markaz-new-card-icon">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+
+                    <h4>
+                        Holistic
+                        <br>
+                        Education
+                    </h4>
+
+                    <span class="ark-markaz-new-card-line"></span>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+<!-- =====================================================
+     OUR INSTITUTIONS SECTION
+===================================================== -->
+{% comment %} <section class="df-institutions" id="institutions">
+    <div class="auto-container">
+
+        <!-- SECTION HEADING -->
+        <div class="sec-title centered df-institutions-heading">
+            <div class="sec-title_title">
+                Our Educational Network
+            </div>
+
+            <h2 class="sec-title_heading">
+                Our Nine Institutions
+            </h2>
+
+            <div class="df-institutions-description">
+                Nine institutions united by one mission — nurturing Qur'an,
+                character, academic excellence and meaningful service to society.
+            </div>
+        </div>
+
+        <!-- INSTITUTION CARDS -->
+        <div class="df-institutions-grid">
+
+            <!-- 1 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">01</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Darul Fatheh Institution of Integrated Islamic Studies
+                </h3>
+
+                <p class="df-institution-text">
+                    Integrated Islamic and academic education from Plus One
+                    through degree and postgraduate levels.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Plus One to PG</li>
+                    <li>B.Com and BA programmes</li>
+                    <li>Da'awa and language studies</li>
+                </ul>
+            </article>
+
+            <!-- 2 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">02</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-book-quran"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    School of Hifzul Qur'an
+                </h3>
+
+                <p class="df-institution-text">
+                    Qur'an memorisation and regular school education provided
+                    together in a disciplined learning environment.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Classes 5 to 9</li>
+                    <li>Qur'an, Hadith and Fiqh</li>
+                    <li>Proper recitation training</li>
+                </ul>
+            </article>
+
+            <!-- 3 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">03</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-school"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    English Medium School
+                </h3>
+
+                <p class="df-institution-text">
+                    Modern CBSE education supported by structured madrasa
+                    learning and residential facilities.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>CBSE syllabus</li>
+                    <li>Pre-school to Class 8</li>
+                    <li>Hostel facility for boys</li>
+                </ul>
+            </article>
+
+            <!-- 4 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">04</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Thayyiba Garden
+                </h3>
+
+                <p class="df-institution-text">
+                    Free education, residential support and dedicated care for
+                    orphaned and financially disadvantaged students.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Full free education</li>
+                    <li>Special student care</li>
+                    <li>Admission after Class 5</li>
+                </ul>
+            </article>
+
+            <!-- 5 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">05</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Olive Garden
+                </h3>
+
+                <p class="df-institution-text">
+                    A residential programme combining traditional Islamic
+                    education with CBSE or State syllabus studies.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Islamic learning environment</li>
+                    <li>CBSE and State education</li>
+                    <li>Residential facilities</li>
+                </ul>
+            </article>
+
+            <!-- 6 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">06</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-house-chimney-heart"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Home Care Scheme
+                </h3>
+
+                <p class="df-institution-text">
+                    A compassionate scheme supporting orphaned children through
+                    safe homes, education and complete financial assistance.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Care for young children</li>
+                    <li>Living expenses covered</li>
+                    <li>Education and development</li>
+                </ul>
+            </article>
+
+            <!-- 7 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">07</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-kaaba"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Hajj &amp; Umrah Service
+                </h3>
+
+                <p class="df-institution-text">
+                    Al-Fatheh Hajj and Umrah packages guided by experienced
+                    scholars with orientation and travel support.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Monthly Umrah packages</li>
+                    <li>Experienced scholars</li>
+                    <li>Accommodation near Haramain</li>
+                </ul>
+            </article>
+
+            <!-- 8 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">08</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Plus Two with Hadiya Course
+                </h3>
+
+                <p class="df-institution-text">
+                    Kerala syllabus Plus Two education offered alongside
+                    recognised Hadiya higher secondary Islamic studies.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Commerce and Humanities</li>
+                    <li>Experienced teachers</li>
+                    <li>Recognised by MARKAZ AWIS</li>
+                </ul>
+            </article>
+
+            <!-- 9 -->
+            <article class="df-institution-card"  style="background-image: url('{% static 'assets/images/vision_pic.png' %}');">
+                <span class="df-institution-number">09</span>
+
+                <div class="df-institution-icon">
+                    <i class="fa-solid fa-mosque"></i>
+                </div>
+
+                <h3 class="df-institution-title">
+                    Masjids &amp; Madrasas
+                </h3>
+
+                <p class="df-institution-text">
+                    A network of mosques and madrasas serving communities across
+                    different locations in Idukki district.
+                </p>
+
+                <ul class="df-institution-list">
+                    <li>Seven community institutions</li>
+                    <li>Religious and social service</li>
+                    <li>Operating across Idukki</li>
+                </ul>
+            </article>
+
+        </div>
+    </div>
+</section> {% endcomment %}
+
+
+<section class="df-institutions" id="institutions">
+    <div class="auto-container">
+
+        <!-- SECTION HEADING -->
+        <div class="sec-title centered df-institutions-heading">
+            {% comment %} <div class="sec-title_title">
+                Our Educational Network
+            </div> {% endcomment %}
+
+            <h2 class="sec-title_heading">
+                 Our Educational Network
+            </h2>
+
+            <div class="df-institutions-description">
+                Nine institutions united by one mission — nurturing Qur'an,
+                character, academic excellence and meaningful service to society.
+            </div>
+        </div>
+
+
+        <!-- =====================================================
+             INSTITUTION CARDS
+        ====================================================== -->
+        <div class="df-institutions-grid">
+
+
+            <!-- ==================== 01 ==================== -->
+            <article class="df-institution-card">
+
+                <!-- Background Image Area -->
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">01</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Darul Fatheh Institution of Integrated Islamic Studies
+                    </h3>
+
+                    <p class="df-institution-text">
+                        Integrated Islamic and academic education from Plus One
+                        through degree and postgraduate levels.
+                    </p>
+
+                </div>
+
+                <!-- Bottom List -->
+                <ul class="df-institution-list">
+                    <li>Plus One to PG</li>
+                    <li>B.Com and BA programmes</li>
+                    <li>Da'awa and language studies</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 02 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">02</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-book-quran"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        School of Hifzul Qur'an
+                    </h3>
+
+                    <p class="df-institution-text">
+                        Qur'an memorisation and regular school education provided
+                        together in a disciplined learning environment.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Classes 5 to 9</li>
+                    <li>Qur'an, Hadith and Fiqh</li>
+                    <li>Proper recitation training</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 03 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">03</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        English Medium School
+                    </h3>
+
+                    <p class="df-institution-text">
+                        Modern CBSE education supported by structured madrasa
+                        learning and residential facilities.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>CBSE syllabus</li>
+                    <li>Pre-school to Class 8</li>
+                    <li>Hostel facility for boys</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 04 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">04</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Thayyiba Garden
+                    </h3>
+
+                    <p class="df-institution-text">
+                        Free education, residential support and dedicated care for
+                        orphaned and financially disadvantaged students.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Full free education</li>
+                    <li>Special student care</li>
+                    <li>Admission after Class 5</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 05 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">05</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Olive Garden
+                    </h3>
+
+                    <p class="df-institution-text">
+                        A residential programme combining traditional Islamic
+                        education with CBSE or State syllabus studies.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Islamic learning environment</li>
+                    <li>CBSE and State education</li>
+                    <li>Residential facilities</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 06 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">06</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Home Care Scheme
+                    </h3>
+
+                    <p class="df-institution-text">
+                        A compassionate scheme supporting orphaned children through
+                        safe homes, education and complete financial assistance.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Care for young children</li>
+                    <li>Living expenses covered</li>
+                    <li>Education and development</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 07 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">07</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-kaaba"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Hajj &amp; Umrah Service
+                    </h3>
+
+                    <p class="df-institution-text">
+                        Al-Fatheh Hajj and Umrah packages guided by experienced
+                        scholars with orientation and travel support.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Monthly Umrah packages</li>
+                    <li>Experienced scholars</li>
+                    <li>Accommodation near Haramain</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 08 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">08</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Plus Two with Hadiya Course
+                    </h3>
+
+                    <p class="df-institution-text">
+                        Kerala syllabus Plus Two education offered alongside
+                        recognised Hadiya higher secondary Islamic studies.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Commerce and Humanities</li>
+                    <li>Experienced teachers</li>
+                    <li>Recognised by MARKAZ AWIS</li>
+                </ul>
+
+            </article>
+
+
+            <!-- ==================== 09 ==================== -->
+            <article class="df-institution-card">
+
+                <div class="df-institution-image-area"
+                     style="background-image: url('{% static 'assets/images/dharul-fatheh-hss.png' %}');">
+
+                    <span class="df-institution-number">09</span>
+
+                    <div class="df-institution-icon">
+                        <i class="fa-solid fa-mosque"></i>
+                    </div>
+
+                    <h3 class="df-institution-title">
+                        Masjids &amp; Madrasas
+                    </h3>
+
+                    <p class="df-institution-text">
+                        A network of mosques and madrasas serving communities across
+                        different locations in Idukki district.
+                    </p>
+
+                </div>
+
+                <ul class="df-institution-list">
+                    <li>Seven community masjids</li>
+                    <li>Religious and social service</li>
+                    <li>Operating across Idukki</li>
+                </ul>
+
+            </article>
+
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
     
     <section class="service-one">
         <div class="auto-container">

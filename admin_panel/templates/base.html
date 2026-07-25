@@ -1639,9 +1639,9 @@ border: 1px solid rgba(255,255,255,0.25); {% endcomment %}
 <li class="about-nav-item dropdown">
 
     <!-- Main About link -->
-    <a href="{% url 'admin_panel:about' %}" class="about-nav-link">
-        About
-        <i class="fa-solid fa-chevron-down about-nav-arrow"></i>
+    <a href="{% url 'admin_panel:about' %}" class="about-nav-link" onclick="window.location.href=this.href;">
+      About
+      <i class="fa-solid fa-chevron-down about-nav-arrow"></i>
     </a>
 
     <!-- ==========================================
@@ -1773,7 +1773,7 @@ border: 1px solid rgba(255,255,255,0.25); {% endcomment %}
 
 
                                         <li><a href="{% url 'admin_panel:alumni_page' %}">Alumni</a></li>
-                                        <li><a href="{% url 'admin_panel:team' %}">Our Team</a></li>
+                                        <li><a href="{% url 'admin_panel:team' %}">Leadership</a></li>
                                         <li class="dropdown">
                                             <a href="{% url 'admin_panel:courses' %}" onclick="window.location.href=this.href">Courses</a>
                                             <ul>
@@ -1916,7 +1916,7 @@ border: 1px solid rgba(255,255,255,0.25); {% endcomment %}
                             </li>
 
                             <li>
-                                <a href="{% url 'admin_panel:team' %}">Our Team</a>
+                                <a href="{% url 'admin_panel:team' %}">Leadership</a>
                             </li>
 
                             <li>
@@ -1976,7 +1976,7 @@ border: 1px solid rgba(255,255,255,0.25); {% endcomment %}
 
                         <h4 class="footer-title">Get In Touch</h4>
 
-                        <ul class="ark-footer-contact-list">
+                        {% comment %} <ul class="ark-footer-contact-list">
 
                             <li>
                                 <i class="fa-solid fa-location-dot"></i>
@@ -2017,7 +2017,113 @@ border: 1px solid rgba(255,255,255,0.25); {% endcomment %}
                                 <span>Mon–Sat: 9:00 AM – 5:00 PM</span>
                             </li>
 
-                        </ul>
+                        </ul> {% endcomment %}
+
+
+
+
+
+<ul class="ark-footer-contact-list">
+
+    <li>
+        <i class="fa-solid fa-location-dot"></i>
+
+        <span>
+            Darul Fatheh Islamic Complex,<br>
+            Kunnam, Muthalakodam P.O.,<br>
+            Thodupuzha, Idukki Dt.,<br>
+            Kerala, India – 685 605
+        </span>
+    </li>
+
+    {% comment %} <li>
+        <i class="fa-solid fa-phone"></i>
+
+        <span>
+            <strong>Admission:</strong><br>
+
+            <a href="tel:+919446719719">
+                +91 9446 719 719
+            </a>
+            <span class="phone-separator">,</span>
+
+            <a href="tel:+919048905252">
+                +91 9048 905 252
+            </a>
+        </span>
+    </li> {% endcomment %}
+
+    <li>
+        <i class="fa-solid fa-phone"></i>
+
+        <span>
+            <strong>General Office:</strong><br>
+
+            <a href="tel:+919495526282">
+                +91 9495 526 282
+            </a>
+            <span class="phone-separator">,</span>
+
+            <a href="tel:+918848078986">
+                +91 8848 078 986
+            </a>
+        </span>
+    </li>
+
+    <li>
+        <i class="fa-solid fa-kaaba"></i>
+
+        <span>
+            <strong>Hajj & Umrah:</strong><br>
+
+            <a href="tel:+919447209499">
+                +91 9447 209 499
+            </a>
+            <span class="phone-separator">,</span>
+
+            <a href="tel:+918848078986">
+                +91 8848 078 986
+            </a>
+        </span>
+    </li>
+
+    {% comment %} <li>
+        <i class="fa-solid fa-envelope"></i>
+
+        <span>
+            <a href="mailto:info@darulfatheh.org">
+                info@darulfatheh.org
+            </a>
+
+            <br>
+
+            <a href="mailto:darulfatheh@gmail.com">
+                darulfatheh@gmail.com
+            </a>
+        </span>
+    </li> {% endcomment %}
+
+    <li>
+        <i class="fa-solid fa-globe"></i>
+
+        <a
+            href="https://www.darulfatheh.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            www.darulfatheh.org
+        </a>
+    </li>
+
+    <li>
+        <i class="fa-solid fa-clock"></i>
+
+        <span>
+            Mon–Sat: 9:00 AM – 5:00 PM
+        </span>
+    </li>
+
+</ul>
 
                     </div>
 

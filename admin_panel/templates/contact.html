@@ -79,6 +79,24 @@
         0% { width: 100%; }
         100% { width: 0%; }
     }
+
+{% comment %} contact info css start {% endcomment %}
+.contact-info_second {
+    padding-top: 10px; /* adjust to taste */
+}
+
+/* Email link color */
+.contact-info_text a {
+    color: var(--main-color) !important;
+    text-decoration: none;
+}
+
+.contact-info_text a:hover {
+    color: var(--color-two) !important;
+}
+
+{% comment %} contact info css end  {% endcomment %}
+
 </style>
 {% endblock %}
 
@@ -102,7 +120,7 @@
         </div>
     </section>
 
-    <section class="contact-info">
+    {% comment %} <section class="contact-info">
         <div class="auto-container">
             <div class="inner-container">
                 <div class="row clearfix">
@@ -137,7 +155,171 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>  {% endcomment %}
+
+    {% comment %} <section class="contact-info">
+       <div class="auto-container">
+        <div class="inner-container">
+            <div class="row clearfix">
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-location-dot fa-fw"></div>
+                        <h4 class="contact-info_heading">Our Address</h4>
+                        <div class="contact-info_text">
+                            Darul Fatheh Islamic Complex<br>
+                            Kunnam, Muthalakodam P.O.<br>
+                            Thodupuzha, Idukki Dt., Kerala – 685 605
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-graduation-cap fa-fw"></div>
+                        <h4 class="contact-info_heading">Admission</h4>
+                        <div class="contact-info_text">
+                            +91 9446 719 719 <span>+91 9048 905 252</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-kaaba fa-fw"></div>
+                        <h4 class="contact-info_heading">Hajj &amp; Umrah</h4>
+                        <div class="contact-info_text">
+                            +91 9447 209 499 <span>+91 8848 078 986</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-phone fa-fw"></div>
+                        <h4 class="contact-info_heading">General Office</h4>
+                        <div class="contact-info_text">
+                            +91 9495 526 282 <span>+91 8848 078 986</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-envelope fa-fw"></div>
+                        <h4 class="contact-info_heading">Email address</h4>
+                        <div class="contact-info_text">
+                            <a href="mailto:info@darulfatheh.org">info@darulfatheh.org</a><br>
+                            <a href="mailto:darulfatheh@gmail.com">darulfatheh@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-building-columns fa-fw"></div>
+                        <h4 class="contact-info_heading">Bank Details</h4>
+                        <div class="contact-info_text">
+                            Canara Bank, Thodupuzha<br>
+                            A/C: 0722201000658<br>
+                            IFSC: CNRB0000722
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       </div>
+    </section> {% endcomment %}
+
+    <!-- SECTION 1 -->
+<section class="contact-info">
+    <div class="auto-container">
+        <div class="inner-container">
+            <div class="row clearfix">
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-location-dot fa-fw"></div>
+                        <h4 class="contact-info_heading">Our Address</h4>
+                        <div class="contact-info_text">
+                            Darul Fatheh Islamic Complex<br>
+                            Kunnam, Muthalakodam P.O.<br>
+                            Thodupuzha, Idukki Dt., Kerala – 685 605
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-graduation-cap fa-fw"></div>
+                        <h4 class="contact-info_heading">Admission</h4>
+                        <div class="contact-info_text">
+                            +91 9446 719 719 <span>+91 9048 905 252</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-kaaba fa-fw"></div>
+                        <h4 class="contact-info_heading">Hajj &amp; Umrah</h4>
+                        <div class="contact-info_text">
+                            +91 9447 209 499 <span>+91 8848 078 986</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2 -->
+<section class="contact-info contact-info_second">
+    <div class="auto-container">
+        <div class="inner-container">
+            <div class="row clearfix">
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-phone fa-fw"></div>
+                        <h4 class="contact-info_heading">General Office</h4>
+                        <div class="contact-info_text">
+                            +91 9495 526 282 <span>+91 8848 078 986</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-envelope fa-fw"></div>
+                        <h4 class="contact-info_heading">Email address</h4>
+                        <div class="contact-info_text">
+                            <a href="mailto:info@darulfatheh.org">info@darulfatheh.org</a><br>
+                            <a href="mailto:darulfatheh@gmail.com">darulfatheh@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info_column col-lg-4 col-md-6 col-sm-12">
+                    <div class="contact-info_outer">
+                        <div class="contact-info_icon fa-solid fa-building-columns fa-fw"></div>
+                        <h4 class="contact-info_heading">Bank Details</h4>
+                        <div class="contact-info_text">
+                            Canara Bank, Thodupuzha<br>
+                            A/C: 0722201000658<br>
+                            IFSC: CNRB0000722
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
     <div class="contact-form_box">
         <div class="auto-container">
